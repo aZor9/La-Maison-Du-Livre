@@ -1,0 +1,33 @@
+Diagrame d'utilisation
+Site full fonctionnel
+
+	- Cas d'utilisation
+	- De classe (proche du MCD donc trasition)
+	- MCD
+	- MLD pas obligatoire
+	- MPD
+	
+
+
+
+
+
+
+fonctionnalité sur le site :
+- argent fictif pour les paiements
+- Gestion de documents justification domicile (bonus)
+- permettre de dire qu'un livre est rendu
+- si retard de rendu, alors mail (idée : créer un mail qui envoie un mail automatique)
+- idée : bouton +1 en jour ? donc centralisation en un point de l'info de la date
+
+
+a mettre sur le site : 
+- affiche "venir nous voir si location unique d'un seul livre, donc pas de compte" et "achat de bouchons d'reille à 1€"
+- s'inspirer du site de la blibliotheque de mnontpellier
+- utlisateur lambda
+- site 100% fonctionnel, avec cgs, mention legale, cookie
+- c'est la medhiateque emile zola
+
+
+
+
