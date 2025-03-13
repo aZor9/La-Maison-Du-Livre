@@ -19,6 +19,11 @@ fonctionnalité sur le site :
 - permettre de dire qu'un livre est rendu
 - si retard de rendu, alors mail (idée : créer un mail qui envoie un mail automatique)
 - idée : bouton +1 en jour ? donc centralisation en un point de l'info de la date
+- date de retrait max sinon remis en rayon pour autrui
+- une bibliothequere est admin et peut modifier le statu d'un user, le valider, mais aussi passer de sans abonnement a avec en cas de probleme technique venant d'un client
+
+DEMANDE DE REDUCTION ALORS ENVOIE DE JUSTIFICATIF : A GERER DANS LA BDD
+bureau des abonnés ? des personnes qui gere ce bureau et non admin, ni biblio
 
 
 a mettre sur le site : 
