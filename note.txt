@@ -10,17 +10,17 @@ Site full fonctionnel
 
 
 
-
-
-
 fonctionnalité sur le site :
 - argent fictif pour les paiements
 - Gestion de documents justification domicile (bonus)
-- permettre de dire qu'un livre est rendu
+- permettre de dire qu'un livre est rendu / - une bibliothequaire peut annuler une reservation d'un livre (en cas de probleme)
 - si retard de rendu, alors mail (idée : créer un mail qui envoie un mail automatique)
 - idée : bouton +1 en jour ? donc centralisation en un point de l'info de la date
 - date de retrait max sinon remis en rayon pour autrui
 - une bibliothequere est admin et peut modifier le statu d'un user, le valider, mais aussi passer de sans abonnement a avec en cas de probleme technique venant d'un client
+- notes sur les clients de la part des admin si client rend souvent en retard ou non : trouver une utilité
+- un affichage admin pour savoir qui a déjà rendu en retard
+- pré-réservation / liste d'attente de reservation 
 
 DEMANDE DE REDUCTION ALORS ENVOIE DE JUSTIFICATIF : A GERER DANS LA BDD
 bureau des abonnés ? des personnes qui gere ce bureau et non admin, ni biblio
@@ -35,4 +35,38 @@ a mettre sur le site :
 
 
 
+demender à : 
+- mamé
+- isabelle (jean marc)
 
+
+
+
+
+1. Gestion des utilisateurs
+ - Inscription et connexion des abonnés
+ - Gestion des abonnements (inscription, renouvellement, paiement)
+ - Gestion des employés (accès restreint aux fonctionnalités d'administration)
+ - Gestion des contentieux (rappel, suivi des retards, pénalités)
+2. Catalogue de la médiathèque
+ - Consultation du catalogue des documents (livres, DVD, CD, etc.)
+ - Recherche avancée (titre, auteur, catégorie, support...)
+ - Filtrage et tri des résultats
+3. Gestion des prêts et réservations
+ - Emprunt et retour des documents
+ - Consultation du statut des prêts en cours
+ - Réservation de documents empruntés
+ - Historique des emprunts
+4. Notifications et rappels
+ - Envoi d’e-mails/SMS pour les retards
+ - Notifications de disponibilité des documents réservés
+ - Rappels de renouvellement d’abonnement
+5. Interface administrateur
+ - Gestion des documents (ajout, modification, suppression)
+ - Gestion des abonnés et employés
+ - Consultation des statistiques (nombre de prêts, documents populaires, taux d’abonnement...)
+ - Génération et envoi des lettres de rappel
+6. Informations et services généraux
+ - Horaires et coordonnées de la médiathèque
+ - Tarifs et conditions d’abonnement
+ - FAQ et support utilisateur
