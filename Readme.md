@@ -21,3 +21,5 @@ symfony server:start
 https://127.0.0.1:8000     
 ```
 
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
