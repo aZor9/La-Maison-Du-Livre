@@ -17,9 +17,18 @@ symfony server:start
 ```
 
 ## Lien de l'application web
-``` 
+```
 https://127.0.0.1:8000     
 ```
 
+#
+# Mise a jour de la Base de donnée
+```
 php bin/console make:migration
 php bin/console doctrine:migrations:migrate
+```
+##
+En cas d'erreur (affiche une liste de problème à résoudre) : 
+```
+php bin/console doctrine:schema:validate
+``` 
