@@ -14,7 +14,7 @@ class Auteur
     private $documents;
 
     #[ORM\Id, ORM\GeneratedValue, ORM\Column(type: 'integer')]
-    private $idAuteur;
+    private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
     private $prenom;
@@ -27,7 +27,7 @@ class Auteur
 
     public function __construct() { $this->documents = new ArrayCollection(); }
 
-    public function getId(): ?int { return $this->idAuteur; }
+    public function getId(): ?int { return $this->id; }
     public function getPrenom(): ?string { return $this->prenom; }
     public function setPrenom(string $prenom): self { $this->prenom = $prenom; return $this; }
 

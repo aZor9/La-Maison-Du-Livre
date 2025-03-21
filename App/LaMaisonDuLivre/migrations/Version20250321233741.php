@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250320225622 extends AbstractMigration
+final class Version20250321233741 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,16 +20,18 @@ final class Version20250320225622 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE TABLE ecrire (document_id INT NOT NULL, auteur_id INT NOT NULL, INDEX IDX_918824CCC33F7837 (document_id), INDEX IDX_918824CC60BB6FE6 (auteur_id), PRIMARY KEY(document_id, auteur_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE ecrire ADD CONSTRAINT FK_918824CCC33F7837 FOREIGN KEY (document_id) REFERENCES document (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE ecrire ADD CONSTRAINT FK_918824CC60BB6FE6 FOREIGN KEY (auteur_id) REFERENCES auteur (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE article ADD CONSTRAINT FK_23A0E66C33F7837 FOREIGN KEY (document_id) REFERENCES document (id)');
-        $this->addSql('ALTER TABLE auteur MODIFY id INT NOT NULL');
-        $this->addSql('DROP INDEX `primary` ON auteur');
-        $this->addSql('ALTER TABLE auteur CHANGE id id_auteur INT AUTO_INCREMENT NOT NULL');
-        $this->addSql('ALTER TABLE auteur ADD PRIMARY KEY (id_auteur)');
-        $this->addSql('ALTER TABLE client ADD CONSTRAINT FK_C7440455F1D74413 FOREIGN KEY (abonnement_id) REFERENCES abonnement (idAbonnement)');
+        $this->addSql('DROP INDEX IDX_C7440455F1D74413 ON client');
+        $this->addSql('ALTER TABLE client CHANGE abonnement_id idAbonnement VARCHAR(50) NOT NULL');
+        $this->addSql('ALTER TABLE client ADD CONSTRAINT FK_C7440455B7E67651 FOREIGN KEY (idAbonnement) REFERENCES abonnement (idAbonnement)');
         $this->addSql('ALTER TABLE client ADD CONSTRAINT FK_C744045550EAE44 FOREIGN KEY (id_utilisateur) REFERENCES utilisateur (id_utilisateur) ON DELETE CASCADE');
+        $this->addSql('CREATE INDEX IDX_C7440455B7E67651 ON client (idAbonnement)');
         $this->addSql('ALTER TABLE document MODIFY id_document INT NOT NULL');
         $this->addSql('DROP INDEX `primary` ON document');
-        $this->addSql('ALTER TABLE document CHANGE id_document id INT AUTO_INCREMENT NOT NULL');
+        $this->addSql('ALTER TABLE document DROP auteur, CHANGE id_document id INT AUTO_INCREMENT NOT NULL');
         $this->addSql('ALTER TABLE document ADD PRIMARY KEY (id)');
         $this->addSql('ALTER TABLE employe ADD CONSTRAINT FK_F804D3B950EAE44 FOREIGN KEY (id_utilisateur) REFERENCES utilisateur (id_utilisateur) ON DELETE CASCADE');
         $this->addSql('DROP INDEX IDX_364071D7FB88E14F ON emprunt');
@@ -66,6 +68,9 @@ final class Version20250320225622 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE ecrire DROP FOREIGN KEY FK_918824CCC33F7837');
+        $this->addSql('ALTER TABLE ecrire DROP FOREIGN KEY FK_918824CC60BB6FE6');
+        $this->addSql('DROP TABLE ecrire');
         $this->addSql('ALTER TABLE article DROP FOREIGN KEY FK_23A0E66C33F7837');
         $this->addSql('ALTER TABLE livre DROP FOREIGN KEY FK_AC634F99BF396750');
         $this->addSql('DROP INDEX `PRIMARY` ON livre');
@@ -80,13 +85,9 @@ final class Version20250320225622 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_118C0CCB7294869C ON emprunt_article (article_id)');
         $this->addSql('CREATE INDEX IDX_118C0CCBAE7FEF94 ON emprunt_article (emprunt_id)');
         $this->addSql('ALTER TABLE emprunt_article ADD PRIMARY KEY (article_id, emprunt_id)');
-        $this->addSql('ALTER TABLE auteur MODIFY id_auteur INT NOT NULL');
-        $this->addSql('DROP INDEX `PRIMARY` ON auteur');
-        $this->addSql('ALTER TABLE auteur CHANGE id_auteur id INT AUTO_INCREMENT NOT NULL');
-        $this->addSql('ALTER TABLE auteur ADD PRIMARY KEY (id)');
         $this->addSql('ALTER TABLE document MODIFY id INT NOT NULL');
         $this->addSql('DROP INDEX `PRIMARY` ON document');
-        $this->addSql('ALTER TABLE document CHANGE id id_document INT AUTO_INCREMENT NOT NULL');
+        $this->addSql('ALTER TABLE document ADD auteur VARCHAR(50) NOT NULL, CHANGE id id_document INT AUTO_INCREMENT NOT NULL');
         $this->addSql('ALTER TABLE document ADD PRIMARY KEY (id_document)');
         $this->addSql('ALTER TABLE sonore DROP FOREIGN KEY FK_9FB5BCDEBF396750');
         $this->addSql('DROP INDEX `PRIMARY` ON sonore');
@@ -100,8 +101,11 @@ final class Version20250320225622 extends AbstractMigration
         $this->addSql('DROP INDEX `PRIMARY` ON video');
         $this->addSql('ALTER TABLE video CHANGE id id_document INT NOT NULL');
         $this->addSql('ALTER TABLE video ADD PRIMARY KEY (id_document)');
-        $this->addSql('ALTER TABLE client DROP FOREIGN KEY FK_C7440455F1D74413');
+        $this->addSql('ALTER TABLE client DROP FOREIGN KEY FK_C7440455B7E67651');
         $this->addSql('ALTER TABLE client DROP FOREIGN KEY FK_C744045550EAE44');
+        $this->addSql('DROP INDEX IDX_C7440455B7E67651 ON client');
+        $this->addSql('ALTER TABLE client CHANGE idAbonnement abonnement_id VARCHAR(50) NOT NULL');
+        $this->addSql('CREATE INDEX IDX_C7440455F1D74413 ON client (abonnement_id)');
         $this->addSql('ALTER TABLE employe DROP FOREIGN KEY FK_F804D3B950EAE44');
         $this->addSql('ALTER TABLE emprunt DROP FOREIGN KEY FK_364071D75D419CCB');
         $this->addSql('DROP INDEX IDX_364071D75D419CCB ON emprunt');

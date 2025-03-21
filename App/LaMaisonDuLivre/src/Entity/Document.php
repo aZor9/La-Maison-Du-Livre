@@ -31,7 +31,7 @@ class Document
 
     #[ORM\ManyToMany(targetEntity: Auteur::class, inversedBy: 'documents')]
     #[ORM\JoinTable(name: 'ecrire')]
-    #[ORM\Column(type: 'string', length: 50)]
+    // #[ORM\Column(type: 'string', length: 50)]
     private $auteurs;
 
     #[ORM\Column(type: 'text')]
