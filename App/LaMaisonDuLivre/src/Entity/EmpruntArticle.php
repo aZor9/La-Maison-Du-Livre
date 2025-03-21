@@ -15,11 +15,10 @@ class EmpruntArticle
     private $article;
     
     #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity: Emprunt::class)]
+    #[ORM\ManyToOne(targetEntity: Emprunt::class, inversedBy: 'empruntArticles')]
     #[ORM\JoinColumn(name: "idEmprunt", referencedColumnName: "idEmprunt", nullable: false)]
     private $emprunt;
     
-
     public function getArticle(): ?Article { return $this->article; }
     public function setArticle(?Article $article): self { $this->article = $article; return $this; }
 

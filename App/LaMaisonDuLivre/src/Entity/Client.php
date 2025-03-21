@@ -16,7 +16,7 @@ class Client extends Utilisateur
     private $dateFinAbonnement;
 
     #[ORM\ManyToOne(targetEntity: Abonnement::class)]
-    #[ORM\JoinColumn(referencedColumnName: "idAbonnement", nullable: false)]
+    #[ORM\JoinColumn(name: "idAbonnement", referencedColumnName: "idAbonnement", nullable: false)]
     private $abonnement;
 
     public function getStatutAbonnement(): ?string { return $this->statutAbonnement; }

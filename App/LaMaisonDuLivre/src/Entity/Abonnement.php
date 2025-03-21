@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Abonnement
 {
-    #[ORM\Id, ORM\Column(type: 'string', length: 50)]
+    #[ORM\Id]
+    #[ORM\Column(type: 'string', length: 50)]
     private $idAbonnement;
 
     #[ORM\Column(type: 'decimal', precision: 19, scale: 4)]

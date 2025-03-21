@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Auteur
 {
+    #[ORM\ManyToMany(targetEntity: Document::class, mappedBy: 'auteurs')]
+    private $documents;
+
     #[ORM\Id, ORM\GeneratedValue, ORM\Column(type: 'integer')]
     private $idAuteur;
 
@@ -21,9 +24,6 @@ class Auteur
 
     #[ORM\Column(type: 'text')]
     private $description;
-
-    #[ORM\ManyToMany(targetEntity: Document::class, mappedBy: 'auteurs')]
-    private $documents;
 
     public function __construct() { $this->documents = new ArrayCollection(); }
 
