@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250322111805 extends AbstractMigration
+final class Version20250322122407 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,14 +20,10 @@ final class Version20250322111805 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP INDEX `primary` ON abonnement');
-        $this->addSql('ALTER TABLE abonnement CHANGE id_abonnement id VARCHAR(50) NOT NULL');
-        $this->addSql('ALTER TABLE abonnement ADD PRIMARY KEY (id)');
-        $this->addSql('ALTER TABLE article MODIFY id_article INT NOT NULL');
-        $this->addSql('DROP INDEX `primary` ON article');
-        $this->addSql('ALTER TABLE article CHANGE id_article id INT AUTO_INCREMENT NOT NULL');
+        $this->addSql('DROP INDEX `primary` ON document');
+        $this->addSql('ALTER TABLE document DROP auteur, CHANGE id_document id INT AUTO_INCREMENT NOT NULL');
+        $this->addSql('ALTER TABLE document ADD PRIMARY KEY (id)');
         $this->addSql('ALTER TABLE article ADD CONSTRAINT FK_23A0E66C33F7837 FOREIGN KEY (document_id) REFERENCES document (id)');
-        $this->addSql('ALTER TABLE article ADD PRIMARY KEY (id)');
         $this->addSql('DROP INDEX IDX_C7440455F1D74413 ON client');
         $this->addSql('DROP INDEX `primary` ON client');
         $this->addSql('ALTER TABLE client CHANGE id_utilisateur id INT NOT NULL, CHANGE abonnement_id idAbonnement VARCHAR(50) NOT NULL');
@@ -36,9 +32,6 @@ final class Version20250322111805 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_C7440455B7E67651 ON client (idAbonnement)');
         $this->addSql('ALTER TABLE client ADD PRIMARY KEY (id)');
         $this->addSql('ALTER TABLE document MODIFY id_document INT NOT NULL');
-        $this->addSql('DROP INDEX `primary` ON document');
-        $this->addSql('ALTER TABLE document DROP auteur, CHANGE id_document id INT AUTO_INCREMENT NOT NULL');
-        $this->addSql('ALTER TABLE document ADD PRIMARY KEY (id)');
         $this->addSql('ALTER TABLE ecrire ADD CONSTRAINT FK_918824CCC33F7837 FOREIGN KEY (document_id) REFERENCES document (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE ecrire ADD CONSTRAINT FK_918824CC60BB6FE6 FOREIGN KEY (auteur_id) REFERENCES auteur (id) ON DELETE CASCADE');
         $this->addSql('DROP INDEX `primary` ON employe');
@@ -86,22 +79,15 @@ final class Version20250322111805 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP INDEX `PRIMARY` ON abonnement');
-        $this->addSql('ALTER TABLE abonnement CHANGE id id_abonnement VARCHAR(50) NOT NULL');
-        $this->addSql('ALTER TABLE abonnement ADD PRIMARY KEY (id_abonnement)');
         $this->addSql('ALTER TABLE livre DROP FOREIGN KEY FK_AC634F99BF396750');
         $this->addSql('DROP INDEX `PRIMARY` ON livre');
         $this->addSql('ALTER TABLE livre CHANGE id id_document INT NOT NULL');
         $this->addSql('ALTER TABLE livre ADD PRIMARY KEY (id_document)');
+        $this->addSql('ALTER TABLE article DROP FOREIGN KEY FK_23A0E66C33F7837');
         $this->addSql('ALTER TABLE utilisateur MODIFY id INT NOT NULL');
         $this->addSql('DROP INDEX `PRIMARY` ON utilisateur');
         $this->addSql('ALTER TABLE utilisateur CHANGE id id_utilisateur INT AUTO_INCREMENT NOT NULL');
         $this->addSql('ALTER TABLE utilisateur ADD PRIMARY KEY (id_utilisateur)');
-        $this->addSql('ALTER TABLE article MODIFY id INT NOT NULL');
-        $this->addSql('ALTER TABLE article DROP FOREIGN KEY FK_23A0E66C33F7837');
-        $this->addSql('DROP INDEX `PRIMARY` ON article');
-        $this->addSql('ALTER TABLE article CHANGE id id_article INT AUTO_INCREMENT NOT NULL');
-        $this->addSql('ALTER TABLE article ADD PRIMARY KEY (id_article)');
         $this->addSql('ALTER TABLE document MODIFY id INT NOT NULL');
         $this->addSql('DROP INDEX `PRIMARY` ON document');
         $this->addSql('ALTER TABLE document ADD auteur VARCHAR(50) NOT NULL, CHANGE id id_document INT AUTO_INCREMENT NOT NULL');
