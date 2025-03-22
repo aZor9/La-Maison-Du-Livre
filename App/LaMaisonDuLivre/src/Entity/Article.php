@@ -12,7 +12,7 @@ class Article
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $idArticle;
+    private $id;
 
 
     #[ORM\Column(type: 'string', length: 50)]
@@ -22,7 +22,7 @@ class Article
     #[ORM\JoinColumn(name: "document_id", referencedColumnName: "id", nullable: false)]
     private $document;
 
-    public function getIdArticle(): ?int { return $this->idArticle; }
+    public function getId(): ?int { return $this->id; }
     public function getStatut(): ?string { return $this->statut; }
     public function setStatut(string $statut): self { $this->statut = $statut; return $this; }
 

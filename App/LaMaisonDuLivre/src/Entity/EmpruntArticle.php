@@ -11,14 +11,14 @@ class EmpruntArticle
 {
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Article::class)]
-    #[ORM\JoinColumn(name: "idArticle", referencedColumnName: "idArticle", nullable: false)]
+    #[ORM\JoinColumn(name: "idArticle", referencedColumnName: "id", nullable: false)]
     private $article;
     
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Emprunt::class, inversedBy: 'empruntArticles')]
-    #[ORM\JoinColumn(name: "idEmprunt", referencedColumnName: "idEmprunt", nullable: false)]
+    #[ORM\JoinColumn(name: "idEmprunt", referencedColumnName: "id", nullable: false)]
     private $emprunt;
-    
+
     public function getArticle(): ?Article { return $this->article; }
     public function setArticle(?Article $article): self { $this->article = $article; return $this; }
 

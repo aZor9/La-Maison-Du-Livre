@@ -15,7 +15,7 @@ class Utilisateur
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $idUtilisateur;
+    private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
     private $nom;
@@ -48,7 +48,7 @@ class Utilisateur
     private $situation;
 
     // Getters & Setters
-    public function getIdUtilisateur(): ?int { return $this->idUtilisateur; }
+    public function getIdUtilisateur(): ?int { return $this->id; }
     public function getNom(): ?string { return $this->nom; }
     public function setNom(string $nom): self { $this->nom = $nom; return $this; }
     

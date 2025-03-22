@@ -13,7 +13,7 @@ class Emprunt
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $idEmprunt;
+    private $id;
 
     #[ORM\Column(type: 'date')]
     private $dateReservation;
@@ -25,7 +25,7 @@ class Emprunt
     private $dateRendu;
 
     #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
-    #[ORM\JoinColumn(name: "idUtilisateur", referencedColumnName: "idUtilisateur", nullable: false)]
+    #[ORM\JoinColumn(name: "idUtilisateur", referencedColumnName: "id", nullable: false)]
     private $utilisateur;
 
     #[ORM\OneToMany(mappedBy: 'emprunt', targetEntity: EmpruntArticle::class, cascade: ['persist', 'remove'])]
@@ -33,7 +33,7 @@ class Emprunt
 
     public function __construct() { $this->empruntArticles = new ArrayCollection(); }
 
-    public function getIdEmprunt(): ?int { return $this->idEmprunt; }
+    public function getId(): ?int { return $this->id; }
     public function getDateReservation(): ?\DateTimeInterface { return $this->dateReservation; }
     public function setDateReservation(\DateTimeInterface $dateReservation): self { $this->dateReservation = $dateReservation; return $this; }
 
