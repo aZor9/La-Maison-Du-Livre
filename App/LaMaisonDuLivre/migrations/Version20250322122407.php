@@ -23,6 +23,9 @@ final class Version20250322122407 extends AbstractMigration
         $this->addSql('DROP INDEX `primary` ON document');
         $this->addSql('ALTER TABLE document DROP auteur, CHANGE id_document id INT AUTO_INCREMENT NOT NULL');
         $this->addSql('ALTER TABLE document ADD PRIMARY KEY (id)');
+        $this->addSql('DROP INDEX `primary` ON utilisateur');
+        $this->addSql('ALTER TABLE utilisateur CHANGE id_utilisateur id INT AUTO_INCREMENT NOT NULL');
+        $this->addSql('ALTER TABLE utilisateur ADD PRIMARY KEY (id)');
         $this->addSql('ALTER TABLE article ADD CONSTRAINT FK_23A0E66C33F7837 FOREIGN KEY (document_id) REFERENCES document (id)');
         $this->addSql('DROP INDEX IDX_C7440455F1D74413 ON client');
         $this->addSql('DROP INDEX `primary` ON client');
@@ -67,9 +70,6 @@ final class Version20250322122407 extends AbstractMigration
         $this->addSql('ALTER TABLE titre_periodique ADD CONSTRAINT FK_5807310CBF396750 FOREIGN KEY (id) REFERENCES document (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE titre_periodique ADD PRIMARY KEY (id)');
         $this->addSql('ALTER TABLE utilisateur MODIFY id_utilisateur INT NOT NULL');
-        $this->addSql('DROP INDEX `primary` ON utilisateur');
-        $this->addSql('ALTER TABLE utilisateur CHANGE id_utilisateur id INT AUTO_INCREMENT NOT NULL');
-        $this->addSql('ALTER TABLE utilisateur ADD PRIMARY KEY (id)');
         $this->addSql('DROP INDEX `primary` ON video');
         $this->addSql('ALTER TABLE video CHANGE id_document id INT NOT NULL');
         $this->addSql('ALTER TABLE video ADD CONSTRAINT FK_7CC7DA2CBF396750 FOREIGN KEY (id) REFERENCES document (id) ON DELETE CASCADE');
