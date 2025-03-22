@@ -32,3 +32,8 @@ En cas d'erreur (affiche une liste de problème à résoudre) :
 ```
 php bin/console doctrine:schema:validate
 ``` 
+##
+Entrer dans la console MySQL : 
+```
+mysql -u root -p
+```
