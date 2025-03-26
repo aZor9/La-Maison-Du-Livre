@@ -1,0 +1,25 @@
+
+
+{% block title %}Liste des Utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des Utilisateurs</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Nom</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.nom }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun utilisateur trouvé.</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

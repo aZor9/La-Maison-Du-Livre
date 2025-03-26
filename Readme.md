@@ -37,3 +37,12 @@ Entrer dans la console MySQL :
 ```
 mysql -u root -p
 ```
+
+
+
+
+
+
+
+composer require symfony/orm-pack
+composer require symfony/maker-bundle --dev

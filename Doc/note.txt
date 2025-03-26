@@ -13,7 +13,7 @@ Site full fonctionnel
 fonctionnalité sur le site :
 - argent fictif pour les paiements
 - Gestion de documents justification domicile (bonus)
-- permettre de dire qu'un livre est rendu / - une bibliothequaire peut annuler une reservation d'un livre (en cas de probleme)
+- permettre de dire qu'un livre est rendu / une bibliothequaire peut annuler une reservation d'un livre (en cas de probleme)
 - si retard de rendu, alors mail (idée : créer un mail qui envoie un mail automatique)
 - idée : bouton +1 en jour ? donc centralisation en un point de l'info de la date
 - date de retrait max sinon remis en rayon pour autrui
@@ -21,6 +21,9 @@ fonctionnalité sur le site :
 - notes sur les clients de la part des admin si client rend souvent en retard ou non : trouver une utilité
 - un affichage admin pour savoir qui a déjà rendu en retard
 - pré-réservation / liste d'attente de reservation 
+- nb de reservation max en meme temps : 10 ?
+- en cas de desengagement d'abonnement, faire en sorte de rendre le livre avant la fin de l'abonnement ou du non renouvellement 
+- msg de renouvellement
 
 DEMANDE DE REDUCTION ALORS ENVOIE DE JUSTIFICATIF : A GERER DANS LA BDD
 bureau des abonnés ? des personnes qui gere ce bureau et non admin, ni biblio
@@ -70,3 +73,18 @@ demender à :
  - Horaires et coordonnées de la médiathèque
  - Tarifs et conditions d’abonnement
  - FAQ et support utilisateur
+
+
+
+
+
+
+
+
+
+
+rajout a faire : 
+pour les non rendu : 
+- 1 semaine avant : alerte
+- J-1 : alerte
+- J+7 : FBI Open the door !!!!!! 
