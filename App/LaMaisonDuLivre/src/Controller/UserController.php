@@ -23,7 +23,7 @@ class UserController extends AbstractController
             ]);
 
             // Requête SQL pour récupérer les utilisateurs (table "users")
-            $stmt = $pdo->query("SELECT * FROM users");
+            $stmt = $pdo->query("SELECT * FROM auteur");
             $users = $stmt->fetchAll();
             
         } catch (\PDOException $e) {
