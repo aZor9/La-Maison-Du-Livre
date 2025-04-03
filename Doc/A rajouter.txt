@@ -1,0 +1,3 @@
+rajouter : 
+- stock total pour avoir livre acatuellement no disponible en sachant si c'est parce q'il n'y a pas d'article ou pas dispo car emprunter
+- note sur client (si retard frequent) en front ou en bdd ?
