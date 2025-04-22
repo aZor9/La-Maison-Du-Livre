@@ -16,44 +16,55 @@ class Ecrire
     // #[ORM\GeneratedValue(strategy: "NONE")]
     // private ?int $IdDocument = null;
 
+    // #[ORM\Id]
+    // #[ORM\ManyToOne(targetEntity: Document::class)]
+    // #[ORM\JoinColumn(name: "IdDocument", referencedColumnName: "IdDocument", onDelete: "CASCADE")]
+    // private ?Document $document = null;
+    
+    #[ORM\Id]
+    #[ORM\Column(name: "IdDocument", type: "integer")]
+    #[ORM\GeneratedValue]
+    private ?int $IdDocument = null;
+    
     // #[ORM\Column]
     // #[ORM\Id]
     // #[ORM\GeneratedValue(strategy: "NONE")]
     // private ?int $IdAuteur = null;
 
-    #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity: Document::class)]
-    #[ORM\JoinColumn(name: "IdDocument", referencedColumnName: "IdDocument", onDelete: "CASCADE")]
-    private ?Document $document = null;
+    // #[ORM\Id]
+    // #[ORM\ManyToOne(targetEntity: Auteur::class)]
+    // #[ORM\JoinColumn(name: "IdAuteur", referencedColumnName: "IdAuteur", onDelete: "CASCADE")]
+    // private ?Auteur $auteur = null;
 
     #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity: Auteur::class)]
-    #[ORM\JoinColumn(name: "IdAuteur", referencedColumnName: "IdAuteur", onDelete: "CASCADE")]
-    private ?Auteur $auteur = null;
-
-    public function getIddocument(): ?int
+    #[ORM\Column(name: "IdAuteur", type: "integer")]
+    #[ORM\GeneratedValue]
+    private ?int $IdAuteur = null;
+    
+    public function getDocument(): ?Document
     {
-        return $this->IdDocument;
+        return $this->document;
     }
-
-    public function setIddocument(int $IdDocument): static
+    
+    public function setDocument(?Document $document): static
     {
-        $this->IdDocument = $IdDocument;
-
+        $this->document = $document;
+    
         return $this;
     }
-
-    public function getIdauteur(): ?int
+    
+    public function getAuteur(): ?Auteur
     {
-        return $this->IdAuteur;
+        return $this->auteur;
     }
-
-    public function setIdauteur(int $IdAuteur): static
+    
+    public function setAuteur(?Auteur $auteur): static
     {
-        $this->IdAuteur = $IdAuteur;
-
+        $this->auteur = $auteur;
+    
         return $this;
     }
+    
 }
 
 

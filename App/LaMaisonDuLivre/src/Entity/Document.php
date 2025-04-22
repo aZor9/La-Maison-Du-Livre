@@ -15,8 +15,9 @@ use App\Entity\Exemplaire;
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
 class Document
 {
-    #[ORM\Column]
+    // #[ORM\Column]
     #[ORM\Id]
+    #[ORM\Column(name: "IdDocument", type: "integer")]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     private ?int $IdDocument = null;
 

@@ -10,8 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: AuteurRepository::class)]
 class Auteur
 {
-    #[ORM\Column]
+    // #[ORM\Column]
     #[ORM\Id]
+    #[ORM\Column(name: "IdAuteur", type: "integer")]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     private ?int $IdAuteur = null;
 
