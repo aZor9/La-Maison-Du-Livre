@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Utilisateur;
+use App\Entity\Exemplaire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Utilisateur>
+ * @extends ServiceEntityRepository<Exemplaire>
  *
- * @method Utilisateur|null find($id, $lockMode = null, $lockVersion = null)
- * @method Utilisateur|null findOneBy(array $criteria, array $orderBy = null)
- * @method Utilisateur[]    findAll()
- * @method Utilisateur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Exemplaire|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Exemplaire|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Exemplaire[]    findAll()
+ * @method Exemplaire[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UtilisateurRepository extends ServiceEntityRepository
+class ExemplaireRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Utilisateur::class);
+        parent::__construct($registry, Exemplaire::class);
     }
 
 //    /**
-//     * @return Utilisateur[] Returns an array of Utilisateur objects
+//     * @return Exemplaire[] Returns an array of Exemplaire objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class UtilisateurRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Utilisateur
+//    public function findOneBySomeField($value): ?Exemplaire
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')

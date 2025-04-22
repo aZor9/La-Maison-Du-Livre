@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Utilisateur;
+use App\Entity\Sonore;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Utilisateur>
+ * @extends ServiceEntityRepository<Sonore>
  *
- * @method Utilisateur|null find($id, $lockMode = null, $lockVersion = null)
- * @method Utilisateur|null findOneBy(array $criteria, array $orderBy = null)
- * @method Utilisateur[]    findAll()
- * @method Utilisateur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Sonore|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Sonore|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Sonore[]    findAll()
+ * @method Sonore[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UtilisateurRepository extends ServiceEntityRepository
+class SonoreRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Utilisateur::class);
+        parent::__construct($registry, Sonore::class);
     }
 
 //    /**
-//     * @return Utilisateur[] Returns an array of Utilisateur objects
+//     * @return Sonore[] Returns an array of Sonore objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class UtilisateurRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Utilisateur
+//    public function findOneBySomeField($value): ?Sonore
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')

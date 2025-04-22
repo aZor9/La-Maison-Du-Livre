@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Utilisateur;
+use App\Entity\Ecrire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Utilisateur>
+ * @extends ServiceEntityRepository<Ecrire>
  *
- * @method Utilisateur|null find($id, $lockMode = null, $lockVersion = null)
- * @method Utilisateur|null findOneBy(array $criteria, array $orderBy = null)
- * @method Utilisateur[]    findAll()
- * @method Utilisateur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Ecrire|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Ecrire|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Ecrire[]    findAll()
+ * @method Ecrire[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UtilisateurRepository extends ServiceEntityRepository
+class EcrireRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Utilisateur::class);
+        parent::__construct($registry, Ecrire::class);
     }
 
 //    /**
-//     * @return Utilisateur[] Returns an array of Utilisateur objects
+//     * @return Ecrire[] Returns an array of Ecrire objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class UtilisateurRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Utilisateur
+//    public function findOneBySomeField($value): ?Ecrire
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')

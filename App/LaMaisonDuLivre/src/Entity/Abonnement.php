@@ -1,0 +1,104 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\AbonnementRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Table(name: 'abonnement')]
+#[ORM\Entity(repositoryClass: AbonnementRepository::class)]
+class Abonnement
+{
+    #[ORM\Column]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "NONE")]
+    private ?int $IdAbonnement = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $StatutAbonnement = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $DateAbonnement = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $Duree = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 19, scale: 4, nullable: true)]
+    private ?string $Tarif = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $Remise = null;
+
+    public function getIdabonnement(): ?int
+    {
+        return $this->IdAbonnement;
+    }
+
+    public function setIdabonnement(int $IdAbonnement): static
+    {
+        $this->IdAbonnement = $IdAbonnement;
+
+        return $this;
+    }
+
+    public function getStatutabonnement(): ?string
+    {
+        return $this->StatutAbonnement;
+    }
+
+    public function setStatutabonnement(?string $StatutAbonnement): static
+    {
+        $this->StatutAbonnement = $StatutAbonnement;
+
+        return $this;
+    }
+
+    public function getDateabonnement(): ?\DateTimeInterface
+    {
+        return $this->DateAbonnement;
+    }
+
+    public function setDateabonnement(?\DateTimeInterface $DateAbonnement): static
+    {
+        $this->DateAbonnement = $DateAbonnement;
+
+        return $this;
+    }
+
+    public function getDuree(): ?int
+    {
+        return $this->Duree;
+    }
+
+    public function setDuree(?int $Duree): static
+    {
+        $this->Duree = $Duree;
+
+        return $this;
+    }
+
+    public function getTarif(): ?string
+    {
+        return $this->Tarif;
+    }
+
+    public function setTarif(?string $Tarif): static
+    {
+        $this->Tarif = $Tarif;
+
+        return $this;
+    }
+
+    public function getRemise(): ?int
+    {
+        return $this->Remise;
+    }
+
+    public function setRemise(?int $Remise): static
+    {
+        $this->Remise = $Remise;
+
+        return $this;
+    }
+}

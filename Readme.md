@@ -40,8 +40,9 @@ mysql -u root -p
 
 
 
-
-
+php bin/console doctrine:migrations:diff
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
 
 
 composer require symfony/orm-pack

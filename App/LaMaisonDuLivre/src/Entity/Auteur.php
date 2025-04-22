@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\AuteurRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Table(name: 'auteur')]
+#[ORM\Entity(repositoryClass: AuteurRepository::class)]
+class Auteur
+{
+    #[ORM\Column]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "IDENTITY")]
+    private ?int $IdAuteur = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $Prenom = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $Nom = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $Description = null;
+
+    public function getIdauteur(): ?int
+    {
+        return $this->IdAuteur;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->Prenom;
+    }
+
+    public function setPrenom(?string $Prenom): static
+    {
+        $this->Prenom = $Prenom;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->Nom;
+    }
+
+    public function setNom(?string $Nom): static
+    {
+        $this->Nom = $Nom;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(?string $Description): static
+    {
+        $this->Description = $Description;
+
+        return $this;
+    }
+
+
+
+    // #[ORM\ManyToMany(targetEntity: Document::class, mappedBy: 'auteurs')]
+    // private Collection $documents;
+
+    #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Ecrire::class)]
+    private Collection $ecritures;
+
+    
+    public function __construct()
+    {
+        $this->documents = new ArrayCollection();
+    }
+    
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+    
+    public function addDocument(Document $document): static
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents->add($document);
+            $document->addAuteur($this);
+        }
+    
+        return $this;
+    }
+    
+    public function removeDocument(Document $document): static
+    {
+        if ($this->documents->removeElement($document)) {
+            $document->removeAuteur($this);
+        }
+    
+        return $this;
+    }
+
+
+}

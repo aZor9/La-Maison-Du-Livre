@@ -1,0 +1,118 @@
+CREATE TABLE Abonnement(
+   IdAbonnement INT,
+   StatutAbonnement VARCHAR(50) ,
+   DateAbonnement DATE,
+   Duree INT,
+   Tarif DECIMAL(19,4),
+   Remise INT,
+   PRIMARY KEY(IdAbonnement)
+);
+
+CREATE TABLE Document(
+   IdDocument INT AUTO_INCREMENT,
+   Titre VARCHAR(50) ,
+   Annee DATE,
+   Auteur VARCHAR(50) ,
+   Descritpion TEXT,
+   Thème VARCHAR(50) ,
+   PRIMARY KEY(IdDocument)
+);
+
+CREATE TABLE Livre(
+   IdDocument INT,
+   ISBN VARCHAR(50) ,
+   NombrePage INT,
+   Genre VARCHAR(50) ,
+   PRIMARY KEY(IdDocument),
+   UNIQUE(ISBN),
+   FOREIGN KEY(IdDocument) REFERENCES Document(IdDocument)
+);
+
+CREATE TABLE TitrePeriodique(
+   IdDocument INT,
+   Numero INT,
+   DatePublication DATE,
+   Type VARCHAR(50) ,
+   PRIMARY KEY(IdDocument),
+   FOREIGN KEY(IdDocument) REFERENCES Document(IdDocument)
+);
+
+CREATE TABLE Sonore(
+   IdDocument INT,
+   Duree INT,
+   Format VARCHAR(50) ,
+   Interprete VARCHAR(50) ,
+   PRIMARY KEY(IdDocument),
+   FOREIGN KEY(IdDocument) REFERENCES Document(IdDocument)
+);
+
+CREATE TABLE Video(
+   IdDocument INT,
+   Duree INT,
+   Format VARCHAR(50) ,
+   Realisateur VARCHAR(50) ,
+   PRIMARY KEY(IdDocument),
+   FOREIGN KEY(IdDocument) REFERENCES Document(IdDocument)
+);
+
+CREATE TABLE Auteur(
+   IdAuteur INT AUTO_INCREMENT,
+   Prenom VARCHAR(50) ,
+   Nom VARCHAR(50) ,
+   Description TEXT,
+   PRIMARY KEY(IdAuteur)
+);
+
+CREATE TABLE Exemplaire(
+   IdExemplaire INT,
+   EtatPhysique VARCHAR(50) ,
+   Statut VARCHAR(50) ,
+   IdDocument INT NOT NULL,
+   PRIMARY KEY(IdExemplaire),
+   FOREIGN KEY(IdDocument) REFERENCES Document(IdDocument)
+);
+
+CREATE TABLE Utilisateur(
+   IdUtilisateur INT AUTO_INCREMENT,
+   Nom VARCHAR(50) ,
+   Prenom VARCHAR(50) ,
+   DateNaissance DATE,
+   Adresse1 VARCHAR(50) ,
+   Adresse2 VARCHAR(50) ,
+   Ville VARCHAR(50) ,
+   Pays VARCHAR(50) ,
+   Mail VARCHAR(50)  NOT NULL,
+   NumeroTelephone VARCHAR(50) ,
+   Situation VARCHAR(50) ,
+   Role VARCHAR(50) ,
+   LienJustificatif VARCHAR(50) ,
+   Statut VARCHAR(50) ,
+   IdAbonnement INT,
+   PRIMARY KEY(IdUtilisateur),
+   FOREIGN KEY(IdAbonnement) REFERENCES Abonnement(IdAbonnement)
+);
+
+CREATE TABLE Emprunt(
+   IdEmprunt INT AUTO_INCREMENT,
+   DateReservation DATE,
+   DateRendu DATE,
+   IdUtilisateur INT NOT NULL,
+   PRIMARY KEY(IdEmprunt),
+   FOREIGN KEY(IdUtilisateur) REFERENCES Utilisateur(IdUtilisateur)
+);
+
+CREATE TABLE Ecrire(
+   IdDocument INT,
+   IdAuteur INT,
+   PRIMARY KEY(IdDocument, IdAuteur),
+   FOREIGN KEY(IdDocument) REFERENCES Document(IdDocument),
+   FOREIGN KEY(IdAuteur) REFERENCES Auteur(IdAuteur)
+);
+
+CREATE TABLE EmpruntExemplaire(
+   IdEmprunt INT,
+   IdExemplaire INT,
+   PRIMARY KEY(IdEmprunt, IdExemplaire),
+   FOREIGN KEY(IdEmprunt) REFERENCES Emprunt(IdEmprunt),
+   FOREIGN KEY(IdExemplaire) REFERENCES Exemplaire(IdExemplaire)
+);
