@@ -60,4 +60,8 @@ utilisation de :
 Fixture : generation des données (cela fait egalement une purge, je crois) :  src/DataFixtures/AppFixtures.php
 Generer les données : php bin/console doctrine:fixtures:load -n    (-n valide la question)
 Supprime toute les données puis les generes : php bin/console doctrine:fixtures:load --purge-with-truncate
+
+re-init
+php bin/console doctrine:database:drop --force : tout supprimer
+php bin/console doctrine:database:create : recreer
  
