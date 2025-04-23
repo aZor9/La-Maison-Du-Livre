@@ -5,16 +5,19 @@ namespace App\Entity;
 use App\Repository\LivreRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 
 #[ORM\Table(name: 'livre')]
 #[ORM\UniqueConstraint(name: 'ISBN', columns: ['ISBN'])]
 #[ORM\Entity(repositoryClass: LivreRepository::class)]
-class Livre
+class Livre extends Document
 {
-    #[ORM\Column]
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "NONE")]
-    private ?int $IdDocument = null;
+    // #[ORM\Column]
+    // #[ORM\Id]
+    // #[ORM\GeneratedValue(strategy: "NONE")]
+    // private ?int $IdDocument = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $ISBN = null;

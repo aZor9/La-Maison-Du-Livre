@@ -10,9 +10,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Exemplaire;
 
-
+// #[ORM\Entity]
 #[ORM\Table(name: 'document')]
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "type", type: "string")]
+#[ORM\DiscriminatorMap([
+    "livre" => Livre::class,
+    "titreperiodique" => Titreperiodique::class,
+    "video" => Video::class,
+    "sonore" => Sonore::class
+])]
 class Document
 {
     // #[ORM\Column]

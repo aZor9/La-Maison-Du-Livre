@@ -5,15 +5,18 @@ namespace App\Entity;
 use App\Repository\TitreperiodiqueRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 
 #[ORM\Table(name: 'titreperiodique')]
 #[ORM\Entity(repositoryClass: TitreperiodiqueRepository::class)]
-class Titreperiodique
+class Titreperiodique extends Document
 {
-    #[ORM\Column]
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "NONE")]
-    private ?int $IdDocument = null;
+    // #[ORM\Column]
+    // #[ORM\Id]
+    // #[ORM\GeneratedValue(strategy: "NONE")]
+    // private ?int $IdDocument = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $Numero = null;
@@ -22,7 +25,7 @@ class Titreperiodique
     private ?\DateTimeInterface $DatePublication = null;
 
     #[ORM\Column(length: 50, nullable: true)]
-    private ?string $Type = null;
+    private ?string $Format = null;
 
     public function getIddocument(): ?int
     {
@@ -60,14 +63,14 @@ class Titreperiodique
         return $this;
     }
 
-    public function getType(): ?string
+    public function getFormat(): ?string
     {
-        return $this->Type;
+        return $this->Format;
     }
 
-    public function setType(?string $Type): static
+    public function setFormat(?string $Format): static
     {
-        $this->Type = $Type;
+        $this->Format = $Format;
 
         return $this;
     }

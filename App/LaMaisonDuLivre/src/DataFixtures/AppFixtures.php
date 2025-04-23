@@ -75,7 +75,7 @@ class AppFixtures extends Fixture
             switch ($type) {
                 case 'livre':
                     $livre = new Livre();
-                    $livre->setIdDocument($document); // Associe le document parent
+                    // $livre->setDocument($document); // Associe le document parent, de base c'est setIdDocument
                     $livre->setIsbn($faker->isbn13());
                     $livre->setNombrePage($faker->numberBetween(100, 1000));
                     $livre->setGenre($faker->word);
@@ -83,7 +83,7 @@ class AppFixtures extends Fixture
                     break;
                 case 'video':
                     $video = new Video();
-                    $video->setIdDocument($document);
+                    // $video->setDocument($document);
                     $video->setDuree($faker->numberBetween(30, 180));
                     $video->setFormat('mp4');
                     $video->setRealisateur($faker->name);
@@ -91,7 +91,7 @@ class AppFixtures extends Fixture
                     break;
                 case 'sonore':
                     $sonore = new Sonore();
-                    $sonore->setIdDocument($document);
+                    // $sonore->setDocument($document);
                     $sonore->setDuree($faker->numberBetween(60, 300));
                     $sonore->setFormat('mp3');
                     $sonore->setInterprete($faker->name);
@@ -99,7 +99,7 @@ class AppFixtures extends Fixture
                     break;
                 case 'periodique':
                     $periodique = new TitrePeriodique();
-                    $periodique->setIdDocument($document);
+                    // $periodique->setDocument($document);
                     $periodique->setNumero($faker->numberBetween(1, 100));
                     $periodique->setDatePublication($faker->dateTimeBetween('-5 years'));
                     $periodique->setType($faker->word);

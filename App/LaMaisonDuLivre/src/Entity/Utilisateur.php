@@ -6,6 +6,9 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Abonnement; 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 
 #[ORM\Table(name: 'utilisateur')]
 #[ORM\Index(name: 'IdAbonnement', columns: ['IdAbonnement'])]
