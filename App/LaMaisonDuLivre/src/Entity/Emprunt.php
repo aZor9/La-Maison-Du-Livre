@@ -17,8 +17,9 @@ use App\Entity\Empruntexemplaire;
 #[ORM\Entity(repositoryClass: EmpruntRepository::class)]
 class Emprunt
 {
-    #[ORM\Column]
+    // #[ORM\Column]
     #[ORM\Id]
+    #[ORM\Column(name: "IdEmprunt", type: "integer")]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     private ?int $IdEmprunt = null;
 

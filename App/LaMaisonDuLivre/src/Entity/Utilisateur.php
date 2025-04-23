@@ -12,8 +12,9 @@ use App\Entity\Abonnement;
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 class Utilisateur
 {
-    #[ORM\Column]
+    // #[ORM\Column]
     #[ORM\Id]
+    #[ORM\Column(name: "IdUtilisateur", type: "integer")]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     private ?int $IdUtilisateur = null;
 

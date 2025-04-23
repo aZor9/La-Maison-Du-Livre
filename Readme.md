@@ -47,3 +47,11 @@ php bin/console doctrine:migrations:migrate
 
 composer require symfony/orm-pack
 composer require symfony/maker-bundle --dev
+
+
+
+
+utilisation de : 
+- fakerphp/faker (v1.24.1)
+- Locking doctrine/data-fixtures (2.0.2)
+- Locking doctrine/doctrine-fixtures-bundle (4.1.0)

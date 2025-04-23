@@ -10,9 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: AbonnementRepository::class)]
 class Abonnement
 {
-    #[ORM\Column]
+    // #[ORM\Column]
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "NONE")]
+    #[ORM\Column(name: "IdAbonnement", type: "integer")]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
     private ?int $IdAbonnement = null;
 
     #[ORM\Column(length: 50, nullable: true)]
