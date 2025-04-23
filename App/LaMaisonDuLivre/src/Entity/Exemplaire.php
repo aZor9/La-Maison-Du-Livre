@@ -18,7 +18,7 @@ class Exemplaire
     // #[ORM\Column]
     #[ORM\Id]
     #[ORM\Column(name: "IdExemplaire", type: "integer")]
-    #[ORM\GeneratedValue(strategy: "NONE")]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
     private ?int $IdExemplaire = null;
 
     #[ORM\Column(length: 50, nullable: true)]

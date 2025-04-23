@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250423124205 extends AbstractMigration
+final class Version20250423125925 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -22,11 +22,11 @@ final class Version20250423124205 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE abonnement (IdAbonnement INT AUTO_INCREMENT NOT NULL, statut_abonnement VARCHAR(50) DEFAULT NULL, date_abonnement DATE DEFAULT NULL, duree INT DEFAULT NULL, tarif NUMERIC(19, 4) DEFAULT NULL, remise INT DEFAULT NULL, PRIMARY KEY(IdAbonnement)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('CREATE TABLE auteur (IdAuteur INT AUTO_INCREMENT NOT NULL, prenom VARCHAR(50) DEFAULT NULL, nom VARCHAR(50) DEFAULT NULL, description LONGTEXT DEFAULT NULL, PRIMARY KEY(IdAuteur)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
-        $this->addSql('CREATE TABLE document (IdDocument INT AUTO_INCREMENT NOT NULL, titre VARCHAR(50) DEFAULT NULL, annee DATE DEFAULT NULL, descritpion LONGTEXT DEFAULT NULL, thème VARCHAR(50) DEFAULT NULL, type VARCHAR(255) NOT NULL, PRIMARY KEY(IdDocument)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('CREATE TABLE document (IdDocument INT AUTO_INCREMENT NOT NULL, titre VARCHAR(50) DEFAULT NULL, annee DATE DEFAULT NULL, descritpion LONGTEXT DEFAULT NULL, thème VARCHAR(50) DEFAULT NULL, PRIMARY KEY(IdDocument)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`'); //type VARCHAR(255) NOT NULL, 
         $this->addSql('CREATE TABLE ecrire (IdDocument INT NOT NULL, IdAuteur INT NOT NULL, INDEX IDX_918824CCC497A3FD (IdDocument), INDEX IdAuteur (IdAuteur), PRIMARY KEY(IdDocument, IdAuteur)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('CREATE TABLE emprunt (IdEmprunt INT AUTO_INCREMENT NOT NULL, date_reservation DATE DEFAULT NULL, date_rendu DATE DEFAULT NULL, IdUtilisateur INT DEFAULT NULL, INDEX IdUtilisateur (IdUtilisateur), PRIMARY KEY(IdEmprunt)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('CREATE TABLE empruntexemplaire (IdEmprunt INT NOT NULL, IdExemplaire INT NOT NULL, INDEX IDX_E6C32DB1A4089886 (IdEmprunt), INDEX IdExemplaire (IdExemplaire), PRIMARY KEY(IdEmprunt, IdExemplaire)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
-        $this->addSql('CREATE TABLE exemplaire (IdExemplaire INT NOT NULL, etat_physique VARCHAR(50) DEFAULT NULL, statut VARCHAR(50) DEFAULT NULL, id_document INT NOT NULL, IdDocument INT NOT NULL, INDEX IdDocument (IdDocument), PRIMARY KEY(IdExemplaire)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('CREATE TABLE exemplaire (IdExemplaire INT AUTO_INCREMENT NOT NULL, etat_physique VARCHAR(50) DEFAULT NULL, statut VARCHAR(50) DEFAULT NULL, id_document INT NOT NULL, IdDocument INT NOT NULL, INDEX IdDocument (IdDocument), PRIMARY KEY(IdExemplaire)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('CREATE TABLE livre (isbn VARCHAR(50) DEFAULT NULL, nombre_page INT DEFAULT NULL, genre VARCHAR(50) DEFAULT NULL, IdDocument INT NOT NULL, UNIQUE INDEX ISBN (ISBN), PRIMARY KEY(IdDocument)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('CREATE TABLE sonore (duree INT DEFAULT NULL, format VARCHAR(50) DEFAULT NULL, interprete VARCHAR(50) DEFAULT NULL, IdDocument INT NOT NULL, PRIMARY KEY(IdDocument)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('CREATE TABLE titreperiodique (numero INT DEFAULT NULL, date_publication DATE DEFAULT NULL, format VARCHAR(50) DEFAULT NULL, IdDocument INT NOT NULL, PRIMARY KEY(IdDocument)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');

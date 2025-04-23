@@ -55,3 +55,9 @@ utilisation de :
 - fakerphp/faker (v1.24.1)
 - Locking doctrine/data-fixtures (2.0.2)
 - Locking doctrine/doctrine-fixtures-bundle (4.1.0)
+
+
+Fixture : generation des données (cela fait egalement une purge, je crois) :  src/DataFixtures/AppFixtures.php
+Generer les données : php bin/console doctrine:fixtures:load -n    (-n valide la question)
+Supprime toute les données puis les generes : php bin/console doctrine:fixtures:load --purge-with-truncate
+ 

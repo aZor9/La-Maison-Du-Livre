@@ -102,7 +102,7 @@ class AppFixtures extends Fixture
                     // $periodique->setDocument($document);
                     $periodique->setNumero($faker->numberBetween(1, 100));
                     $periodique->setDatePublication($faker->dateTimeBetween('-5 years'));
-                    $periodique->setType($faker->word);
+                    $periodique->setFormat($faker->word);
                     $manager->persist($periodique);
                     break;
             }
@@ -125,7 +125,7 @@ class AppFixtures extends Fixture
             $utilisateur->setRole('client');
             $utilisateur->setLienJustificatif($faker->url);
             $utilisateur->setStatut('actif');
-            $utilisateur->setIdAbonnement($faker->randomElement($abonnements));
+            $utilisateur->setAbonnement($faker->randomElement($abonnements));
             $manager->persist($utilisateur);
             $utilisateurs[] = $utilisateur;
         }
@@ -137,7 +137,7 @@ class AppFixtures extends Fixture
                 $ex = new Exemplaire();
                 $ex->setEtatPhysique($faker->randomElement(['neuf', 'bon', 'usé']));
                 $ex->setStatut('disponible');
-                $ex->setIdDocument($doc);
+                $ex->setDocument($doc);
                 $manager->persist($ex);
                 $exemplaires[] = $ex;
             }
@@ -148,13 +148,13 @@ class AppFixtures extends Fixture
             $emprunt = new Emprunt();
             $emprunt->setDateReservation($faker->dateTimeBetween('-1 year'));
             $emprunt->setDateRendu($faker->dateTimeBetween('-6 months', 'now'));
-            $emprunt->setIdUtilisateur($faker->randomElement($utilisateurs));
+            $emprunt->setUtilisateur($faker->randomElement($utilisateurs));
             $manager->persist($emprunt);
 
             foreach ($faker->randomElements($exemplaires, rand(1, 2)) as $exemplaire) {
                 $empEx = new EmpruntExemplaire();
-                $empEx->setIdEmprunt($emprunt);
-                $empEx->setIdExemplaire($exemplaire);
+                $empEx->setEmprunt($emprunt);
+                $empEx->setExemplaire($exemplaire);
                 $manager->persist($empEx);
             }
         }
