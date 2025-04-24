@@ -54,7 +54,7 @@ class Utilisateur
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $Role = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 5000, nullable: true)]
     private ?string $LienJustificatif = null;
 
     #[ORM\Column(length: 50, nullable: true)]

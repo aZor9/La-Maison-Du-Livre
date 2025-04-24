@@ -48,65 +48,135 @@ class AppFixtures extends Fixture
             $auteurs[] = $auteur;
         }
 
-        // Documents (polymorphes)
-        $documents = [];
 
-        for ($i = 0; $i < 30; $i++) {
-            $document = new Document();
-            $document->setTitre($faker->sentence(3));
-            $document->setAnnee($faker->dateTimeBetween('-20 years', 'now'));
-            $document->setDescritpion($faker->paragraph(2));
-            $document->setThème($faker->word);
-            $manager->persist($document);
-            $documents[] = $document;
+    // Ajouter cette ligne avant la boucle
+    $documents = []; // Initialise le tableau des documents
 
-            // Relation Ecrire
-            $nbAuteurs = rand(1, 3);
-            $selectedAuteurs = $faker->randomElements($auteurs, $nbAuteurs);
-            foreach ($selectedAuteurs as $auteur) {
-                $ecrire = new Ecrire();
-                $ecrire->setDocument($document);
-                $ecrire->setAuteur($auteur);
-                $manager->persist($ecrire);
-            }
-
-            // Type de document (héritage)
-            $type = $faker->randomElement(['livre', 'video', 'sonore', 'periodique']);
-            switch ($type) {
-                case 'livre':
-                    $livre = new Livre();
-                    // $livre->setDocument($document); // Associe le document parent, de base c'est setIdDocument
-                    $livre->setIsbn($faker->isbn13());
-                    $livre->setNombrePage($faker->numberBetween(100, 1000));
-                    $livre->setGenre($faker->word);
-                    $manager->persist($livre);
-                    break;
-                case 'video':
-                    $video = new Video();
-                    // $video->setDocument($document);
-                    $video->setDuree($faker->numberBetween(30, 180));
-                    $video->setFormat('mp4');
-                    $video->setRealisateur($faker->name);
-                    $manager->persist($video);
-                    break;
-                case 'sonore':
-                    $sonore = new Sonore();
-                    // $sonore->setDocument($document);
-                    $sonore->setDuree($faker->numberBetween(60, 300));
-                    $sonore->setFormat('mp3');
-                    $sonore->setInterprete($faker->name);
-                    $manager->persist($sonore);
-                    break;
-                case 'periodique':
-                    $periodique = new TitrePeriodique();
-                    // $periodique->setDocument($document);
-                    $periodique->setNumero($faker->numberBetween(1, 100));
-                    $periodique->setDatePublication($faker->dateTimeBetween('-5 years'));
-                    $periodique->setFormat($faker->word);
-                    $manager->persist($periodique);
-                    break;
-            }
+    for ($i = 0; $i < 30; $i++) {
+        $type = $faker->randomElement(['livre', 'video', 'sonore', 'periodique']);
+        
+        // Création du document parent
+        switch ($type) {
+            case 'livre':
+                $document = new Livre();
+                $document->setIsbn($faker->isbn13());
+                $document->setNombrePage($faker->numberBetween(100, 1000));
+                $document->setGenre($faker->word);
+                break;
+        
+            case 'video':
+                $document = new Video();
+                $document->setDuree($faker->numberBetween(30, 180));
+                $document->setFormat('mp4');
+                $document->setRealisateur($faker->name);
+                break;
+        
+            case 'sonore':
+                $document = new Sonore();
+                $document->setDuree($faker->numberBetween(60, 300));
+                $document->setFormat('mp3');
+                $document->setInterprete($faker->name);
+                break;
+        
+            case 'periodique':
+                $document = new TitrePeriodique();
+                $document->setNumero($faker->numberBetween(1, 100));
+                $document->setDatePublication($faker->dateTimeBetween('-5 years'));
+                $document->setFormat($faker->word);
+                break;
         }
+        
+        // Attributs communs à tous les types de document
+        $document->setTitre($faker->sentence(3));
+        $document->setAnnee($faker->dateTimeBetween('-20 years', 'now'));
+        $document->setDescritpion($faker->paragraph(2));
+        $document->setThème($faker->word);
+
+        $manager->persist($document); // Persister le document parent
+        $documents[] = $document; // Ajouter le document au tableau
+
+        // Relation Ecrire avec des auteurs
+        $nbAuteurs = rand(1, 3);
+        $selectedAuteurs = $faker->randomElements($auteurs, $nbAuteurs);
+        foreach ($selectedAuteurs as $auteur) {
+            $ecrire = new Ecrire();
+            $ecrire->setDocument($document); // Associer chaque document à ses auteurs
+            $ecrire->setAuteur($auteur);
+            $manager->persist($ecrire);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Documents (polymorphes)
+        // $documents = [];
+
+        // for ($i = 0; $i < 30; $i++) {
+        //     $document = new Document();
+        //     $document->setTitre($faker->sentence(3));
+        //     $document->setAnnee($faker->dateTimeBetween('-20 years', 'now'));
+        //     $document->setDescritpion($faker->paragraph(2));
+        //     $document->setThème($faker->word);
+        //     $manager->persist($document);
+        //     $documents[] = $document;
+
+        //     // Relation Ecrire
+        //     $nbAuteurs = rand(1, 3);
+        //     $selectedAuteurs = $faker->randomElements($auteurs, $nbAuteurs);
+        //     foreach ($selectedAuteurs as $auteur) {
+        //         $ecrire = new Ecrire();
+        //         $ecrire->setDocument($document);
+        //         $ecrire->setAuteur($auteur);
+        //         $manager->persist($ecrire);
+        //     }
+
+        //     // Type de document (héritage)
+        //     $type = $faker->randomElement(['livre', 'video', 'sonore', 'periodique']);
+        //     switch ($type) {
+        //         case 'livre':
+        //             $livre = new Livre();
+        //             // $livre->setDocument($document); // Associe le document parent, de base c'est setIdDocument
+        //             $livre->setIsbn($faker->isbn13());
+        //             $livre->setNombrePage($faker->numberBetween(100, 1000));
+        //             $livre->setGenre($faker->word);
+        //             $manager->persist($livre);
+        //             break;
+        //         case 'video':
+        //             $video = new Video();
+        //             // $video->setDocument($document);
+        //             $video->setDuree($faker->numberBetween(30, 180));
+        //             $video->setFormat('mp4');
+        //             $video->setRealisateur($faker->name);
+        //             $manager->persist($video);
+        //             break;
+        //         case 'sonore':
+        //             $sonore = new Sonore();
+        //             // $sonore->setDocument($document);
+        //             $sonore->setDuree($faker->numberBetween(60, 300));
+        //             $sonore->setFormat('mp3');
+        //             $sonore->setInterprete($faker->name);
+        //             $manager->persist($sonore);
+        //             break;
+        //         case 'periodique':
+        //             $periodique = new TitrePeriodique();
+        //             // $periodique->setDocument($document);
+        //             $periodique->setNumero($faker->numberBetween(1, 100));
+        //             $periodique->setDatePublication($faker->dateTimeBetween('-5 years'));
+        //             $periodique->setFormat($faker->word);
+        //             $manager->persist($periodique);
+        //             break;
+        //     }
+        // }
 
         // Utilisateurs
         $utilisateurs = [];
