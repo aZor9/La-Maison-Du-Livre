@@ -20,7 +20,7 @@ class Ecrire
 
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Document::class, inversedBy: 'ecritures')]
-    #[ORM\JoinColumn(name: "IdDocument", referencedColumnName: "IdDocument", onDelete: "CASCADE")]
+    #[ORM\JoinColumn(name: "IdDocument", referencedColumnName: "IdDocument", onDelete: "CASCADE", nullable: false)]
     private ?Document $document = null;
 
     // #[ORM\Column]

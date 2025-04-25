@@ -18,7 +18,7 @@ class Titreperiodique extends Document
     // #[ORM\GeneratedValue(strategy: "NONE")]
     // private ?int $IdDocument = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: true, type: "string")]
     private ?int $Numero = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
