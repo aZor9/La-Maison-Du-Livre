@@ -80,28 +80,29 @@ class Auteur
     
     public function __construct()
     {
-        $this->documents = new ArrayCollection();
+        $this->ecritures = new ArrayCollection();
     }
     
-    public function getDocuments(): Collection
+    public function getEcritures(): Collection
     {
-        return $this->documents;
+        return $this->ecritures;
     }
     
-    public function addDocument(Document $document): static
+    public function addEcriture(Ecrire $ecriture): static
     {
-        if (!$this->documents->contains($document)) {
-            $this->documents->add($document);
-            $document->addAuteur($this);
+        if (!$this->ecritures->contains($ecriture)) {
+            $this->ecritures->add($ecriture);
+            $ecriture->setAuteur($this);
         }
     
         return $this;
     }
     
-    public function removeDocument(Document $document): static
+    public function removeEcriture(Ecrire $ecriture): static
     {
-        if ($this->documents->removeElement($document)) {
-            $document->removeAuteur($this);
+        if ($this->ecritures->removeElement($ecriture)) {
+            // Optionnel : supprimer la relation de l'autre côté si nécessaire
+            // $ecriture->setAuteur(null);
         }
     
         return $this;

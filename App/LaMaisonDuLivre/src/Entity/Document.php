@@ -106,12 +106,12 @@ class Document
     public function setThème(?string $Thème): static
     {
         $this->Thème = $Thème;
-
+        
         return $this;
     }
-
-
-
+    
+    
+    
     // #[ORM\ManyToMany(targetEntity: Auteur::class, inversedBy: 'documents')]
     // #[ORM\JoinTable(name: 'auteur_document')]
     // #[ORM\JoinColumn(name: 'IdDocument', referencedColumnName: 'IdDocument')]
@@ -120,45 +120,43 @@ class Document
     
     #[ORM\OneToMany(mappedBy: 'document', targetEntity: Ecrire::class)]
     private Collection $ecritures;
-
-
-    
-    public function __construct()
-    {
-        $this->auteurs = new ArrayCollection();
-        $this->exemplaires = new ArrayCollection();
-    }
-    
-    public function getAuteurs(): Collection
-    {
-        return $this->auteurs;
-    }
-    
-    public function addAuteur(Auteur $auteur): static
-    {
-        if (!$this->auteurs->contains($auteur)) {
-            $this->auteurs->add($auteur);
-            $auteur->addDocument($this);
-        }
-        
-        return $this;
-    }
-    
-    public function removeAuteur(Auteur $auteur): static
-    {
-        if ($this->auteurs->removeElement($auteur)) {
-            $auteur->removeDocument($this);
-        }
-        
-        return $this;
-    }
-    
-    
-    
-    
     
     #[ORM\OneToMany(mappedBy: 'document', targetEntity: Exemplaire::class)]
     private Collection $exemplaires;
+    
+    
+    public function __construct()
+    {
+        $this->ecritures  = new ArrayCollection();
+        $this->exemplaires = new ArrayCollection();
+    }
+    
+    public function getEcritures(): Collection
+    {
+        return $this->ecritures;
+    }
+    
+    public function addEcriture(Ecrire $ecriture): static
+    {
+        if (!$this->ecritures->contains($ecriture)) {
+            $this->ecritures->add($ecriture);
+            $ecriture->setDocument($this);
+        }
+        
+        return $this;
+    }
+    
+    public function removeEcriture(Ecrire $ecriture): static
+    {
+        if ($this->ecritures->removeElement($ecriture)) {
+            // Optionnel : supprimer la relation de l'autre côté si nécessaire
+            // $ecriture->setDocument(null);
+        }
+        
+        return $this;
+    }
+    
+    
     
     
     public function getExemplaires(): Collection
