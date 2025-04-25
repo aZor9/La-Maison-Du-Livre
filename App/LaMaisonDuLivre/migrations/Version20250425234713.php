@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250425211825 extends AbstractMigration
+final class Version20250425234713 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -32,12 +32,12 @@ final class Version20250425211825 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE utilisateur DROP FOREIGN KEY FK_1D1C63B3AFD7ADA9');
         $this->addSql('ALTER TABLE exemplaire DROP FOREIGN KEY FK_5EF83C92C497A3FD');
-        $this->addSql('ALTER TABLE ecrire DROP FOREIGN KEY FK_918824CCC497A3FD');
-        $this->addSql('ALTER TABLE ecrire DROP FOREIGN KEY FK_918824CC9F3D7B8C');
         $this->addSql('ALTER TABLE empruntexemplaire DROP FOREIGN KEY FK_E6C32DB1A4089886');
         $this->addSql('ALTER TABLE empruntexemplaire DROP FOREIGN KEY FK_E6C32DB1C43DF980');
+        $this->addSql('ALTER TABLE ecrire DROP FOREIGN KEY FK_918824CCC497A3FD');
+        $this->addSql('ALTER TABLE ecrire DROP FOREIGN KEY FK_918824CC9F3D7B8C');
         $this->addSql('ALTER TABLE emprunt DROP FOREIGN KEY FK_364071D7EE3FD73E');
-        $this->addSql('ALTER TABLE utilisateur DROP FOREIGN KEY FK_1D1C63B3AFD7ADA9');
     }
 }
