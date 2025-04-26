@@ -13,8 +13,8 @@ use App\Entity\Exemplaire;
 // #[ORM\Entity]
 #[ORM\Table(name: 'document')]
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
-// #[ORM\InheritanceType("JOINED")]
-#[ORM\InheritanceType("SINGLE_TABLE")]
+#[ORM\InheritanceType("JOINED")]
+// #[ORM\InheritanceType("SINGLE_TABLE")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
     "livre" => Livre::class,
