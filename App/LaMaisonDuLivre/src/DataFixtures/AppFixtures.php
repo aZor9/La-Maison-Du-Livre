@@ -24,211 +24,136 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        // Abonnements
+        // --- Abonnements
         $abonnements = [];
         for ($i = 0; $i < 5; $i++) {
             $abonnement = new Abonnement();
-            $abonnement->setStatutAbonnement($faker->word);
-            $abonnement->setDateAbonnement($faker->dateTimeBetween('-1 years'));
-            $abonnement->setDuree($faker->numberBetween(1, 12));
-            $abonnement->setTarif($faker->randomFloat(2, 10, 100));
-            $abonnement->setRemise($faker->numberBetween(0, 50));
+            $abonnement->setStatutAbonnement($faker->word)
+                       ->setDateAbonnement($faker->dateTimeBetween('-1 years'))
+                       ->setDuree($faker->numberBetween(1, 12))
+                       ->setTarif($faker->randomFloat(2, 10, 100))
+                       ->setRemise($faker->numberBetween(0, 50));
             $manager->persist($abonnement);
             $abonnements[] = $abonnement;
         }
 
-        // Auteurs
+        // --- Auteurs
         $auteurs = [];
         for ($i = 0; $i < 10; $i++) {
             $auteur = new Auteur();
-            $auteur->setPrenom($faker->firstName);
-            $auteur->setNom($faker->lastName);
-            $auteur->setDescription($faker->paragraph);
+            $auteur->setPrenom($faker->firstName)
+                   ->setNom($faker->lastName)
+                   ->setDescription($faker->paragraph);
             $manager->persist($auteur);
             $auteurs[] = $auteur;
         }
 
+        // --- Documents
+        $documents = [];
+        for ($i = 0; $i < 30; $i++) {
+            $type = $faker->randomElement(['livre', 'video', 'sonore', 'periodique']);
 
-    // Ajouter cette ligne avant la boucle
-    $documents = []; // Initialise le tableau des documents
+            switch ($type) {
+                case 'livre':
+                    $document = new Livre();
+                    $document->setIsbn($faker->isbn13())
+                             ->setNombrePage($faker->numberBetween(100, 1000))
+                             ->setGenre($faker->word);
+                    break;
 
-    for ($i = 0; $i < 30; $i++) {
-        $type = $faker->randomElement(['livre', 'video', 'sonore', 'periodique']);
-        
-        // Création du document parent
-        switch ($type) {
-            case 'livre':
-                $document = new Livre();
-                $document->setIsbn($faker->isbn13());
-                $document->setNombrePage($faker->numberBetween(100, 1000));
-                $document->setGenre($faker->word);
-                break;
-        
-            case 'video':
-                $document = new Video();
-                $document->setDuree($faker->numberBetween(30, 180));
-                $document->setFormat('mp4');
-                $document->setRealisateur($faker->name);
-                break;
-        
-            case 'sonore':
-                $document = new Sonore();
-                $document->setDuree($faker->numberBetween(60, 300));
-                $document->setFormat('mp3');
-                $document->setInterprete($faker->name);
-                break;
-        
-            case 'periodique':
-                $document = new TitrePeriodique();
-                $document->setNumero($faker->numberBetween(1, 100));
-                $document->setDatePublication($faker->dateTimeBetween('-5 years'));
-                $document->setFormat($faker->word);
-                break;
+                case 'video':
+                    $document = new Video();
+                    $document->setDuree($faker->numberBetween(30, 180))
+                             ->setFormat('mp4')
+                             ->setRealisateur($faker->name);
+                    break;
+
+                case 'sonore':
+                    $document = new Sonore();
+                    $document->setDuree($faker->numberBetween(60, 300))
+                             ->setFormat('mp3')
+                             ->setInterprete($faker->name);
+                    break;
+
+                case 'periodique':
+                    $document = new TitrePeriodique();
+                    $document->setNumero($faker->numberBetween(1, 100))
+                             ->setDatePublication($faker->dateTimeBetween('-5 years'))
+                             ->setFormat($faker->word);
+                    break;
+            }
+
+            $document->setTitre($faker->sentence(3))
+                     ->setAnnee($faker->dateTimeBetween('-20 years', 'now'))
+                     ->setDescritpion($faker->paragraph(2))
+                     ->setThème($faker->word);
+
+            $manager->persist($document);
+            $documents[] = $document;
+
+            // --- Relation Ecrire (Document ↔ Auteur)
+            $nbAuteurs = rand(1, 3);
+            $selectedAuteurs = $faker->randomElements($auteurs, $nbAuteurs);
+            foreach ($selectedAuteurs as $auteur) {
+                $ecrire = new Ecrire();
+                $ecrire->setDocument($document)
+                       ->setAuteur($auteur);
+                $manager->persist($ecrire);
+            }
         }
-        
-        // Attributs communs à tous les types de document
-        $document->setTitre($faker->sentence(3));
-        $document->setAnnee($faker->dateTimeBetween('-20 years', 'now'));
-        $document->setDescritpion($faker->paragraph(2));
-        $document->setThème($faker->word);
 
-        $manager->persist($document); // Persister le document parent
-        $documents[] = $document; // Ajouter le document au tableau
-
-        // Relation Ecrire avec des auteurs
-        $nbAuteurs = rand(1, 3);
-        $selectedAuteurs = $faker->randomElements($auteurs, $nbAuteurs);
-        foreach ($selectedAuteurs as $auteur) {
-            $ecrire = new Ecrire();
-            $ecrire->setDocument($document); // Associer chaque document à ses auteurs
-            $ecrire->setAuteur($auteur);
-            $manager->persist($ecrire);
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Documents (polymorphes)
-        // $documents = [];
-
-        // for ($i = 0; $i < 30; $i++) {
-        //     $document = new Document();
-        //     $document->setTitre($faker->sentence(3));
-        //     $document->setAnnee($faker->dateTimeBetween('-20 years', 'now'));
-        //     $document->setDescritpion($faker->paragraph(2));
-        //     $document->setThème($faker->word);
-        //     $manager->persist($document);
-        //     $documents[] = $document;
-
-        //     // Relation Ecrire
-        //     $nbAuteurs = rand(1, 3);
-        //     $selectedAuteurs = $faker->randomElements($auteurs, $nbAuteurs);
-        //     foreach ($selectedAuteurs as $auteur) {
-        //         $ecrire = new Ecrire();
-        //         $ecrire->setDocument($document);
-        //         $ecrire->setAuteur($auteur);
-        //         $manager->persist($ecrire);
-        //     }
-
-        //     // Type de document (héritage)
-        //     $type = $faker->randomElement(['livre', 'video', 'sonore', 'periodique']);
-        //     switch ($type) {
-        //         case 'livre':
-        //             $livre = new Livre();
-        //             // $livre->setDocument($document); // Associe le document parent, de base c'est setIdDocument
-        //             $livre->setIsbn($faker->isbn13());
-        //             $livre->setNombrePage($faker->numberBetween(100, 1000));
-        //             $livre->setGenre($faker->word);
-        //             $manager->persist($livre);
-        //             break;
-        //         case 'video':
-        //             $video = new Video();
-        //             // $video->setDocument($document);
-        //             $video->setDuree($faker->numberBetween(30, 180));
-        //             $video->setFormat('mp4');
-        //             $video->setRealisateur($faker->name);
-        //             $manager->persist($video);
-        //             break;
-        //         case 'sonore':
-        //             $sonore = new Sonore();
-        //             // $sonore->setDocument($document);
-        //             $sonore->setDuree($faker->numberBetween(60, 300));
-        //             $sonore->setFormat('mp3');
-        //             $sonore->setInterprete($faker->name);
-        //             $manager->persist($sonore);
-        //             break;
-        //         case 'periodique':
-        //             $periodique = new TitrePeriodique();
-        //             // $periodique->setDocument($document);
-        //             $periodique->setNumero($faker->numberBetween(1, 100));
-        //             $periodique->setDatePublication($faker->dateTimeBetween('-5 years'));
-        //             $periodique->setFormat($faker->word);
-        //             $manager->persist($periodique);
-        //             break;
-        //     }
-        // }
-
-        // Utilisateurs
+        // --- Utilisateurs
         $utilisateurs = [];
         for ($i = 0; $i < 10; $i++) {
             $utilisateur = new Utilisateur();
-            $utilisateur->setNom($faker->lastName);
-            $utilisateur->setPrenom($faker->firstName);
-            $utilisateur->setDateNaissance($faker->dateTimeBetween('-60 years', '-18 years'));
-            $utilisateur->setAdresse1($faker->streetAddress);
-            $utilisateur->setAdresse2($faker->secondaryAddress);
-            $utilisateur->setVille($faker->city);
-            $utilisateur->setPays($faker->country);
-            $utilisateur->setMail($faker->unique()->email);
-            $utilisateur->setNumeroTelephone($faker->phoneNumber);
-            $utilisateur->setSituation('étudiant');
-            $utilisateur->setRole('client');
-            $utilisateur->setLienJustificatif($faker->url);
-            $utilisateur->setStatut('actif');
-            $utilisateur->setAbonnement($faker->randomElement($abonnements));
+            $utilisateur->setNom($faker->lastName)
+                        ->setPrenom($faker->firstName)
+                        ->setDateNaissance($faker->dateTimeBetween('-60 years', '-18 years'))
+                        ->setAdresse1($faker->streetAddress)
+                        ->setAdresse2($faker->secondaryAddress)
+                        ->setVille($faker->city)
+                        ->setPays($faker->country)
+                        ->setMail($faker->unique()->email)
+                        ->setNumeroTelephone($faker->phoneNumber)
+                        ->setSituation('étudiant')
+                        ->setRole('client')
+                        ->setLienJustificatif($faker->url)
+                        ->setStatut('actif')
+                        ->setAbonnement($faker->randomElement($abonnements));
             $manager->persist($utilisateur);
             $utilisateurs[] = $utilisateur;
         }
 
-        // Exemplaires
+        // --- Exemplaires
         $exemplaires = [];
-        foreach ($documents as $doc) {
+        foreach ($documents as $document) {
             for ($j = 0; $j < rand(1, 3); $j++) {
-                $ex = new Exemplaire();
-                $ex->setEtatPhysique($faker->randomElement(['neuf', 'bon', 'usé']));
-                $ex->setStatut('disponible');
-                $ex->setDocument($doc);
-                $manager->persist($ex);
-                $exemplaires[] = $ex;
+                $exemplaire = new Exemplaire();
+                $exemplaire->setEtatPhysique($faker->randomElement(['neuf', 'bon', 'usé']))
+                           ->setStatut('disponible')
+                           ->setDocument($document);
+                $manager->persist($exemplaire);
+                $exemplaires[] = $exemplaire;
             }
         }
 
-        // Emprunts + EmpruntExemplaires
+        // --- Emprunts et EmpruntExemplaires
         for ($i = 0; $i < 20; $i++) {
             $emprunt = new Emprunt();
-            $emprunt->setDateReservation($faker->dateTimeBetween('-1 year'));
-            $emprunt->setDateRendu($faker->dateTimeBetween('-6 months', 'now'));
-            $emprunt->setUtilisateur($faker->randomElement($utilisateurs));
+            $emprunt->setDateReservation($faker->dateTimeBetween('-1 year'))
+                    ->setDateRendu($faker->dateTimeBetween('-6 months', 'now'))
+                    ->setUtilisateur($faker->randomElement($utilisateurs));
             $manager->persist($emprunt);
 
             foreach ($faker->randomElements($exemplaires, rand(1, 2)) as $exemplaire) {
-                $empEx = new EmpruntExemplaire();
-                $empEx->setEmprunt($emprunt);
-                $empEx->setExemplaire($exemplaire);
-                $manager->persist($empEx);
+                $empruntExemplaire = new EmpruntExemplaire();
+                $empruntExemplaire->setEmprunt($emprunt)
+                                  ->setExemplaire($exemplaire);
+                $manager->persist($empruntExemplaire);
             }
         }
 
+        // --- Envoi en base de toutes les entités
         $manager->flush();
     }
 }
