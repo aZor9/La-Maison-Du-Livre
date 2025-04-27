@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,7 +14,7 @@ use Doctrine\Common\Collections\Collection;
 #[ORM\Table(name: 'utilisateur')]
 #[ORM\Index(name: 'IdAbonnement', columns: ['IdAbonnement'])]
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     // #[ORM\Column]
     #[ORM\Id]
@@ -59,6 +60,9 @@ class Utilisateur
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $Statut = null;
+
+    #[ORM\Column]
+    private ?string $motdepasse = null;
 
     // #[ORM\Column(nullable: true)]
     // private ?int $IdAbonnement = null;
@@ -228,17 +232,16 @@ class Utilisateur
         return $this;
     }
 
-    // public function getIdabonnement(): ?int
-    // {
-    //     return $this->IdAbonnement;
-    // }
+    public function getMotDePasse(): string
+    {
+        return $this->motdepasse;
+    }
 
-    // public function setIdabonnement(?int $IdAbonnement): static
-    // {
-    //     $this->IdAbonnement = $IdAbonnement;
-
-    //     return $this;
-    // }
+    public function setMotDePasse(string $motdepasse): self
+    {
+        $this->motdepasse = $motdepasse;
+        return $this;
+    }
 
     public function getAbonnement(): ?Abonnement
     {
