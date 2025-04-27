@@ -119,7 +119,8 @@ class AppFixtures extends Fixture
                         ->setRole('client')
                         ->setLienJustificatif($faker->url)
                         ->setStatut('actif')
-                        ->setAbonnement($faker->randomElement($abonnements));
+                        ->setAbonnement($faker->randomElement($abonnements))
+                        ->setMotDePasse($faker->randomElement(['123', 'password', 'azerty']));
             $manager->persist($utilisateur);
             $utilisateurs[] = $utilisateur;
         }

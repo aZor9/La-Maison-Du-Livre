@@ -1,42 +1,126 @@
-<footer class="bg-blue-900 text-white mt-12">
-    <div class="container mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div>
-            <h3 class="title-font text-xl font-bold mb-4">Médiathèque</h3>
-            <p class="text-sm text-gray-300">
-                Votre portail vers la culture et le savoir à Montpellier.
-            </p>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médiathèque de Montpellier | Culture et savoir pour tous</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.8) 0%, rgba(23, 107, 135, 0.8) 100%);
+        }
+        
+        .search-box {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .newsletter-gradient {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
+        
+        .opening-hours {
+            border-left: 4px solid #0047ab;
+        }
+        
+        .animated-link {
+            position: relative;
+        }
+        
+        .animated-link:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0047ab;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+        
+        .animated-link:hover:after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+    </style>
+</head>
 
-        <div>
-            <h4 class="font-semibold mb-4">Navigation</h4>
-            <ul class="space-y-2 text-sm">
-                <li><a href="{{ path('home') }}" class="hover:underline">Accueil</a></li>
-                <li><a href="{{ path('collections') }}" class="hover:underline">Collections</a></li>
-                <li><a href="{{ path('evenements') }}" class="hover:underline">Événements</a></li>
-                <li><a href="{{ path('infos_pratiques') }}" class="hover:underline">Infos pratiques</a></li>
-            </ul>
-        </div>
 
-        <div>
-            <h4 class="font-semibold mb-4">Nous contacter</h4>
-            <ul class="space-y-2 text-sm">
-                <li><i class="fas fa-phone mr-2"></i>04 67 00 00 00</li>
-                <li><i class="fas fa-envelope mr-2"></i>contact@mediatheque.fr</li>
-                <li><i class="fas fa-map-marker-alt mr-2"></i>Montpellier, France</li>
-            </ul>
-        </div>
 
-        <div>
-            <h4 class="font-semibold mb-4">Suivez-nous</h4>
-            <div class="flex space-x-4">
-                <a href="#" class="hover:text-blue-300"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="hover:text-blue-300"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="hover:text-blue-300"><i class="fab fa-instagram"></i></a>
+
+
+<footer class="bg-blue-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="title-font text-xl font-bold mb-4">Médiathèque de Montpellier</h3>
+                    <p class="mb-4">Réseau de médiathèques de la Ville de Montpellier, ouvert à tous.</p>
+                    <div class="flex space-x-4">
+                        <a href="{{ path('app_test') }}" class="text-white hover:text-blue-200"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Nos médiathèques</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Émile Zola</a></li>
+                        <li><a href="#" class="hover:underline">Federico Fellini</a></li>
+                        <li><a href="#" class="hover:underline">William Shakespeare</a></li>
+                        <li><a href="#" class="hover:underline">Albert Camus</a></li>
+                        <li><a href="#" class="hover:underline">André Malraux</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Ressources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Catalogue en ligne</a></li>
+                        <li><a href="#" class="hover:underline">Ressources numériques</a></li>
+                        <li><a href="#" class="hover:underline">Presse en ligne</a></li>
+                        <li><a href="#" class="hover:underline">Autoformation</a></li>
+                        <li><a href="#" class="hover:underline">Archives municipales</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Contact</h4>
+                    <address class="not-italic">
+                        <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> 1 place Émile Zola, 34000 Montpellier</p>
+                        <p class="mb-2"><i class="fas fa-phone mr-2"></i> 04 67 34 87 00</p>
+                        <p class="mb-2"><i class="fas fa-envelope mr-2"></i> contact@mediatheque-montpellier.fr</p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="pt-6 border-t border-blue-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-blue-200 mb-4 md:mb-0">© {{ "now"|date("Y") }} Médiathèque de Montpellier - Tous droits réservés</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-sm hover:underline">Mentions légales</a>
+                    <a href="#" class="text-sm hover:underline">Politique de confidentialité</a>
+                    <a href="#" class="text-sm hover:underline">Accessibilité</a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="border-t border-blue-800 mt-8 pt-6 text-center text-sm text-gray-400">
-        &copy; {{ "now"|date("Y") }} Médiathèque de Montpellier. Tous droits réservés.
-    </div>
-</footer>
+    </footer> 

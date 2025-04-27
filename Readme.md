@@ -81,91 +81,10 @@ aller sur http://localhost/phpmyadmin/ pour voir la BDD
 
 
 
+Tailwind CSS pour le design rapide et réactif
 
+FontAwesome pour les icônes
 
-Idée by GPT : 
+Google Fonts pour une jolie typo (Playfair Display pour les titres et Raleway pour le texte)
 
----
-
-
-### 🚀 Installation sur un autre PC
-
----
-
-### ✅ 1. Cloner le projet et se placer dans le dossier
-
-```bash
-cd App\LaMaisonDuLivre
-```
-
----
-
-### ✅ 2. Installer les dépendances PHP
-
-Si Composer **n'est pas installé** :
-
-```bash
-php composer.phar install
-```
-
-(Sinon, simplement : `composer install`)
-
----
-
-### ✅ 3. Installer WAMP
-
-Télécharge et installe WAMP ici :  
-👉 [https://www.wampserver.com/](https://www.wampserver.com/)
-
-Lance WAMP (icône verte dans la barre des tâches une fois prêt).
-
----
-
-### ✅ 4. Configurer la base de données
-
-#### Modifier le fichier `.env` à la racine du projet :
-
-Chercher la ligne avec `DATABASE_URL` et adapter les infos de connexion MySQL selon ta config WAMP (par défaut : `root` sans mot de passe) :
-
-```
-DATABASE_URL="mysql://root:@127.0.0.1:3306/lamaisondulivre?serverVersion=8.0"
-```
-
----
-
-### ✅ 5. Créer la base de données
-
-```bash
-php bin/console doctrine:database:create
-```
-
----
-
-### ✅ 6. Lancer les migrations pour créer les tables
-
-```bash
-php bin/console doctrine:migrations:migrate
-```
-
-Confirme avec `yes` si demandé.
-
----
-
-### ✅ 7. (Optionnel) Charger des données de test (fixtures)
-
-```bash
-php bin/console doctrine:fixtures:load -n
-```
-
----
-
-### ✅ 8. Voir la base de données
-
-Ouvre :  
-👉 [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
-
-Tu devrais voir une base nommée `lamaisondulivre` avec toutes les tables.
-
----
-
-Tu veux que je l’enregistre dans un fichier `README.md` ?
+Tu as un header, un hero section avec une image d’accueil et un formulaire de recherche intégré, puis une section Quick Links en cartes interactives.
