@@ -1,0 +1,23 @@
+<nav class="bg-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center p-4">
+        <div class="flex items-center space-x-2">
+            <img src="https://via.placeholder.com/50" alt="Logo Médiathèque" class="h-12 w-12">
+            <span class="title-font text-xl font-bold text-blue-900">Médiathèque</span>
+        </div>
+        <ul class="hidden md:flex space-x-8">
+            <li><a href="{{ path('home') }}" class="animated-link text-blue-900 font-medium">Accueil</a></li>
+            <li><a href="{{ path('mediatheques') }}" class="animated-link text-gray-600 hover:text-blue-900">Nos médiathèques</a></li>
+            <li><a href="{{ path('collections') }}" class="animated-link text-gray-600 hover:text-blue-900">Collections</a></li>
+            <li><a href="{{ path('evenements') }}" class="animated-link text-gray-600 hover:text-blue-900">Événements</a></li>
+            <li><a href="{{ path('infos_pratiques') }}" class="animated-link text-gray-600 hover:text-blue-900">Pratique</a></li>
+        </ul>
+        <div class="flex items-center space-x-4">
+            <a href="{{ path('compte') }}" class="hidden md:block bg-blue-900 text-white px-4 py-2 rounded-full hover:bg-blue-800 transition">
+                <i class="fas fa-user mr-2"></i>Mon compte
+            </a>
+            <button class="md:hidden text-blue-900">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </div>
+</nav>

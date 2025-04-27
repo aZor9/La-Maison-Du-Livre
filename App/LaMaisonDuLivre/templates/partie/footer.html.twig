@@ -1,0 +1,42 @@
+<footer class="bg-blue-900 text-white mt-12">
+    <div class="container mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+            <h3 class="title-font text-xl font-bold mb-4">Médiathèque</h3>
+            <p class="text-sm text-gray-300">
+                Votre portail vers la culture et le savoir à Montpellier.
+            </p>
+        </div>
+
+        <div>
+            <h4 class="font-semibold mb-4">Navigation</h4>
+            <ul class="space-y-2 text-sm">
+                <li><a href="{{ path('home') }}" class="hover:underline">Accueil</a></li>
+                <li><a href="{{ path('collections') }}" class="hover:underline">Collections</a></li>
+                <li><a href="{{ path('evenements') }}" class="hover:underline">Événements</a></li>
+                <li><a href="{{ path('infos_pratiques') }}" class="hover:underline">Infos pratiques</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-semibold mb-4">Nous contacter</h4>
+            <ul class="space-y-2 text-sm">
+                <li><i class="fas fa-phone mr-2"></i>04 67 00 00 00</li>
+                <li><i class="fas fa-envelope mr-2"></i>contact@mediatheque.fr</li>
+                <li><i class="fas fa-map-marker-alt mr-2"></i>Montpellier, France</li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-semibold mb-4">Suivez-nous</h4>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-blue-300"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-blue-300"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="border-t border-blue-800 mt-8 pt-6 text-center text-sm text-gray-400">
+        &copy; {{ "now"|date("Y") }} Médiathèque de Montpellier. Tous droits réservés.
+    </div>
+</footer>
