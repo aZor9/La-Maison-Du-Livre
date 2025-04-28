@@ -28,7 +28,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $mail = $request->getPayload()->getString('Mail');
+        $mail = $request->getPayload()->getString('mail');
 
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $mail);
 
