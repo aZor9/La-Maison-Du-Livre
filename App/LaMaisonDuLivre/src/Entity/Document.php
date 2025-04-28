@@ -26,9 +26,9 @@ class Document
 {
     // #[ORM\Column]
     #[ORM\Id]
-    #[ORM\Column(name: "IdDocument", type: "integer")]
+    #[ORM\Column(name: "id_document", type: "integer")]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
-    private ?int $IdDocument = null;
+    private ?int $id_document = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $Titre = null;
@@ -45,9 +45,9 @@ class Document
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $Thème = null;
 
-    public function getIddocument(): ?int
+    public function getid_document(): ?int
     {
-        return $this->IdDocument;
+        return $this->id_document;
     }
 
     public function getTitre(): ?string
@@ -114,7 +114,7 @@ class Document
     
     // #[ORM\ManyToMany(targetEntity: Auteur::class, inversedBy: 'documents')]
     // #[ORM\JoinTable(name: 'auteur_document')]
-    // #[ORM\JoinColumn(name: 'IdDocument', referencedColumnName: 'IdDocument')]
+    // #[ORM\JoinColumn(name: 'id_document', referencedColumnName: 'id_document')]
     // #[ORM\InverseJoinColumn(name: 'IdAuteur', referencedColumnName: 'IdAuteur')]
     // private Collection $auteurs;
     

@@ -17,9 +17,18 @@ use App\Entity\EmpruntExemplaire;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+
+    private UserPasswordHasherInterface $hasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
@@ -116,11 +125,11 @@ class AppFixtures extends Fixture
                         ->setMail($faker->unique()->email)
                         ->setNumeroTelephone($faker->phoneNumber)
                         ->setSituation('étudiant')
-                        ->setRole('client')
+                        ->setRole('ROLE_USER')
                         ->setLienJustificatif($faker->url)
                         ->setStatut('actif')
                         ->setAbonnement($faker->randomElement($abonnements))
-                        ->setMotDePasse($faker->randomElement(['123', 'password', 'azerty']));
+                        ->setMotDePasse($this->hasher->hashPassword($utilisateur, 'password123'));
             $manager->persist($utilisateur);
             $utilisateurs[] = $utilisateur;
         }

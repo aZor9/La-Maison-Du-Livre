@@ -9,12 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Abonnement; 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface; 
 
 
 #[ORM\Table(name: 'utilisateur')]
 #[ORM\Index(name: 'IdAbonnement', columns: ['IdAbonnement'])]
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur implements UserInterface
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     // #[ORM\Column]
     #[ORM\Id]
@@ -253,5 +254,54 @@ class Utilisateur implements UserInterface
         $this->abonnement = $abonnement;
 
         return $this;
+    }
+
+
+
+
+
+    // Méthodes de UserInterface
+
+    public function getRoles(): array
+    {
+        // Symfony attend un tableau de rôles => on transforme ton champ Role en tableau
+        $roles = [];
+
+        if ($this->Role) {
+            $roles[] = $this->Role;
+        }
+
+        // Assure qu'il y a toujours au moins ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->motdepasse;
+    }
+
+    public function getSalt(): ?string
+    {
+        // Pas nécessaire avec bcrypt ou argon2i
+        return null;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        // Symfony 5.3+ -> utiliser getUserIdentifier à la place de getUsername
+        return $this->Mail;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // Si on stockait temporairement des mots de passe en clair, on les effacerait ici
+    }
+
+    // Pour compatibilité (optionnel)
+    public function getUsername(): string
+    {
+        return $this->Mail;
     }
 }

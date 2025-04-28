@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use App\Entity\Empruntexemplaire;
 
 #[ORM\Table(name: 'exemplaire')]
-#[ORM\Index(name: 'IdDocument', columns: ['IdDocument'])]
+#[ORM\Index(name: 'id_document', columns: ['id_document'])]
 #[ORM\Entity(repositoryClass: ExemplaireRepository::class)]
 class Exemplaire
 {
@@ -28,7 +28,7 @@ class Exemplaire
     private ?string $Statut = null;
 
     #[ORM\Column]
-    private ?int $IdDocument = null;
+    private ?int $id_document = null;
 
     public function getIdexemplaire(): ?int
     {
@@ -66,21 +66,21 @@ class Exemplaire
         return $this;
     }
 
-    // public function getIddocument(): ?int
+    // public function getid_document(): ?int
     // {
-    //     return $this->IdDocument;
+    //     return $this->id_document;
     // }
 
-    // public function setIddocument(int $IdDocument): static
+    // public function setid_document(int $id_document): static
     // {
-    //     $this->IdDocument = $IdDocument;
+    //     $this->id_document = $id_document;
 
     //     return $this;
     // }
 
 
     #[ORM\ManyToOne(targetEntity: Document::class, inversedBy: 'exemplaires')]
-    #[ORM\JoinColumn(name: 'IdDocument', referencedColumnName: 'IdDocument', nullable: false)]
+    #[ORM\JoinColumn(name: 'id_document', referencedColumnName: 'id_document', nullable: false)]
     private ?Document $document = null;
     
     public function getDocument(): ?Document

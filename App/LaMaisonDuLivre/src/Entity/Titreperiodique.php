@@ -16,7 +16,7 @@ class Titreperiodique extends Document
     // #[ORM\Column]
     // #[ORM\Id]
     // #[ORM\GeneratedValue(strategy: "NONE")]
-    // private ?int $IdDocument = null;
+    // private ?int $id_document = null;
 
     #[ORM\Column(nullable: true, type: "integer")]
     private ?int $Numero = null;
@@ -27,14 +27,14 @@ class Titreperiodique extends Document
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $Format = null;
 
-    public function getIddocument(): ?int
+    public function getid_document(): ?int
     {
-        return $this->IdDocument;
+        return $this->id_document;
     }
 
-    public function setIddocument(int $IdDocument): static
+    public function setid_document(int $id_document): static
     {
-        $this->IdDocument = $IdDocument;
+        $this->id_document = $id_document;
 
         return $this;
     }

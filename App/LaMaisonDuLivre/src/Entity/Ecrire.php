@@ -16,11 +16,11 @@ class Ecrire
     // #[ORM\Column]
     // #[ORM\Id]
     // #[ORM\GeneratedValue(strategy: "NONE")]
-    // private ?int $IdDocument = null;
+    // private ?int $id_document = null;
 
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Document::class, inversedBy: 'ecritures')]
-    #[ORM\JoinColumn(name: "IdDocument", referencedColumnName: "IdDocument", onDelete: "CASCADE", nullable: false)]
+    #[ORM\JoinColumn(name: "id_document", referencedColumnName: "id_document", onDelete: "CASCADE", nullable: false)]
     private ?Document $document = null;
 
     // #[ORM\Column]
