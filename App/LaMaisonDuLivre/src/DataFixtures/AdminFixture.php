@@ -21,7 +21,6 @@ class AdminFixture extends Fixture
         $admin = new Utilisateur();
         $admin->setNom('Admin')
               ->setPrenom('Super')
-              ->setSurnom('admin')
               ->setDateNaissance(new \DateTime('1990-01-01'))
               ->setAdresse1('1 rue de l\'administration')
               ->setAdresse2('')

@@ -160,3 +160,11 @@ PS C:\Users\hugol\Downloads\EPSI SN2\Projet Solution Applicative\Projet-Solution
  - Customize your new authenticator.
  - Finish the redirect "TODO" in the App\Security\LoginFormAuthenticator::onAuthenticationSuccess() method.
  - Review & adapt the login template: templates/security/login.html.twig.
+
+
+
+
+
+
+
+ si serveur local deja demarrer alors : symfony local:server:stop

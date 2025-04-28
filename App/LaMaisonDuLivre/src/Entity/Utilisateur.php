@@ -29,9 +29,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $Prenom = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $Surnom = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $DateNaissance = null;
 
@@ -48,7 +45,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $Pays = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $Mail = null;
+    private ?string $mail = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $NumeroTelephone = null;
@@ -100,18 +97,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(?string $Prenom): static
     {
         $this->Prenom = $Prenom;
-
-        return $this;
-    }
-
-    public function getSurnom(): ?string
-    {
-        return $this->Surnom;
-    }
-
-    public function setSurnom(?string $Surnom): static
-    {
-        $this->Surnom = $Surnom;
 
         return $this;
     }
@@ -178,12 +163,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getMail(): ?string
     {
-        return $this->Mail;
+        return $this->mail;
     }
 
-    public function setMail(string $Mail): static
+    public function setMail(string $mail): static
     {
-        $this->Mail = $Mail;
+        $this->mail = $mail;
 
         return $this;
     }
@@ -306,7 +291,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         // Symfony 5.3+ -> utiliser getUserIdentifier à la place de getUsername
-        return $this->Mail;
+        return $this->mail;
     }
 
     public function eraseCredentials(): void
@@ -317,6 +302,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     // Pour compatibilité (optionnel)
     public function getUsername(): string
     {
-        return $this->Mail;
+        return $this->mail;
     }
 }
