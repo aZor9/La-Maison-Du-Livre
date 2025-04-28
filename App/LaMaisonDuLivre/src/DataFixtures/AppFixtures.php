@@ -117,6 +117,7 @@ class AppFixtures extends Fixture
             $utilisateur = new Utilisateur();
             $utilisateur->setNom($faker->lastName)
                         ->setPrenom($faker->firstName)
+                        ->setSurnom($faker->userName)
                         ->setDateNaissance($faker->dateTimeBetween('-60 years', '-18 years'))
                         ->setAdresse1($faker->streetAddress)
                         ->setAdresse2($faker->secondaryAddress)

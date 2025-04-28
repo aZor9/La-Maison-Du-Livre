@@ -29,6 +29,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $Prenom = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $Surnom = null;
+
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $DateNaissance = null;
 
@@ -97,6 +100,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(?string $Prenom): static
     {
         $this->Prenom = $Prenom;
+
+        return $this;
+    }
+
+    public function getSurnom(): ?string
+    {
+        return $this->Surnom;
+    }
+
+    public function setSurnom(?string $Surnom): static
+    {
+        $this->Surnom = $Surnom;
 
         return $this;
     }
