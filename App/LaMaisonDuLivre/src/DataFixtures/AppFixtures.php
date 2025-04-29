@@ -101,7 +101,7 @@ class AppFixtures extends Fixture
             $document->setTitre($faker->sentence(3))
                      ->setAnnee($faker->dateTimeBetween('-20 years', 'now'))
                      ->setDescritpion($faker->paragraph(2))
-                     ->setThème($faker->word);
+                     ->setThème($faker->randomElement(['SF', 'Horreur', 'Tech', 'Amour', 'Aventure']));
 
             $manager->persist($document);
             $documents[] = $document;
