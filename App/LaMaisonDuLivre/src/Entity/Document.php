@@ -36,9 +36,6 @@ class Document
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $Annee = null;
 
-    // #[ORM\Column(length: 50, nullable: true)]
-    // private ?string $Auteur = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $Descritpion = null;
 
@@ -46,6 +43,11 @@ class Document
     private ?string $Thème = null;
 
     public function getid_document(): ?int
+    {
+        return $this->id_document;
+    }
+    
+    public function getIdDocument(): ?int
     {
         return $this->id_document;
     }
@@ -74,18 +76,6 @@ class Document
         return $this;
     }
 
-    // public function getAuteur(): ?string
-    // {
-    //     return $this->Auteur;
-    // }
-
-    // public function setAuteur(?string $Auteur): static
-    // {
-    //     $this->Auteur = $Auteur;
-
-    //     return $this;
-    // }
-
     public function getDescritpion(): ?string
     {
         return $this->Descritpion;
@@ -110,7 +100,13 @@ class Document
         return $this;
     }
     
-    
+    // App\Entity\Document.php
+    public function getType(): string
+    {
+        return (new \ReflectionClass($this))->getShortName();
+    }
+
+
     
     // #[ORM\ManyToMany(targetEntity: Auteur::class, inversedBy: 'documents')]
     // #[ORM\JoinTable(name: 'auteur_document')]

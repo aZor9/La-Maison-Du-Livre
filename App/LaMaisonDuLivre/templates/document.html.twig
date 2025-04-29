@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des documents{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <h1 class="mb-4">Liste des documents</h1>
+
+    <form method="get" action="{{ path('app_documents') }}" class="mb-4">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" name="search" class="form-control" placeholder="Rechercher un document" value="{{ search }}">
+            </div>
+            <div class="col-md-4">
+                <select name="type" class="form-control">
+                    <option value="">Tous les types</option>
+                    <option value="livre" {% if type == 'livre' %}selected{% endif %}>Livre</option>
+                    <option value="titreperiodique" {% if type == 'titreperiodique' %}selected{% endif %}>Titre périodique</option>
+                    <option value="video" {% if type == 'video' %}selected{% endif %}>Vidéo</option>
+                    <option value="sonore" {% if type == 'sonore' %}selected{% endif %}>Sonore</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Rechercher</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Année</th>
+                <th>Thème</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in documents %}
+                <tr>
+                    <td>{{ document.idDocument  }}</td>
+                    <td>{{ document.Titre }}</td>
+                    <td>{{ document.Type }}</td>
+                    <td>{{ document.Annee ? document.Annee|date('Y') : 'N/A' }}</td>
+                    <td>{{ document.Thème }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Aucun document trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

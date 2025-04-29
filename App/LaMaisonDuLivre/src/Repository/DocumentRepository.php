@@ -45,4 +45,28 @@ class DocumentRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+
+    /**
+     * Recherche les documents selon un mot-clé et un type.
+     */
+    public function findBySearchAndType(?string $search = '', ?string $type = ''): array
+    {
+        $qb = $this->createQueryBuilder('d');
+
+        if ($search) {
+            $qb->andWhere('d.Titre LIKE :search OR d.Thème LIKE :search')
+               ->setParameter('search', '%' . $search . '%');
+        }
+
+        if ($type) {
+            $qb->andWhere('d INSTANCE OF :type')
+               ->setParameter('type', 'App\Entity\\' . ucfirst($type));
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+
 }
