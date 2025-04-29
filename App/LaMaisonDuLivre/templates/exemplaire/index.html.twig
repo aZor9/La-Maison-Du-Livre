@@ -1,36 +1,71 @@
-<h1>Liste des Exemplaires</h1>
+{% extends 'base.html.twig' %}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Document</th>
-            <th>Etat physique</th>
-            <th>Statut</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for exemplaire in exemplaires %}
+{% block title %}Liste des Exemplaires{% endblock %}
+
+{% block body %}
+    {% include 'partie/navbar.html.twig' %}
+
+    <table class="table">
+        <thead>
             <tr>
-                <td>{{ exemplaire.idexemplaire }}</td>
-                <td>{{ exemplaire.document.titre }}</td> <!-- Titre du document -->
-                <td>{{ exemplaire.etatphysique }}</td>
-                <td>{{ exemplaire.statut }}</td>
-                <td>
-                    {% if exemplaire.statut == 'disponible' %}
-                        <form method="post" action="{{ path('document_reserver', {id: exemplaire.idexemplaire}) }}">
-                            <button type="submit" class="btn btn-success">Réserver</button>
-                        </form>
-                    {% else %}
-                        <span class="text-muted">Réservé</span>
-                    {% endif %}
-                </td>
+                <th>ID</th>
+                <th>Document</th>
+                <th>État physique</th>
+                <th>Statut</th>
+                <th>Réservé par</th>
+                <th>Actions</th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Aucun exemplaire disponible.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for exemplaire in exemplaires %}
+                <tr>
+                    <td>{{ exemplaire.idexemplaire }}</td>
+                    <td>{{ exemplaire.document.titre }}</td>
+                    <td>{{ exemplaire.etatphysique }}</td>
+                    <td>{{ exemplaire.statut }}</td>
+                    <td>
+                        {% if exemplaire.statut == 'reservé' %}
+                            {% if exemplaire.utilisateur %}
+                                <p><strong>Utilisateur :</strong> {{ exemplaire.utilisateur.nom }} {{ exemplaire.utilisateur.prenom }}</p>
+                                <p><strong>Email :</strong> {{ exemplaire.utilisateur.email }}</p>
+                                <p><strong>Date réservation :</strong> {{ exemplaire.utilisateur.dateReservation|date('d/m/Y') }}</p>
+                                <p><strong>Date rendu :</strong> {% if exemplaire.utilisateur.dateRendu %}{{ exemplaire.utilisateur.dateRendu|date('d/m/Y') }}{% else %}Non rendu{% endif %}</p>
+                            {% else %}
+                                <p>-</p>
+                            {% endif %}
+                        {% else %}
+                            <p>-</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if exemplaire.statut == 'disponible' %}
+                            <span class="badge bg-success">Disponible</span>
+                        {% else %}
+                            <div class="d-flex flex-column gap-2">
+                                {% if exemplaire.statut == 'reservé' %}
+                                    <form method="post" action="{{ path('exemplaire_changer_statut', {id: exemplaire.idexemplaire}) }}">
+                                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded w-full text-sm">
+                                            Marquer comme utilisé
+                                        </button>
+                                    </form>
+                                {% elseif exemplaire.statut == 'utilisé' %}
+                                    <form method="post" action="{{ path('exemplaire_changer_statut', {id: exemplaire.idexemplaire}) }}">
+                                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded w-full text-sm">
+                                            Rendre disponible
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun exemplaire trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% include 'partie/footer.html.twig' %}
+{% endblock %}
