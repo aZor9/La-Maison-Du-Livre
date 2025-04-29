@@ -57,7 +57,7 @@
                                 </td>
                                 <td class="py-3 px-6">
                                     <a href="{{ path('document_show', {'id': document.idDocument}) }}" class="block w-full h-full">
-                                        {{ document.Type }}
+                                        {{ document.type == 'Titreperiodique' ? 'Titre Periodique' : document.type }}
                                     </a>
                                 </td>
                                 <td class="py-3 px-6">
