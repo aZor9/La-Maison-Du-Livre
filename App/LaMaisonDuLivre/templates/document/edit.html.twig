@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le document{% endblock %}
+
+{% block body %}
+    {% include 'partie/navbar.html.twig' %}
+
+    <div class="container mx-auto py-10 max-w-4xl">
+        <h2 class="text-3xl font-bold mb-6 text-center">Modifier le document n°{{ document.idDocument }}</h2>
+
+        {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+
+        <div>
+            {{ form_label(form.titre, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.titre, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+            {{ form_errors(form.titre) }}
+        </div>
+
+        <div>
+            {{ form_label(form.annee, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.annee, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+            {{ form_errors(form.annee) }}
+        </div>
+
+        <div>
+            {{ form_label(form.theme, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.theme, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+            {{ form_errors(form.theme) }}
+        </div>
+
+        <div class="text-center">
+            {# Le bouton est automatiquement inclus avec le formulaire #}
+            {{ form_widget(form.submit) }}
+        </div>
+
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+    {% include 'partie/footer.html.twig' %}
+{% endblock %}

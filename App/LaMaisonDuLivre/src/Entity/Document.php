@@ -88,12 +88,12 @@ class Document
         return $this;
     }
 
-    public function getThème(): ?string
+    public function getTheme(): ?string
     {
         return $this->Thème;
     }
 
-    public function setThème(?string $Thème): static
+    public function setTheme(?string $Thème): static
     {
         $this->Thème = $Thème;
         

@@ -12,9 +12,8 @@
 
             <ul class="space-y-2 text-gray-600 mb-6">
                 <li><span class="font-semibold">Année :</span> {{ document.annee ? document.annee|date('Y') : 'Non précisée' }}</li>
-                <li><span class="font-semibold">Thème :</span> {{ document.thème }}</li>
+                <li><span class="font-semibold">Thème :</span> {{ document.theme }}</li>
                 <li><span class="font-semibold">Type :</span> {{ document.type == 'Titreperiodique' ? 'Titre Periodique' : document.type }}</li>
-                {# <li><span class="font-semibold">Description :</span> {{ document.description }}</li> #}
             </ul>
 
             {% if document.type == 'Livre' %}
@@ -52,6 +51,14 @@
                     🛒 Commander ce document
                 </a>
             </div>
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                <div class="mt-4 text-center">
+                    <a href="{{ path('document_edit', {'id': document.idDocument}) }}" class="bg-blue-500 hover:bg-blue-600 text-white text-lg font-semibold py-2 px-6 rounded-xl shadow-md transition duration-300">
+                        ✏️ Modifier ce document
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
 
