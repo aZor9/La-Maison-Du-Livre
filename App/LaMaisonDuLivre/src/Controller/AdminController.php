@@ -61,4 +61,30 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/admin/reservations', name: 'admin_reservations')]
+    public function reservations(ExemplaireRepository $exemplaireRepository, EntityManagerInterface $em, Request $request): Response
+    {
+        $reservations = $exemplaireRepository->findBy(['statut' => Exemplaire::STATUS_RESERVE]);
+
+        return $this->render('admin/reservations.html.twig', [
+            'reservations' => $reservations,
+        ]);
+    }
+
+    #[Route('/admin/exemplaire/{id}/update-statut', name: 'admin_update_statut_exemplaire', methods: ['POST'])]
+    public function updateStatut(Exemplaire $exemplaire, Request $request, EntityManagerInterface $em): Response
+    {
+        $statut = $request->request->get('statut');
+
+        if (!in_array($statut, [Exemplaire::STATUS_DISPONIBLE, Exemplaire::STATUS_UTILISE])) {
+            throw new \InvalidArgumentException('Statut invalide');
+        }
+
+        $exemplaire->setStatut($statut);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_reservations');
+    }
+
 }

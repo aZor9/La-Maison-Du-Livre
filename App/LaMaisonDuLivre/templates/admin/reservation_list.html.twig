@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des réservations{% endblock %}
+
+{% block body %}
+<h1>Exemplaires réservés</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Document</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for exemplaire in reservations %}
+        <tr>
+            <td>{{ exemplaire.document.titre }}</td>
+            <td>
+                <form method="post" action="{{ path('admin_update_statut_exemplaire', {id: exemplaire.idexemplaire}) }}">
+                    <select name="statut">
+                        <option value="disponible">Disponible</option>
+                        <option value="utilisé">Utilisé</option>
+                    </select>
+                    <button class="btn btn-sm btn-outline-success">Mettre à jour</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+

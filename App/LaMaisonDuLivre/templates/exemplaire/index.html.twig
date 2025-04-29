@@ -1,0 +1,36 @@
+<h1>Liste des Exemplaires</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Document</th>
+            <th>Etat physique</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exemplaire in exemplaires %}
+            <tr>
+                <td>{{ exemplaire.idexemplaire }}</td>
+                <td>{{ exemplaire.document.titre }}</td> <!-- Titre du document -->
+                <td>{{ exemplaire.etatphysique }}</td>
+                <td>{{ exemplaire.statut }}</td>
+                <td>
+                    {% if exemplaire.statut == 'disponible' %}
+                        <form method="post" action="{{ path('document_reserver', {id: exemplaire.idexemplaire}) }}">
+                            <button type="submit" class="btn btn-success">Réserver</button>
+                        </form>
+                    {% else %}
+                        <span class="text-muted">Réservé</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun exemplaire disponible.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

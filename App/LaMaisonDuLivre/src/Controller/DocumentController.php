@@ -10,6 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Entity\Document;
 use App\Form\DocumentType; 
+use App\Repository\ExemplaireRepository;
+use Doctrine\ORM\EntityManagerInterface;
+
+
 
 class DocumentController extends AbstractController
 {
@@ -31,18 +35,22 @@ class DocumentController extends AbstractController
     }
 
     #[Route('/document/{id}', name: 'document_show')]
-    public function show(DocumentRepository $documentRepository, int $id): Response
+    public function show(DocumentRepository $documentRepository, ExemplaireRepository $exemplaireRepository, int $id): Response
     {
         $document = $documentRepository->find($id);
-
+    
         if (!$document) {
             return $this->redirectToRoute('document_not_found', ['id' => $id]);
         }
-
+    
+        $exemplaires = $exemplaireRepository->findBy(['document' => $document]);
+    
         return $this->render('document/show.html.twig', [
             'document' => $document,
+            'exemplaires' => $exemplaires,
         ]);
     }
+    
 
 
     #[Route('/document-inexistant/{id}', name: 'document_not_found')]
@@ -110,7 +118,33 @@ class DocumentController extends AbstractController
     }
     
     
-    
 
+    #[Route('/document/{id}/reserver', name: 'document_reserver', methods: ['POST'])]
+    public function reserver(
+        Document $document,
+        ExemplaireRepository $exemplaireRepository,
+        EntityManagerInterface $em
+    ): Response {
+        // Chercher un exemplaire disponible (en fonction du statut)
+        $exemplaire = $exemplaireRepository->findOneBy([
+            'document' => $document,
+            'Statut' => 'disponible',
+        ]);
+    
+        if (!$exemplaire) {
+            $this->addFlash('danger', 'Aucun exemplaire disponible à la réservation.');
+            return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
+        }
+    
+        // Réserver l'exemplaire
+        $exemplaire->setStatut('reserve'); // ou 'réservé', selon ce que tu utilises
+    
+        $em->flush();
+    
+        $this->addFlash('success', 'Exemplaire réservé avec succès.');
+    
+        return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
+    }
+    
 
 }

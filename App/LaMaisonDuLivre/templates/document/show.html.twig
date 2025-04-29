@@ -62,5 +62,43 @@
         </div>
     </div>
 
+<h2>Exemplaires disponibles</h2>
+
+<ul>
+    {% for exemplaire in exemplaires %}
+        <li>
+            <strong>Code :</strong> {{ exemplaire.idexemplaire }}<br>
+            <strong>État :</strong> {{ exemplaire.etatphysique }}<br>
+            <strong>Disponible :</strong> {{ exemplaire.statut == 'disponible' ? '✅ Disponible' : '❌ Indisponible' }}
+<br>
+        </li>
+    {% else %}
+        <li>Aucun exemplaire disponible pour ce document.</li>
+    {% endfor %}
+</ul>
+
+
+{% if exemplaires|filter(e => e.statut == 'disponible')|length > 0 %}
+    <form method="post" action="{{ path('document_reserver', {id: document.idDocument}) }}">
+        <button type="submit" class="btn btn-success">Réserver ce document</button>
+    </form>
+{% else %}
+    <p class="text-danger">Aucun exemplaire disponible pour réservation.</p>
+{% endif %}
+
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label == 'success' ? 'success' : 'danger' }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+{# {% if exemplaire.statut == 'disponible' %}
+    <span class="badge bg-success">Disponible</span>
+{% else %}
+    <span class="badge bg-danger">Indisponible</span>
+{% endif %} #}
+
     {% include 'partie/footer.html.twig' %}
 {% endblock %}
