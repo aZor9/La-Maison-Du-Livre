@@ -39,10 +39,6 @@ class UtilisateurType extends AbstractType
                 'label' => 'Numéro de téléphone',
                 'required' => false,
             ])
-            ->add('MotDePasse', PasswordType::class, [
-                'label' => 'Mot de passe',
-                'required' => false,
-            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Mettre à jour',
             ]);
