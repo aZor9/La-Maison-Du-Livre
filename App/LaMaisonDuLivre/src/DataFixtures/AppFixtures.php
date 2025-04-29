@@ -39,9 +39,15 @@ class AppFixtures extends Fixture
             $abonnement = new Abonnement();
             $abonnement->setStatutAbonnement($faker->word)
                        ->setDateAbonnement($faker->dateTimeBetween('-1 years'))
-                       ->setDuree($faker->numberBetween(1, 12))
-                       ->setTarif($faker->randomFloat(2, 10, 100))
-                       ->setRemise($faker->numberBetween(0, 50));
+                       ->setDuree(12);
+            if ($i % 2 == 0) {
+                $abonnement->setTarif(20)
+                ->setRemise(0);
+            }
+            else {
+                $abonnement->setTarif(10)
+                ->setRemise(50);
+            }
             $manager->persist($abonnement);
             $abonnements[] = $abonnement;
         }

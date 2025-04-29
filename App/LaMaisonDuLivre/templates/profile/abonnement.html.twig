@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Abonnement{% endblock %}
+
+{% block body %}
+
+{% include 'partie/navbar.html.twig' %}
+<div class="max-w-4xl mx-auto py-12 px-4">
+    <h1 class="text-3xl font-bold text-center mb-10">Choisissez votre abonnement</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        <div class="border rounded-lg p-6 shadow-sm bg-white text-center">
+            <h2 class="text-xl font-semibold mb-4">Abonnement 1 an</h2>
+            <p class="text-4xl font-bold text-blue-600 mb-4">20€</p>
+            <p class="text-gray-600">Accès complet pendant 12 mois</p>
+            <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Choisir</button>
+        </div>
+        <div class="border rounded-lg p-6 shadow-sm bg-white text-center">
+            <h2 class="text-xl font-semibold mb-4">Abonnement 6 mois</h2>
+            <p class="text-4xl font-bold text-blue-600 mb-4">10€</p>
+            <p class="text-gray-600">Accès complet pendant 6 mois</p>
+            <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Choisir</button>
+        </div>
+    </div>
+
+    <div class="border rounded-lg p-6 shadow-md bg-gray-50">
+        <h3 class="text-2xl font-semibold mb-4 text-center text-green-700">-50% avec justificatif</h3>
+        <p class="text-center text-gray-700 mb-6">Vous avez droit à une remise de 50% si vous fournissez un justificatif valide (étudiant, RSA, etc.).</p>
+
+        <form action="{{ path('app_abonnement_justificatif') }}" method="POST" class="flex flex-col gap-4 items-center">
+            <label for="justificatif" class="text-sm font-medium text-gray-700">Lien vers votre justificatif :</label>
+            <input 
+                type="url" 
+                name="justificatif" 
+                id="justificatif" 
+                class="w-full md:w-2/3 px-4 py-2 border rounded-lg" 
+                placeholder="https://monlien.com/justificatif.pdf" 
+                value="{{ utilisateur.lienJustificatif is not empty ? utilisateur.lienJustificatif : '' }}" 
+                required
+            >
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Mettre à jour</button>
+        </form>
+    </div>
+</div>
+{% include 'partie/footer.html.twig' %}
+{% endblock %}
