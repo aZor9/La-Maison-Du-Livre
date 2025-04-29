@@ -45,12 +45,33 @@
                     <tbody>
                         {% for document in documents %}
                             <tr class="border-b hover:bg-blue-50">
-                                <td class="py-3 px-6">{{ document.idDocument }}</td>
-                                <td class="py-3 px-6">{{ document.Titre }}</td>
-                                <td class="py-3 px-6">{{ document.Type }}</td>
-                                <td class="py-3 px-6">{{ document.Annee ? document.Annee|date('Y') : 'N/A' }}</td>
-                                <td class="py-3 px-6">{{ document.Thème }}</td>
+                                <td class="py-3 px-6">
+                                    <a href="{{ path('document_show', {'id': document.idDocument}) }}" class="block w-full h-full">
+                                        {{ document.idDocument }}
+                                    </a>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <a href="{{ path('document_show', {'id': document.idDocument}) }}" class="block w-full h-full">
+                                        {{ document.Titre }}
+                                    </a>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <a href="{{ path('document_show', {'id': document.idDocument}) }}" class="block w-full h-full">
+                                        {{ document.Type }}
+                                    </a>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <a href="{{ path('document_show', {'id': document.idDocument}) }}" class="block w-full h-full">
+                                        {{ document.Annee ? document.Annee|date('Y') : 'N/A' }}
+                                    </a>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <a href="{{ path('document_show', {'id': document.idDocument}) }}" class="block w-full h-full">
+                                        {{ document.Thème }}
+                                    </a>
+                                </td>
                             </tr>
+
                         {% else %}
                             <tr>
                                 <td colspan="5" class="py-3 px-6 text-center text-gray-500">Aucun document trouvé.</td>

@@ -20,10 +20,35 @@ class DocumentController extends AbstractController
         // Rechercher les documents en fonction des critères
         $documents = $documentRepository->findBySearchAndType($search, $type);
 
-        return $this->render('document.html.twig', [
+        return $this->render('document/index.html.twig', [
             'documents' => $documents,
             'search' => $search,
             'type' => $type,
         ]);
     }
+
+    #[Route('/document/{id}', name: 'document_show')]
+    public function show(DocumentRepository $documentRepository, int $id): Response
+    {
+        $document = $documentRepository->find($id);
+
+        if (!$document) {
+            return $this->redirectToRoute('document_not_found', ['id' => $id]);
+        }
+
+        return $this->render('document/show.html.twig', [
+            'document' => $document,
+        ]);
+    }
+
+
+    #[Route('/document-inexistant/{id}', name: 'document_not_found')]
+    public function notFound(int $id): Response
+    {
+        return $this->render('document/not_found.html.twig', [
+            'id' => $id,
+        ]);
+    }
+
+
 }

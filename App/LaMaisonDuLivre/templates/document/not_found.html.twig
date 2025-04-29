@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-white flex flex-col justify-center items-center text-center p-6">
+    <h1 class="text-6xl font-extrabold text-blue-600">404</h1>
+    <h2 class="mt-4 text-2xl font-semibold text-gray-800">Oups ! Cette page n'existe pas.</h2>
+    <p class="mt-2 text-gray-600">
+        La ressource que vous cherchez a peut-être été supprimée, renommée ou n’a jamais existé.
+    </p>
+
+    <div class="mt-6">
+        <a href="{{ path('app_home') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow">
+            Retour à l'accueil
+        </a>
+    </div>
+</div>
+{% endblock %}
