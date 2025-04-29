@@ -37,7 +37,7 @@ class AppFixtures extends Fixture
         $abonnements = [];
         for ($i = 0; $i < 5; $i++) {
             $abonnement = new Abonnement();
-            $abonnement->setStatutAbonnement($faker->word)
+            $abonnement->setStatutAbonnement('en cours')
                        ->setDateAbonnement($faker->dateTimeBetween('-1 years'))
                        ->setDuree(12);
             if ($i % 2 == 0) {
@@ -130,7 +130,7 @@ class AppFixtures extends Fixture
                         ->setPays($faker->country)
                         ->setMail($faker->unique()->email)
                         ->setNumeroTelephone($faker->phoneNumber)
-                        ->setSituation('étudiant')
+                        ->setSituation($faker->randomElement(['étudiant', 'chomage', 'travailleur']))
                         ->setRole('ROLE_USER')
                         ->setLienJustificatif($faker->url)
                         ->setStatut('actif')

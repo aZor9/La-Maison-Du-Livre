@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listing des Utilisateurs{% endblock %}
+
+{% block body %}
+{% include 'partie/navbar.html.twig' %}
+
+<div class="container mx-auto py-10 max-w-2xl">
+    <h2 class="text-3xl font-bold mb-6 text-center">Liste des utilisateurs</h2>
+
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 text-left">Nom</th>
+                <th class="py-2 px-4 text-left">Prénom</th>
+                <th class="py-2 px-4 text-left">Email</th>
+                <th class="py-2 px-4 text-left">Rôle</th>
+                <th class="py-2 px-4 text-left">Abonnement</th>
+                <th class="py-2 px-4 text-left">Voir</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for utilisateur in utilisateurs %}
+                <tr>
+                    <td class="py-2 px-4">{{ utilisateur.nom }}</td>
+                    <td class="py-2 px-4">{{ utilisateur.prenom }}</td>
+                    <td class="py-2 px-4">{{ utilisateur.mail }}</td>
+                    {# <td class="py-2 px-4">{{ utilisateur.role }}</td> #}
+                    <td class="py-2 px-4">
+                        {% for role in utilisateur.roles %}
+                            <span>{{ role }}</span>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+
+                    <td class="py-2 px-4">
+                        {% if utilisateur.abonnement is not null %}
+                            {{ utilisateur.abonnement.statutAbonnement }}
+                        {% else %}
+                            Aucun abonnement
+                        {% endif %}
+                    </td>
+                        <td class="py-2 px-4 text-center">
+                            <a href="{{ path('utilisateur_show', {'id': utilisateur.idutilisateur}) }}" class="text-blue-600 hover:underline">Voir</a>
+                        </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'partie/footer.html.twig' %}
+{% endblock %}

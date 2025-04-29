@@ -13,6 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Form\AbonnementType;
+use App\Entity\Abonnement; 
+
 
 class UtilisateurType extends AbstractType
 {
@@ -38,16 +41,25 @@ class UtilisateurType extends AbstractType
             ->add('NumeroTelephone', TextType::class, [
                 'label' => 'Numéro de téléphone',
                 'required' => false,
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Mettre à jour',
             ]);
-    }
+    
+        if ($options['is_admin']) {
+            $builder
+                ->add('abonnement', AbonnementType::class, ['required' => false])
+                ->add('role', TextType::class, ['required' => false]);
+        }
+    
+        // Ajoute le bouton submit à la fin
+        $builder->add('submit', SubmitType::class, [
+            'label' => 'Mettre à jour',
+        ]);
+    }    
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Utilisateur::class,
+            'is_admin' => false,
         ]);
     }
 }

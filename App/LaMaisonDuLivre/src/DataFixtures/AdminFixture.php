@@ -29,7 +29,7 @@ class AdminFixture extends Fixture
               ->setMail('admin@example.com')
               ->setNumeroTelephone('0600000000')
               ->setSituation('employé')
-              ->setRole('ROLE_ADMIN')
+              ->setRole('ROLE_SUPER_ADMIN')
               ->setLienJustificatif('')
               ->setStatut('actif')
               ->setMotDePasse($this->hasher->hashPassword($admin, 'admin123'));

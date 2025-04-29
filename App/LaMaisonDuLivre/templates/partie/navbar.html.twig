@@ -76,7 +76,7 @@
         <ul class="hidden md:flex space-x-8">
             <li><a href="{{ path('app_home') }}" class="animated-link text-blue-900 font-medium">Accueil</a></li>
             <li><a href="{{ path('app_documents') }}" class="animated-link text-gray-600 hover:text-blue-900">Catalogue</a></li>
-            {# <li><a href="#" class="animated-link text-gray-600 hover:text-blue-900">Événements</a></li> #}
+            {# <li><a href="{{ path('utilisateur_index') }}" class="animated-link text-gray-600 hover:text-blue-900">Admin</a></li> #}
             {# <li><a href="#" class="animated-link text-gray-600 hover:text-blue-900">Pratique</a></li> #}
         </ul>
         <div class="flex items-center space-x-4">
@@ -103,9 +103,9 @@
                         <div>{{ app.user.userIdentifier }}</div>
                     </div>
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
-                        <li>
+                        {# <li>
                             <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
+                        </li> #}
                         <li>
                             <a href="{{ path('app_utilisateur_profil') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Paramètre</a>
                         </li>
@@ -113,6 +113,13 @@
                             <a href="{{ path('app_abonnement') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Abonnement</a>
                         </li>
                     </ul>
+                     {% if is_granted('ROLE_ADMIN') %}
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
+                        <li>
+                            <a href="{{ path('utilisateur_index') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Utilisateurs</a>
+                        </li>
+                    </ul>
+                    {% endif %}
                     <div class="py-2">
                         <a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Se déconnecter</a>
                     </div>

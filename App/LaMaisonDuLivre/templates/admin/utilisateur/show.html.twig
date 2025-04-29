@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du Compte Client{% endblock %}
+
+{% block body %}
+{% include 'partie/navbar.html.twig' %}
+
+<div class="container mx-auto py-10 max-w-2xl">
+    <h2 class="text-3xl font-bold mb-6 text-center">Modifier le compte de {{ utilisateur.nom }} {{ utilisateur.prenom }}</h2>
+
+    {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+
+        <div>
+            {{ form_label(form.Nom, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.Nom, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        <div>
+            {{ form_label(form.Prenom, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.Prenom, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        <div>
+            {{ form_label(form.mail, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.mail, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        <div>
+            {{ form_label(form.abonnement.dateAbonnement, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.abonnement.dateAbonnement, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        <div>
+            {{ form_label(form.DateNaissance, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.DateNaissance, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        <div>
+            {{ form_label(form.NumeroTelephone, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.NumeroTelephone, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        <div>
+            {{ form_label(form.role, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.role, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        <div class="text-center">
+            {{ form_widget(form.submit, {'attr': {'class': 'bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700'}}) }}
+        </div>
+
+    {{ form_end(form) }}
+</div>
+
+{% include 'partie/footer.html.twig' %}
+{% endblock %}
