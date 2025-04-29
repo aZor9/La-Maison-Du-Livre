@@ -56,7 +56,7 @@ class DocumentRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('d');
 
         if ($search) {
-            $qb->andWhere('d.Titre LIKE :search OR d.Thème LIKE :search')
+            $qb->andWhere('d.Titre LIKE :search OR d.theme LIKE :search')
                ->setParameter('search', '%' . $search . '%');
         }
 

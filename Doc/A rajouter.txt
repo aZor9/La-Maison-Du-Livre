@@ -11,7 +11,7 @@ v thematique dans document pour filtre
 - si non rendu, statut de la commande ou pas du tout car gerer en back ++++  avec Etat (En attente, Confirmée, Annulée).
 v état d'un document ?
 v remplacer statut par role dans admin
-x Tu pourrais déplacer la notion de durée dans la table Abonnement (ex : DureeMois INT), ce serait plus logique que dans Client.
+x Tu pourrais déplacer la notion de duree dans la table Abonnement (ex : DureeMois INT), ce serait plus logique que dans Client.
 v Champ LienFichier dans client
 v champ role pour admin dans user, et supprimer admin
 

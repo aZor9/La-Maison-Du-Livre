@@ -12,7 +12,7 @@
 
             <ul class="space-y-2 text-gray-600 mb-6">
                 <li><span class="font-semibold">Année :</span> {{ document.annee ? document.annee|date('Y') : 'Non précisée' }}</li>
-                <li><span class="font-semibold">Thème :</span> {{ document.theme }}</li>
+                <li><span class="font-semibold">theme :</span> {{ document.theme }}</li>
                 <li><span class="font-semibold">Type :</span> {{ document.type == 'Titreperiodique' ? 'Titre Periodique' : document.type }}</li>
             </ul>
 
@@ -26,14 +26,14 @@
             {% elseif document.type == 'Video' %}
                 <h4 class="text-lg font-semibold text-indigo-600 mb-2">🎬 Informations</h4>
                 <ul class="space-y-1 text-gray-600">
-                    <li><span class="font-semibold">Durée :</span> {{ document.duree }} min</li>
+                    <li><span class="font-semibold">duree :</span> {{ document.duree }} min</li>
                     <li><span class="font-semibold">Format :</span> {{ document.format }}</li>
                     <li><span class="font-semibold">Réalisateur :</span> {{ document.realisateur }}</li>
                 </ul>
             {% elseif document.type == 'Sonore' %}
                 <h4 class="text-lg font-semibold text-indigo-600 mb-2">🎧 Informations</h4>
                 <ul class="space-y-1 text-gray-600">
-                    <li><span class="font-semibold">Durée :</span> {{ document.duree }} sec</li>
+                    <li><span class="font-semibold">duree :</span> {{ document.duree }} sec</li>
                     <li><span class="font-semibold">Format :</span> {{ document.format }}</li>
                     <li><span class="font-semibold">Interprète :</span> {{ document.interprete }}</li>
                 </ul>

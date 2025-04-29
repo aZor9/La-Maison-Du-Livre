@@ -53,6 +53,8 @@ class DocumentController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/document/{id}/edit', name: 'document_edit')]
     public function edit(Request $request, Document $document): Response
     {
@@ -61,16 +63,40 @@ class DocumentController extends AbstractController
             throw new AccessDeniedException('Vous n\'avez pas l\'autorisation d\'accéder à cette page.');
         }
     
-        // Crée le formulaire d'édition
+        // Créer le formulaire d'édition
         $form = $this->createForm(DocumentType::class, $document);
-    
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            // Si le formulaire est soumis et valide, on enregistre les modifications
+            // Gérer les données spécifiques aux types de document
+            if ($document instanceof Livre) {
+                // Gérer spécifiquement un livre
+                $isbn = $form->get('isbn')->getData();
+                $nombrePage = $form->get('nombrePage')->getData();
+                $genre = $form->get('genre')->getData();
+                // Traiter l'ISBN si nécessaire
+            } elseif ($document instanceof Sonore) {
+                // Gérer spécifiquement un document sonore
+                $duree = $form->get('duree')->getData();
+                $format = $form->get('format')->getData();
+                $interprete = $form->get('interprete')->getData();
+                // Traiter la duree si nécessaire
+            } elseif ($document instanceof Video) {
+                // Gérer spécifiquement un document vidéo
+                $duree = $form->get('duree')->getData();
+                $format = $form->get('format')->getData();
+                $realisateur = $form->get('realisateur')->getData();
+                // Traiter la résolution si nécessaire
+            } elseif ($document instanceof TitrePeriodique) {
+                // Gérer spécifiquement un titre périodique
+                $numero = $form->get('numero')->getData();
+                $datePublication = $form->get('datepublication')->getData();
+                $format = $form->get('format')->getData();
+                // Traiter le numéro si nécessaire
+            }
+    
+            // Sauvegarder les modifications
             $entityManager = $this->getDoctrine()->getManager();
-            
-            // On met à jour l'entité Document avec les données du formulaire (il n'est pas nécessaire de manipuler l'année manuellement)
             $entityManager->flush();
     
             // Rediriger après la mise à jour
@@ -82,6 +108,7 @@ class DocumentController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
     
     
 

@@ -8,31 +8,127 @@
     <div class="container mx-auto py-10 max-w-4xl">
         <h2 class="text-3xl font-bold mb-6 text-center">Modifier le document n°{{ document.idDocument }}</h2>
 
-        {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+        {{ form_start(form, {'attr': {'class': 'space-y-8'}}) }}
 
-        <div>
-            {{ form_label(form.titre, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
-            {{ form_widget(form.titre, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
-            {{ form_errors(form.titre) }}
-        </div>
+        <div class="space-y-6">
+            <div>
+                {{ form_label(form.titre, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                <div class="mt-1">
+                    {{ form_widget(form.titre, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                    {{ form_errors(form.titre, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                </div>
+            </div>
 
-        <div>
-            {{ form_label(form.annee, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
-            {{ form_widget(form.annee, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
-            {{ form_errors(form.annee) }}
-        </div>
+            <div>
+                {{ form_label(form.annee, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                <div class="mt-1">
+                    {{ form_widget(form.annee, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                    {{ form_errors(form.annee, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                </div>
+            </div>
 
-        <div>
-            {{ form_label(form.theme, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
-            {{ form_widget(form.theme, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
-            {{ form_errors(form.theme) }}
-        </div>
+            <div>
+                {{ form_label(form.theme, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                <div class="mt-1">
+                    {{ form_widget(form.theme, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                    {{ form_errors(form.theme, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                </div>
+            </div>
 
-        <div class="text-center">
-            {# Le bouton est automatiquement inclus avec le formulaire #}
-            {{ form_widget(form.submit) }}
-        </div>
+            {# Affichage dynamique des champs spécifiques au type de document #}
+            {% if form.type.vars.value == 'Livre' %}
+                <div>
+                    {{ form_label(form.isbn, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.isbn, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.isbn, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.nombrePage, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.nombrePage, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.nombrePage, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.genre, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.genre, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.genre, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+            {% elseif form.type.vars.value == 'Titre Periodique' %}
+                <div>
+                    {{ form_label(form.numero, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.numero, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.numero, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.datePublication, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.datePublication, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.datePublication, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.format, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.format, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.format, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+            {% elseif form.type.vars.value == 'Sonore' %}
+                <div>
+                    {{ form_label(form.duree, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.duree, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.duree, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.format, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.format, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.format, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.interprete, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.interprete, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.interprete, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+            {% elseif form.type.vars.value == 'Vidéo' %}
+                <div>
+                    {{ form_label(form.duree, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.duree, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.duree, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.format, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.format, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.format, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.realisateur, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <div class="mt-1">
+                        {{ form_widget(form.realisateur, {'attr': {'class': 'p-3 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'}}) }}
+                        {{ form_errors(form.realisateur, {'attr': {'class': 'mt-2 text-sm text-red-600'}}) }}
+                    </div>
+                </div>
+            {% endif %}
 
+            <div class="text-center">
+                {{ form_widget(form.submit, {'attr': {'class': 'bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300'}}) }}
+            </div>
         </div>
 
         {{ form_end(form) }}
