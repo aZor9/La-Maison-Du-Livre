@@ -14,6 +14,17 @@
                 <li><span class="font-semibold">Année :</span> {{ document.annee ? document.annee|date('Y') : 'Non précisée' }}</li>
                 <li><span class="font-semibold">theme :</span> {{ document.theme }}</li>
                 <li><span class="font-semibold">Type :</span> {{ document.type == 'Titreperiodique' ? 'Titre Periodique' : document.type }}</li>
+                <li><span class="font-semibold">Auteurs :</span> 
+                    <ul class="space-y-1 text-gray-600">
+                        {% for auteur in auteurs %}
+                            <li>
+                                <span> - {{ auteur.prenom }} {{ auteur.nom }}</span>
+                            </li>
+                        {% else %}
+                            <li> Aucun auteur associé à ce document.</li>
+                        {% endfor %}
+                    </ul>
+                </li>
             </ul>
 
             {% if document.type == 'Livre' %}

@@ -51,20 +51,20 @@ class DocumentRepository extends ServiceEntityRepository
     /**
      * Recherche les documents selon un mot-clé et un type.
      */
-    public function findBySearchAndType(?string $search = '', ?string $type = ''): array
+    public function findBySearchAndType(string $search, string $type): array
     {
         $qb = $this->createQueryBuilder('d');
-
-        if ($search) {
-            $qb->andWhere('d.Titre LIKE :search OR d.theme LIKE :search')
+    
+        if (!empty($search)) {
+            $qb->andWhere('d.titre LIKE :search')
                ->setParameter('search', '%' . $search . '%');
         }
-
-        if ($type) {
-            $qb->andWhere('d INSTANCE OF :type')
-               ->setParameter('type', 'App\Entity\\' . ucfirst($type));
+    
+        if (!empty($type)) {
+            $qb->andWhere('d.type = :type')
+               ->setParameter('type', $type);
         }
-
+    
         return $qb->getQuery()->getResult();
     }
 

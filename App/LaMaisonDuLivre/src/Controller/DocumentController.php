@@ -11,9 +11,12 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Entity\Document;
 use App\Entity\Emprunt;
 use App\Entity\Empruntexemplaire;
+use App\Entity\Ecrire;
+use App\Entity\Auteur;
 
 use App\Form\DocumentType; 
 use App\Repository\ExemplaireRepository;
+use App\Repository\EcrireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -21,7 +24,8 @@ use Doctrine\ORM\EntityManagerInterface;
 class DocumentController extends AbstractController
 {
     #[Route('/documents', name: 'app_documents')]
-    public function index(DocumentRepository $documentRepository, Request $request): Response
+    public function index(DocumentRepository $documentRepository,
+    EcrireRepository $ecrireRepository, Request $request): Response
     {
         // Récupérer les paramètres de recherche et de filtre
         $search = $request->query->get('search', '');
@@ -30,10 +34,24 @@ class DocumentController extends AbstractController
         // Rechercher les documents en fonction des critères
         $documents = $documentRepository->findBySearchAndType($search, $type);
 
+        $documentsAvecAuteurs = [];
+        foreach ($documents as $document) {
+            $ecritures = $ecrireRepository->findBy(['document' => $document]);
+            $auteurs = [];
+            foreach ($ecritures as $ecriture) {
+                $auteurs[] = $ecriture->getAuteur();
+            }
+            $documentsAvecAuteurs[] = [
+                'document' => $document,
+                'auteurs' => $auteurs,
+            ];
+        }
+
         return $this->render('document/index.html.twig', [
             'documents' => $documents,
             'search' => $search,
             'type' => $type,
+            'documentsAvecAuteurs' => $documentsAvecAuteurs,
         ]);
     }
 
@@ -48,9 +66,15 @@ class DocumentController extends AbstractController
     
         $exemplaires = $exemplaireRepository->findBy(['document' => $document]);
     
+        $auteurs = [];
+        foreach ($document->getEcritures() as $ecriture) {
+            $auteurs[] = $ecriture->getAuteur();
+        }
+
         return $this->render('document/show.html.twig', [
             'document' => $document,
             'exemplaires' => $exemplaires,
+            'auteurs' => $auteurs,
         ]);
     }
     

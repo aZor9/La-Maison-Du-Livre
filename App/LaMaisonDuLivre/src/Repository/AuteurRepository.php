@@ -45,4 +45,20 @@ class AuteurRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findBySearch(string $search): array
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        if (!empty($search)) {
+            $qb->andWhere('a.Nom LIKE :search OR a.Prenom LIKE :search')
+            ->setParameter('search', '%' . $search . '%');
+        }
+
+        return $qb->orderBy('a.Nom', 'ASC') // Utilisation correcte de "Nom"
+                ->getQuery()
+                ->getResult();
+    }
+
+
 }
