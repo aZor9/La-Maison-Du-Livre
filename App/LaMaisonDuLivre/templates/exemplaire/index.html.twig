@@ -58,13 +58,13 @@
                             <td class="px-4 py-2 border">
                                 {% if exemplaire.statut == 'disponible' %}
                                     <span class="text-green-600 font-semibold">Disponible</span>
-                                {% elseif exemplaire.statut == 'reservé' %}
+                                {% elseif exemplaire.statut == 'reserve' %}
                                     <form method="post" action="{{ path('exemplaire_changer_statut', {id: exemplaire.idexemplaire}) }}">
                                         <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-xs">
                                             Marquer comme utilisé
                                         </button>
                                     </form>
-                                {% elseif exemplaire.statut == 'utilisé' %}
+                                {% elseif exemplaire.statut == 'utilise' %}
                                     <form method="post" action="{{ path('exemplaire_changer_statut', {id: exemplaire.idexemplaire}) }}">
                                         <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">
                                             Rendre disponible
