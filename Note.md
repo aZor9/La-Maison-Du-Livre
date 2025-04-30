@@ -72,3 +72,4 @@ PS C:\Users\hugol\Downloads\EPSI SN2\Projet Solution Applicative\Projet-Solution
 
 
 si serveur local deja demarrer alors : `symfony local:server:stop`
+si erreur "invalid csrf token" lors du login : supprimer les cookies
