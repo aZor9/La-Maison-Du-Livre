@@ -23,6 +23,12 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class DocumentController extends AbstractController
 {
+    private EntityManagerInterface $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/documents', name: 'app_documents')]
     public function index(DocumentRepository $documentRepository,
     EcrireRepository $ecrireRepository, Request $request): Response
@@ -97,54 +103,53 @@ class DocumentController extends AbstractController
         if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_SUPER_ADMIN')) {
             throw new AccessDeniedException('Vous n\'avez pas l\'autorisation d\'accéder à cette page.');
         }
-        
+
         // Créer le formulaire d'édition
         $form = $this->createForm(DocumentType::class, $document);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+            // $entityManager = $this->getDoctrine()->getManager();
+        
             // Synchroniser les auteurs
             $auteurs = $form->get('auteurs')->getData();
             foreach ($document->getEcritures() as $ecriture) {
-                $entityManager->remove($ecriture); // Supprimer les relations existantes
+                // $entityManager->remove($ecriture); // Supprimer les relations existantes
+                $this->entityManager->remove($ecriture);
             }
             foreach ($auteurs as $auteur) {
                 $ecriture = new Ecrire();
                 $ecriture->setDocument($document);
                 $ecriture->setAuteur($auteur);
-                $entityManager->persist($ecriture);
+                // $entityManager->persist($ecriture);
+                $this->entityManager->persist($ecriture);
             }
 
-            // Gérer les données spécifiques aux types de document
             if ($document instanceof Livre) {
-                // Gérer spécifiquement un livre
                 $isbn = $form->get('isbn')->getData();
                 $nombrePage = $form->get('nombrePage')->getData();
                 $genre = $form->get('genre')->getData();
-                // Traiter l'ISBN si nécessaire
+
             } elseif ($document instanceof Sonore) {
-                // Gérer spécifiquement un document sonore
                 $duree = $form->get('duree')->getData();
                 $format = $form->get('format')->getData();
                 $interprete = $form->get('interprete')->getData();
-                // Traiter la duree si nécessaire
+
             } elseif ($document instanceof Video) {
-                // Gérer spécifiquement un document vidéo
                 $duree = $form->get('duree')->getData();
                 $format = $form->get('format')->getData();
                 $realisateur = $form->get('realisateur')->getData();
-                // Traiter la résolution si nécessaire
+
             } elseif ($document instanceof TitrePeriodique) {
-                // Gérer spécifiquement un titre périodique
                 $numero = $form->get('numero')->getData();
                 $datePublication = $form->get('datepublication')->getData();
                 $format = $form->get('format')->getData();
-                // Traiter le numéro si nécessaire
             }
     
             // Sauvegarder les modifications
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
+            // $entityManager = $this->getDoctrine()->getManager();
+            // $entityManager->flush();
+            $this->entityManager->flush();
     
             // Rediriger après la mise à jour
             return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);

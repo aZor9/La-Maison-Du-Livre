@@ -8,6 +8,7 @@ use App\Entity\Sonore;
 use App\Entity\Video;
 use App\Entity\Titreperiodique;
 use App\Entity\Auteur;
+use App\Entity\Ecrire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -44,6 +45,7 @@ class DocumentType extends AbstractType
                     'Titre Periodique' => 'titreperiodique',
                 ],
                 'label' => 'Type de document',
+                'mapped' => false,
             ])
             ->add('auteurs', EntityType::class, [
                 'class' => Auteur::class,
@@ -52,24 +54,23 @@ class DocumentType extends AbstractType
                 },
                 'label' => 'Auteurs',
                 'multiple' => true,
-                'expanded' => true, // Affiche des cases à cocher
+                'expanded' => true,
                 'required' => false,
                 'getter' => function ($document) {
-                    if (method_exists($document, 'getAuteurs')) {
-                        return $document->getAuteurs(); // Vérifie si la méthode existe
-                    }
-                    throw new \LogicException('La méthode getAuteurs() est introuvable pour cet objet.');
+                    return array_map(fn($ecrire) => $ecrire->getAuteur(), $document->getEcritures()->toArray());
                 },
                 'setter' => function ($document, $auteurs) {
-                    if (method_exists($document, 'addAuteur') && method_exists($document, 'removeAuteur')) {
-                        foreach ($document->getAuteurs() as $auteur) {
-                            $document->removeAuteur($auteur);
-                        }
-                        foreach ($auteurs as $auteur) {
-                            $document->addAuteur($auteur);
-                        }
-                    } else {
-                        throw new \LogicException('Les méthodes addAuteur() ou removeAuteur() sont introuvables pour cet objet.');
+                    // Supprimer les relations existantes
+                    foreach ($document->getEcritures() as $ecriture) {
+                        $document->removeEcriture($ecriture);
+                    }
+            
+                    // Ajouter les nouvelles relations
+                    foreach ($auteurs as $auteur) {
+                        $ecriture = new Ecrire();
+                        $ecriture->setDocument($document);
+                        $ecriture->setAuteur($auteur);
+                        $document->addEcriture($ecriture);
                     }
                 },
             ]);

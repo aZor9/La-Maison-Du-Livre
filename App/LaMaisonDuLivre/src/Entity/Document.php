@@ -146,7 +146,7 @@ class Document
     {
         if ($this->ecritures->removeElement($ecriture)) {
             // Optionnel : supprimer la relation de l'autre côté si nécessaire
-            // $ecriture->setDocument(null);
+            $ecriture->setDocument(null);
         }
         
         return $this;
