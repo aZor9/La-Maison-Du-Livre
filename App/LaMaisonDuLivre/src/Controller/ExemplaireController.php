@@ -5,25 +5,54 @@ namespace App\Controller;
 
 use App\Entity\Document;
 use App\Entity\Exemplaire;
+use App\Entity\EmpruntExemplaire;
+use App\Entity\Emprunt;
 use App\Repository\DocumentRepository;
 use App\Repository\ExemplaireRepository;
+use App\Repository\EmpruntexemplaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\EmpruntRepository;
 
 class ExemplaireController extends AbstractController
 {
-    #[Route('/exemplaires', name: 'exemplaire_index')]
-    public function listExemplaires(ExemplaireRepository $exemplaireRepository): Response
-    {
-        // Récupérer tous les exemplaires
-        $exemplaires = $exemplaireRepository->findAll();
 
+    #[Route('/exemplaires', name: 'exemplaire_index')]
+    public function listExemplaires(
+        ExemplaireRepository $exemplaireRepository,
+        EmpruntExemplaireRepository $empruntExemplaireRepository,
+        EmpruntRepository $empruntRepository
+    ): Response {
+        $exemplaires = $exemplaireRepository->findAll();
+        $exemplairesAvecInfos = [];
+    
+        foreach ($exemplaires as $exemplaire) {
+            $empruntsExemplaire = $empruntExemplaireRepository->findBy(['exemplaire' => $exemplaire->getIdexemplaire()]);
+            $empruntActif = null;
+    
+            foreach ($empruntsExemplaire as $empruntExemplaire) {
+                // $emprunt = $empruntRepository->find($empruntExemplaire->getIdEmprunt());
+                $emprunt = $empruntExemplaire->getEmprunt();
+
+                if ($emprunt && $emprunt->getDateRendu() === null) {
+                    $empruntActif = $emprunt;
+                    break;
+                }
+            }
+    
+            $exemplairesAvecInfos[] = [
+                'exemplaire' => $exemplaire,
+                'emprunt' => $empruntActif
+            ];
+        }
+    
         return $this->render('exemplaire/index.html.twig', [
-            'exemplaires' => $exemplaires,
+            'exemplairesAvecInfos' => $exemplairesAvecInfos,
         ]);
     }
+    
 
 
     // #[Route('/exemplaire/{id}', name: 'exemplaire_show')]
