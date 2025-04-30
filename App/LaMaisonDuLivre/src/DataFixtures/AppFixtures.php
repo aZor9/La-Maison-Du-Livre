@@ -56,11 +56,12 @@ class AppFixtures extends Fixture
 
         // Livres
         $livresData = [
-            ['Les Fables', 1668, 'Fables', '9781234567897', 300],
-            ['Les Misérables', 1862, 'Roman', '9789876543210', 1200],
-            ['Vingt mille lieues sous les mers', 1870, 'Aventure', '9781122334455', 500],
-            ['Germinal', 1885, 'Roman', '9785566778899', 600],
-            ['À la recherche du temps perdu', 1913, 'Roman', '9789988776655', 2000],
+            ['Les Fables', 1668, 'Fables', '9781234567897', 300, 'roman'],
+            ['Les Misérables', 1862, 'Roman', '9789876543210', 1200, 'roman'],
+            ['Voyage au centre de la Terre', 1864, 'Aventure', '9782345678901', 400, 'roman'],
+            ['Vingt mille lieues sous les mers', 1870, 'Aventure', '9781122334455', 500, 'sience fiction'],
+            ['Germinal', 1885, 'Roman', '9785566778899', 600, 'roman'],
+            ['À la recherche du temps perdu', 1913, 'Roman', '9789988776655', 2000, 'inconnu au bataillon'],
 
         ];
 
@@ -70,7 +71,8 @@ class AppFixtures extends Fixture
                   ->setAnnee(new \DateTime("{$data[1]}-01-01"))
                   ->setTheme($data[2])
                   ->setIsbn($data[3])
-                  ->setNombrePage($data[4]);
+                  ->setNombrePage($data[4])
+                  ->setGenre([5]);
             $manager->persist($livre);
             $documents[] = $livre;
 
