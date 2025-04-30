@@ -109,14 +109,21 @@ class DocumentController extends AbstractController
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            // $entityManager = $this->getDoctrine()->getManager();
-        
-            // Synchroniser les auteurs
             $auteurs = $form->get('auteurs')->getData();
-            foreach ($document->getEcritures() as $ecriture) {
-                // $entityManager->remove($ecriture); // Supprimer les relations existantes
+
+            // Récupérer les entités `Ecrire` depuis la base de données
+            $ecritures = $this->entityManager->getRepository(Ecrire::class)->findBy(['document' => $document]);
+            foreach ($ecritures as $ecriture) {
                 $this->entityManager->remove($ecriture);
             }
+            
+            // Supprimer les relations existantes
+            foreach ($ecritures as $ecriture) {
+                $ecriture = $this->entityManager->getRepository(Ecrire::class)->findOneBy([
+                    'document' => $document,
+                    'auteur' => $auteurs,
+                ]);
+
             foreach ($auteurs as $auteur) {
                 $ecriture = new Ecrire();
                 $ecriture->setDocument($document);
@@ -153,6 +160,7 @@ class DocumentController extends AbstractController
     
             // Rediriger après la mise à jour
             return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
+            }
         }
     
         return $this->render('document/edit.html.twig', [
