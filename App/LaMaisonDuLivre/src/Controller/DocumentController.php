@@ -97,12 +97,24 @@ class DocumentController extends AbstractController
         if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_SUPER_ADMIN')) {
             throw new AccessDeniedException('Vous n\'avez pas l\'autorisation d\'accéder à cette page.');
         }
-    
+        
         // Créer le formulaire d'édition
         $form = $this->createForm(DocumentType::class, $document);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+            // Synchroniser les auteurs
+            $auteurs = $form->get('auteurs')->getData();
+            foreach ($document->getEcritures() as $ecriture) {
+                $entityManager->remove($ecriture); // Supprimer les relations existantes
+            }
+            foreach ($auteurs as $auteur) {
+                $ecriture = new Ecrire();
+                $ecriture->setDocument($document);
+                $ecriture->setAuteur($auteur);
+                $entityManager->persist($ecriture);
+            }
+
             // Gérer les données spécifiques aux types de document
             if ($document instanceof Livre) {
                 // Gérer spécifiquement un livre
@@ -135,7 +147,7 @@ class DocumentController extends AbstractController
             $entityManager->flush();
     
             // Rediriger après la mise à jour
-            return $this->redirectToRoute('document_show', ['id' => $document->getId()]);
+            return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
         }
     
         return $this->render('document/edit.html.twig', [
@@ -190,5 +202,40 @@ class DocumentController extends AbstractController
         return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
     }
     
+
+
+
+    
+    #[Route('/document/new', name: 'document_new')]
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $document = new Document();
+        $form = $this->createForm(DocumentType::class, $document);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Ajouter les relations avec les auteurs
+            $auteurs = $form->get('auteurs')->getData();
+            foreach ($auteurs as $auteur) {
+                $ecriture = new Ecrire();
+                $ecriture->setDocument($document);
+                $ecriture->setAuteur($auteur);
+                $entityManager->persist($ecriture);
+            }
+
+            $entityManager->persist($document);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Document créé avec succès.');
+
+            return $this->redirectToRoute('document_index');
+        }
+
+        return $this->render('document/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
 }

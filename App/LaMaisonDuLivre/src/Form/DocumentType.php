@@ -5,6 +5,9 @@ namespace App\Form;
 use App\Entity\Document;
 use App\Entity\Livre;
 use App\Entity\Sonore;
+use App\Entity\Video;
+use App\Entity\Titreperiodique;
+use App\Entity\Auteur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class DocumentType extends AbstractType
 {
@@ -40,6 +44,34 @@ class DocumentType extends AbstractType
                     'Titre Periodique' => 'titreperiodique',
                 ],
                 'label' => 'Type de document',
+            ])
+            ->add('auteurs', EntityType::class, [
+                'class' => Auteur::class,
+                'choice_label' => function (Auteur $auteur) {
+                    return $auteur->getPrenom() . ' ' . $auteur->getNom();
+                },
+                'label' => 'Auteurs',
+                'multiple' => true,
+                'expanded' => true, // Affiche des cases à cocher
+                'required' => false,
+                'getter' => function ($document) {
+                    if (method_exists($document, 'getAuteurs')) {
+                        return $document->getAuteurs(); // Vérifie si la méthode existe
+                    }
+                    throw new \LogicException('La méthode getAuteurs() est introuvable pour cet objet.');
+                },
+                'setter' => function ($document, $auteurs) {
+                    if (method_exists($document, 'addAuteur') && method_exists($document, 'removeAuteur')) {
+                        foreach ($document->getAuteurs() as $auteur) {
+                            $document->removeAuteur($auteur);
+                        }
+                        foreach ($auteurs as $auteur) {
+                            $document->addAuteur($auteur);
+                        }
+                    } else {
+                        throw new \LogicException('Les méthodes addAuteur() ou removeAuteur() sont introuvables pour cet objet.');
+                    }
+                },
             ]);
 
         // Ajouter des champs spécifiques en fonction du type de document
@@ -99,4 +131,6 @@ class DocumentType extends AbstractType
             'data_class' => Document::class,
         ]);
     }
+
+
 }

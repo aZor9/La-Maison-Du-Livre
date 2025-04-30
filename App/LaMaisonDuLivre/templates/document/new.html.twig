@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouveau document{% endblock %}
+
+{% block body %}
+    {% include 'partie/navbar.html.twig' %}
+    <div class="py-8">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-semibold text-blue-700 mb-6">Créer un nouveau document</h1>
+
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                {{ form_start(form) }}
+                    <div class="space-y-4">
+                        {{ form_row(form.titre) }}
+                        {{ form_row(form.annee) }}
+                        {{ form_row(form.theme) }}
+                        {{ form_row(form.auteurs) }}
+                    </div>
+                    <div class="mt-4">
+                        {{ form_row(form.save) }}
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    {% include 'partie/footer.html.twig' %}
+{% endblock %}
