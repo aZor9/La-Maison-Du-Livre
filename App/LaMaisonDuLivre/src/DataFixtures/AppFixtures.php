@@ -32,144 +32,209 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-
-        // --- Abonnements
-        $abonnements = [];
-        for ($i = 0; $i < 5; $i++) {
-            $abonnement = new Abonnement();
-            $abonnement->setStatutAbonnement('en cours')
-                       ->setDateAbonnement($faker->dateTimeBetween('-1 years'))
-                       ->setDuree(12);
-            if ($i % 2 == 0) {
-                $abonnement->setTarif(20)
-                ->setRemise(0);
-            }
-            else {
-                $abonnement->setTarif(10)
-                ->setRemise(50);
-            }
-            $manager->persist($abonnement);
-            $abonnements[] = $abonnement;
-        }
-
-        // --- Auteurs
+        // --- Auteurs célèbres
         $auteurs = [];
-        for ($i = 0; $i < 10; $i++) {
+        $auteursData = [
+            ['Jean', 'de La Fontaine', 'Auteur des célèbres fables.'],
+            ['Victor', 'Hugo', 'Auteur des Misérables et Notre-Dame de Paris.'],
+            ['Jules', 'Verne', 'Auteur de romans d\'aventures comme Vingt mille lieues sous les mers.'],
+            ['Émile', 'Zola', 'Auteur de Germinal et chef de file du naturalisme.'],
+            ['Marcel', 'Proust', 'Auteur de À la recherche du temps perdu.'],
+        ];
+
+        foreach ($auteursData as $data) {
             $auteur = new Auteur();
-            $auteur->setPrenom($faker->firstName)
-                   ->setNom($faker->lastName)
-                   ->setDescription($faker->paragraph);
+            $auteur->setPrenom($data[0])
+                   ->setNom($data[1])
+                   ->setDescription($data[2]);
             $manager->persist($auteur);
             $auteurs[] = $auteur;
         }
 
         // --- Documents
         $documents = [];
-        for ($i = 0; $i < 30; $i++) {
-            $type = $faker->randomElement(['livre', 'video', 'sonore', 'periodique']);
 
-            switch ($type) {
-                case 'livre':
-                    $document = new Livre();
-                    $document->setIsbn($faker->isbn13())
-                             ->setNombrePage($faker->numberBetween(100, 1000))
-                             ->setGenre($faker->word);
-                    break;
+        // Livres
+        $livresData = [
+            ['Les Fables', 1668, 'Fables', '9781234567897', 300],
+            ['Les Misérables', 1862, 'Roman', '9789876543210', 1200],
+            ['Vingt mille lieues sous les mers', 1870, 'Aventure', '9781122334455', 500],
+            ['Germinal', 1885, 'Roman', '9785566778899', 600],
+            ['À la recherche du temps perdu', 1913, 'Roman', '9789988776655', 2000],
 
-                case 'video':
-                    $document = new Video();
-                    $document->setDuree($faker->numberBetween(30, 180))
-                             ->setFormat('mp4')
-                             ->setRealisateur($faker->name);
-                    break;
+        ];
 
-                case 'sonore':
-                    $document = new Sonore();
-                    $document->setDuree($faker->numberBetween(60, 300))
-                             ->setFormat('mp3')
-                             ->setInterprete($faker->name);
-                    break;
+        foreach ($livresData as $index => $data) {
+            $livre = new Livre();
+            $livre->setTitre($data[0])
+                  ->setAnnee(new \DateTime("{$data[1]}-01-01"))
+                  ->setTheme($data[2])
+                  ->setIsbn($data[3])
+                  ->setNombrePage($data[4]);
+            $manager->persist($livre);
+            $documents[] = $livre;
 
-                case 'periodique':
-                    $document = new TitrePeriodique();
-                    $document->setNumero($faker->numberBetween(1, 100))
-                             ->setDatePublication($faker->dateTimeBetween('-5 years'))
-                             ->setFormat($faker->word);
-                    break;
-            }
+            // Relation avec un auteur
+            $ecrire = new Ecrire();
+            $ecrire->setDocument($livre)
+                   ->setAuteur($auteurs[$index % count($auteurs)]);
+            $manager->persist($ecrire);
+        }
 
-            $document->setTitre($faker->sentence(3))
-                     ->setAnnee($faker->dateTimeBetween('-20 years', 'now'))
-                     ->setDescritpion($faker->paragraph(2))
-                     ->setTheme($faker->randomElement(['SF', 'Horreur', 'Tech', 'Amour', 'Aventure']));
+        // Vidéos
+        $videosData = [
+            ['Les Misérables (Film)', 2012, 'Drame', 120, 'Blu-ray', 'Tom Hooper'],
+            ['Voyage au centre de la Terre', 2008, 'Aventure', 90, 'DVD', 'Eric Brevig'],
+            ['Le Petit Prince', 2015, 'Animation', 108, 'Blu-ray', 'Mark Osborne'],
+            ['Germinal (Film)', 1993, 'Drame', 140, 'DVD', 'Claude Berri'],
+            ['À la recherche du temps perdu (Série)', 2020, 'Série', 300, 'Blu-ray', 'Cédric Klapisch'],
+        ];
 
-            $manager->persist($document);
-            $documents[] = $document;
+        foreach ($videosData as $data) {
+            $video = new Video();
+            $video->setTitre($data[0])
+                  ->setAnnee(new \DateTime("{$data[1]}-01-01"))
+                  ->setTheme($data[2])
+                  ->setDuree($data[3])
+                  ->setFormat($data[4])
+                  ->setRealisateur($data[5]);
+            $manager->persist($video);
+            $documents[] = $video;
 
-            // --- Relation Ecrire (Document ↔ Auteur)
-            $nbAuteurs = rand(1, 3);
-            $selectedAuteurs = $faker->randomElements($auteurs, $nbAuteurs);
-            foreach ($selectedAuteurs as $auteur) {
-                $ecrire = new Ecrire();
-                $ecrire->setDocument($document)
-                       ->setAuteur($auteur);
-                $manager->persist($ecrire);
+            // Relation avec un auteur
+            $ecrire = new Ecrire();
+            $ecrire->setDocument($video)
+                   ->setAuteur($auteurs[array_rand($auteurs)]);
+            $manager->persist($ecrire);
+        }
+
+        // Titres périodiques
+        $periodiquesData = [
+            ['Le Monde', 2023, 'Actualités', 123],
+            ['Science et Vie', 2023, 'Science', 456],
+            ['Télérama', 2023, 'Culture', 789],
+            ['L\'Express', 2023, 'Politique', 101],
+            ['Paris Match', 2023, 'People', 112],
+        ];
+
+        foreach ($periodiquesData as $data) {
+            $periodique = new TitrePeriodique();
+            $periodique->setTitre($data[0])
+                       ->setAnnee(new \DateTime("{$data[1]}-01-01"))
+                       ->setTheme($data[2])
+                       ->setNumero($data[3])
+                       ->setDatePublication(new \DateTime("{$data[1]}-06-01"))
+                       ->setFormat('Magazine');
+            $manager->persist($periodique);
+            $documents[] = $periodique;
+            
+            // Relation avec un auteur
+            $ecrire = new Ecrire();
+            $ecrire->setDocument($periodique)
+                   ->setAuteur($auteurs[array_rand($auteurs)]);
+            $manager->persist($ecrire);
+        }
+
+
+
+        // Sonores
+        $sonoresData = [
+            ['Les Fables de La Fontaine', 2000, 'Fables', 60, 'MP3', 'Jean-Pierre Marielle'],
+            ['Germinal (Livre audio)', 2005, 'Roman', 120, 'MP3', 'Bernard Giraudeau'],
+            ['À la recherche du temps perdu (Livre audio)', 2010, 'Roman', 180, 'MP3', 'André Dussollier'],
+            ['Les Misérables (Livre audio)', 2015, 'Roman', 240, 'MP3', 'Richard Berry'],
+            ['Vingt mille lieues sous les mers (Livre audio)', 2020, 'Aventure', 300, 'MP3', 'Jean Rochefort'],
+        ];
+        foreach ($sonoresData as $data) {
+            $sonore = new Sonore();
+            $sonore->setTitre($data[0])
+                   ->setAnnee(new \DateTime("{$data[1]}-01-01"))
+                   ->setTheme($data[2])
+                   ->setDuree($data[3])
+                   ->setFormat($data[4])
+                   ->setInterprete($data[5]);
+            $manager->persist($sonore);
+            $documents[] = $sonore;
+
+            // Relation avec un auteur
+            $ecrire = new Ecrire();
+            $ecrire->setDocument($sonore)
+                   ->setAuteur($auteurs[array_rand($auteurs)]);
+            $manager->persist($ecrire);
+        }
+
+        // --- Exemplaires
+        foreach ($documents as $document) {
+            for ($i = 0; $i < 3; $i++) {
+                $exemplaire = new Exemplaire();
+                $exemplaire->setEtatPhysique('neuf')
+                           ->setStatut('disponible')
+                           ->setDocument($document);
+                $manager->persist($exemplaire);
             }
         }
 
         // --- Utilisateurs
         $utilisateurs = [];
-        for ($i = 0; $i < 10; $i++) {
+        $utilisateursData = [
+            ['Alice', 'Dupont', 'alice@example.com'],
+            ['Bob', 'Martin', 'bob@example.com'],
+            ['Charlie', 'Durand', 'charlie@example.com'],
+            ['David', 'Leroy', 'davidleroy@example.com'],
+            ['Eve', 'Moreau', 'Evemoreau@example.com'],
+        ];
+
+        foreach ($utilisateursData as $data) {
             $utilisateur = new Utilisateur();
-            $utilisateur->setNom($faker->lastName)
-                        ->setPrenom($faker->firstName)
+            $utilisateur->setPrenom($data[0])
+                        ->setNom($data[1])
+                        ->setMail($data[2])
                         ->setDateNaissance($faker->dateTimeBetween('-50 years', '-18 years'))
-                        ->setAdresse1($faker->streetAddress)
-                        ->setAdresse2($faker->secondaryAddress)
-                        ->setVille($faker->city)
-                        ->setPays($faker->country)
-                        ->setMail($faker->unique()->email)
-                        ->setNumeroTelephone($faker->phoneNumber)
+                        ->setAdresse1('123 rue Exemple')
+                        ->setVille('Montpellier')
+                        ->setPays('France')
+                        ->setNumeroTelephone('0600000000')
                         ->setSituation($faker->randomElement(['étudiant', 'chomage', 'travailleur']))
-                        ->setRole('ROLE_USER')
                         ->setLienJustificatif($faker->url)
+                        ->setRole('ROLE_USER')
                         ->setStatut('actif')
-                        ->setAbonnement($faker->randomElement($abonnements))
                         ->setMotDePasse($this->hasher->hashPassword($utilisateur, 'password123'));
             $manager->persist($utilisateur);
             $utilisateurs[] = $utilisateur;
         }
 
-        // --- Exemplaires
-        $exemplaires = [];
-        foreach ($documents as $document) {
-            for ($j = 0; $j < rand(1, 3); $j++) {
-                $exemplaire = new Exemplaire();
-                $exemplaire->setEtatPhysique($faker->randomElement(['neuf', 'bon', 'usé']))
-                           ->setStatut('disponible')
-                           ->setDocument($document);
-                $manager->persist($exemplaire);
-                $exemplaires[] = $exemplaire;
-            }
-        }
-
-        // --- Emprunts et EmpruntExemplaires
-        for ($i = 0; $i < 20; $i++) {
+        // --- Emprunts
+        foreach ($utilisateurs as $utilisateur) {
             $emprunt = new Emprunt();
-            $emprunt->setDateReservation($faker->dateTimeBetween('-1 months, now'))
-                    // ->setDateRendu($faker->dateTimeBetween('-6 months', 'now'))
-                    ->setUtilisateur($faker->randomElement($utilisateurs));
+            $emprunt->setDateReservation($faker->dateTimeBetween('-5 months', 'now'))
+                    ->setUtilisateur($utilisateur);
             $manager->persist($emprunt);
-
-            foreach ($faker->randomElements($exemplaires, rand(1, 2)) as $exemplaire) {
-                $empruntExemplaire = new EmpruntExemplaire();
-                $empruntExemplaire->setEmprunt($emprunt)
-                                  ->setExemplaire($exemplaire);
-                $manager->persist($empruntExemplaire);
+        
+            foreach (array_slice($documents, 0, 2) as $document) {
+                // Vérifiez si le document a des exemplaires
+                $exemplaire = $document->getExemplaires()->first();
+                if ($exemplaire) {
+                    $empruntExemplaire = new EmpruntExemplaire();
+                    $empruntExemplaire->setEmprunt($emprunt)
+                                      ->setExemplaire($exemplaire);
+                    $manager->persist($empruntExemplaire);
+                } else {
+                    // Créez un exemplaire si aucun n'existe
+                    $newExemplaire = new Exemplaire();
+                    $newExemplaire->setEtatPhysique($faker->randomElement(['neuf', 'bon', 'usé']))
+                                  ->setStatut('disponible')
+                                  ->setDocument($document);
+                    $manager->persist($newExemplaire);
+        
+                    $empruntExemplaire = new EmpruntExemplaire();
+                    $empruntExemplaire->setEmprunt($emprunt)
+                                      ->setExemplaire($newExemplaire);
+                    $manager->persist($empruntExemplaire);
+                }
             }
         }
 
-        // --- Envoi en base de toutes les entités
+        // --- Envoi en base
         $manager->flush();
     }
 }
