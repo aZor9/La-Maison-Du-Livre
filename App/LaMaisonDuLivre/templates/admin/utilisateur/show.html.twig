@@ -26,8 +26,37 @@
         </div>
 
         <div>
+            {{ form_label(form.abonnement.statutAbonnement, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.abonnement.statutAbonnement, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        {# <div>
             {{ form_label(form.abonnement.dateAbonnement, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
             {{ form_widget(form.abonnement.dateAbonnement, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div> #}
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Statut de l'abonnement</label>
+            <p class="p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-100">
+                {% if utilisateur.abonnement is not null %}
+                <div>
+                    {{ form_label(form.abonnement.statutAbonnement, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    {{ form_widget(form.abonnement.statutAbonnement, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+                </div>
+                {% else %}
+                    Aucun abonnement
+                {% endif %}
+            </p>
+        </div>
+
+        <div>
+            {{ form_label(form.abonnement.dateAbonnement, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.abonnement.dateAbonnement, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        <div>
+            {{ form_label(form.lienJustificatif, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.lienJustificatif, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
         </div>
 
         <div>

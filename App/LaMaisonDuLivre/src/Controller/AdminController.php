@@ -10,6 +10,21 @@ use App\Form\UtilisateurType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityManagerInterface; 
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Security;
+use App\Entity\Utilisateur;
+use App\Entity\Abonnement;
+use App\Form\AbonnementType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+
 
 class AdminController extends AbstractController
 {
@@ -54,7 +69,7 @@ class AdminController extends AbstractController
 
         // Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
-            // Sauvegarder les changements dans la base de données
+            $this->entityManager->persist($utilisateur);
             $this->entityManager->flush();
 
             // Message de succès

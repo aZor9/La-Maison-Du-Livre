@@ -136,4 +136,9 @@ class Abonnement
         
         return false;   
     }
+
+    public function __toString(): string
+    {
+        return $this->StatutAbonnement ?? 'Aucun abonnement';
+    }
 }

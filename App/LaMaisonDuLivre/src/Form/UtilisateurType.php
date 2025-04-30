@@ -46,6 +46,10 @@ class UtilisateurType extends AbstractType
         if ($options['is_admin']) {
             $builder
                 ->add('abonnement', AbonnementType::class, ['required' => false])
+                ->add('lienJustificatif', TextType::class, [
+                    'label' => 'Lien justificatif',
+                    'required' => false,
+                ])
                 ->add('role', TextType::class, ['required' => false]);
         }
     
