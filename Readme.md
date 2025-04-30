@@ -106,6 +106,9 @@ php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load -n
 ```
 
+Login : `admin@example.com` 
+Password : `admin123`
+
 ---
 
 ### ✅ 8. Lancer le serveur Symfony
