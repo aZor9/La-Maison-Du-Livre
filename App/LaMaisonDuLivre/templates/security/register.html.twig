@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte{% endblock %}
+
+{% block body %}
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <h1 class="text-2xl font-bold text-center text-blue-700 mb-6">Créer un compte</h1>
+
+            {% if app.user %}
+                <div class="mb-4 text-center text-gray-700">
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }},
+                    <br><a href="{{ path('app_logout') }}" class="text-blue-600 underline">Se déconnecter</a>
+                </div>
+            {% endif %}
+
+            {{ form_start(form, { 'attr': { 'class': 'space-y-4' } }) }}
+                {{ form_row(form.prenom, {
+                    'label_attr': { 'class': 'block text-sm font-medium text-gray-700' },
+                    'attr': { 'class': 'form-control' }
+                }) }}
+                {{ form_row(form.nom, {
+                    'label_attr': { 'class': 'block text-sm font-medium text-gray-700' },
+                    'attr': { 'class': 'form-control' }
+                }) }}
+                {{ form_row(form.mail, {
+                    'label_attr': { 'class': 'block text-sm font-medium text-gray-700' },
+                    'attr': { 'class': 'form-control' }
+                }) }}
+                {{ form_row(form.motDePasse, {
+                    'label_attr': { 'class': 'block text-sm font-medium text-gray-700' },
+                    'attr': { 'class': 'form-control' }
+                }) }}
+
+                <div>
+                    {{ form_widget(form.submit, {
+                        'attr': {
+                            'class': 'w-full bg-blue-600 text-white py-2 rounded-full hover:bg-blue-700 transition duration-300'
+                        }
+                    }) }}
+                </div>
+            {{ form_end(form) }}
+
+            <p class="text-center text-sm text-gray-600 mt-4">
+                Vous avez déjà un compte ?
+                <a href="{{ path('app_login') }}" class="text-blue-600 hover:underline">Connectez-vous</a>.
+            </p>
+        </div>
+    </div>
+
+    <style>
+        .form-control {
+            width: 100%;
+            padding: 0.625rem;
+            font-size: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            background-color: #f9fafb;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #fff;
+        }
+    </style>
+{% endblock %}
