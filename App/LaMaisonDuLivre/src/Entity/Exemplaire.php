@@ -15,7 +15,6 @@ use App\Entity\Empruntexemplaire;
 #[ORM\Entity(repositoryClass: ExemplaireRepository::class)]
 class Exemplaire
 {
-    // #[ORM\Column]
     #[ORM\Id]
     #[ORM\Column(name: "IdExemplaire", type: "integer")]
     #[ORM\GeneratedValue(strategy: "AUTO")]
