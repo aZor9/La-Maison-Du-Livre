@@ -30,16 +30,12 @@ class DocumentController extends AbstractController
     }
 
     #[Route('/documents', name: 'app_documents')]
-    public function index(DocumentRepository $documentRepository,
-    EcrireRepository $ecrireRepository, Request $request): Response
+    public function index(DocumentRepository $documentRepository, EcrireRepository $ecrireRepository, Request $request): Response
     {
-        // Récupérer les paramètres de recherche et de filtre
         $search = $request->query->get('search', '');
-        $type = $request->query->get('type', '');
-
-        // Rechercher les documents en fonction des critères
-        $documents = $documentRepository->findBySearchAndType($search, $type);
-
+    
+        $documents = $documentRepository->findBySearch($search);
+    
         $documentsAvecAuteurs = [];
         foreach ($documents as $document) {
             $ecritures = $ecrireRepository->findBy(['document' => $document]);
@@ -52,11 +48,10 @@ class DocumentController extends AbstractController
                 'auteurs' => $auteurs,
             ];
         }
-
+    
         return $this->render('document/index.html.twig', [
             'documents' => $documents,
             'search' => $search,
-            'type' => $type,
             'documentsAvecAuteurs' => $documentsAvecAuteurs,
         ]);
     }

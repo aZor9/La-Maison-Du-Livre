@@ -49,38 +49,18 @@ class DocumentRepository extends ServiceEntityRepository
 
 
     /**
-     * Recherche les documents selon un mot-clé et un type.
+     * Recherche les documents selon un mot-clé
      */
-    public function findBySearchAndType(string $search, string $type): array
+    public function findBySearch(string $search): array
     {
         $qb = $this->createQueryBuilder('d');
     
         if (!empty($search)) {
-            $qb->andWhere('d.titre LIKE :search')
+            $qb->andWhere('d.Titre LIKE :search') // Utilisez le nom exact du champ
                ->setParameter('search', '%' . $search . '%');
         }
     
-        if (!empty($type)) {
-            // Utilisation de INSTANCE OF pour filtrer par type
-            $qb->andWhere('d INSTANCE OF :type')
-               ->setParameter('type', $this->mapTypeToClass($type));
-        }
-    
         return $qb->getQuery()->getResult();
-    }
-    
-    /**
-     * Mappe les types de documents à leurs classes correspondantes.
-     */
-    private function mapTypeToClass(string $type): string
-    {
-        return match ($type) {
-            'livre' => \App\Entity\Livre::class,
-            'video' => \App\Entity\Video::class,
-            'sonore' => \App\Entity\Sonore::class,
-            'titreperiodique' => \App\Entity\TitrePeriodique::class,
-            default => \App\Entity\Document::class,
-        };
     }
 
 }
