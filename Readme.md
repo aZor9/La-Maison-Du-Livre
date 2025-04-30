@@ -1,6 +1,12 @@
 # 📚 La Maison Du Livre (Médiathèque)
 
-Projet Symfony représentant une médiathèque avec gestion de documents, utilisateurs, prêts, abonnements, etc.
+Projet Symfony représentant une médiathèque avec gestion de documents, utilisateurs, abonnements, etc.
+
+**Arborescence :**
+*La-Maison-Du-Livre*/
+├── *App*/       ← Code du projet
+├── *Doc*/       ← Documentation du projet
+└── ...
 
 ---
 
@@ -158,6 +164,7 @@ php bin/console doctrine:schema:validate
   - `doctrine/data-fixtures` (2.0.2)
   - `doctrine/doctrine-fixtures-bundle` (4.1.0)
 
+
 #### Générer les données sans confirmation :
 
 ```bash
@@ -169,6 +176,15 @@ php bin/console doctrine:fixtures:load -n
 ```bash
 php bin/console doctrine:fixtures:load --purge-with-truncate
 ```
+
+---
+
+### 🩺 Test avec phpUnit
+
+Commande a lancer pour lancer des tests unitaires :
+```bash 
+php bin/phpunit
+```  
 
 ---
 
