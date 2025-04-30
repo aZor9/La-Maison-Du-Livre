@@ -18,6 +18,7 @@ use App\Form\DocumentType;
 use App\Repository\ExemplaireRepository;
 use App\Repository\EcrireRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\EmpruntRepository;
 
 
 
@@ -251,6 +252,44 @@ class DocumentController extends AbstractController
     
 
 
+
+
+    #[Route('/mes-emprunts', name: 'app_mes_emprunts')]
+    public function mesEmprunts(
+        EmpruntRepository $empruntRepository,
+        Request $request
+    ): Response {
+        // Récupérer l'utilisateur connecté
+        $utilisateur = $this->getUser();
+
+        if (!$utilisateur) {
+            $this->addFlash('error', 'Vous devez être connecté pour voir vos emprunts.');
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Récupérer les emprunts de l'utilisateur
+        $emprunts = $empruntRepository->findBy(['utilisateur' => $utilisateur]);
+
+        // Extraire les documents empruntés
+        $documentsAvecAuteurs = [];
+        foreach ($emprunts as $emprunt) {
+            foreach ($emprunt->getEmpruntexemplaires() as $empruntExemplaire) {
+                $document = $empruntExemplaire->getExemplaire()->getDocument();
+                $auteurs = [];
+                foreach ($document->getEcritures() as $ecriture) {
+                    $auteurs[] = $ecriture->getAuteur();
+                }
+                $documentsAvecAuteurs[] = [
+                    'document' => $document,
+                    'auteurs' => $auteurs,
+                ];
+            }
+        }
+
+        return $this->render('document/mes_emprunts.html.twig', [
+            'documentsAvecAuteurs' => $documentsAvecAuteurs,
+        ]);
+    }
 
 
 }

@@ -76,9 +76,11 @@
         <ul class="hidden md:flex space-x-8">
             <li><a href="{{ path('app_home') }}" class="animated-link text-blue-900 font-medium">Accueil</a></li>
             <li><a href="{{ path('app_documents') }}" class="animated-link text-gray-600 hover:text-blue-900">Catalogue</a></li>
-            <li><a href="{{ path('exemplaire_index') }}" class="animated-link text-gray-600 hover:text-blue-900">Exemplaires</a></li>
-            <li><a href="{{ path('admin_auteurs') }}" class="animated-link text-gray-600 hover:text-blue-900">Auteurs</a></li>
-            {# <li><a href="#" class="animated-link text-gray-600 hover:text-blue-900">Pratique</a></li> #}
+            <li><a href="{{ path('app_mes_emprunts') }}" class="animated-link text-gray-600 hover:text-blue-900">Mes emprunts</a></li>
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                <li><a href="{{ path('exemplaire_index') }}" class="animated-link text-gray-600 hover:text-blue-900">Exemplaires</a></li>
+                <li><a href="{{ path('admin_auteurs') }}" class="animated-link text-gray-600 hover:text-blue-900">Auteurs</a></li>
+            {% endif %}
         </ul>
 
         <div class="flex items-center space-x-4">
