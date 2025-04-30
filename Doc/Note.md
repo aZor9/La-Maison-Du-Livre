@@ -6,7 +6,6 @@
 - Ajout de DateRendu (a finir)
 
 ### A faire (urgent) : 
-- Test unitaire
 - En cas de retard de rendu → envoi d’un mail ou message.
 - Si l’abonnement arrive à échéance → envoi d’un mail ou message.
 - Limite de 10 réservations simultanées par utilisateur.
@@ -30,24 +29,23 @@
 
 ### Matrice des données (en tableau) :
 
-| Table             | Colonnes principales                                                         | Relations                                   |
-|-------------------|------------------------------------------------------------------------------|---------------------------------------------|
-| utilisateur       | id, nom, prenom, email, password, type                                       | Employe, Client (héritage via type)         |
-| employe           | id, poste, date_embauche, utilisateur_id                                     | FK vers utilisateur.id                      |
-| client            | id, adresse, telephone, utilisateur_id                                       | FK vers utilisateur.id                      |
-| document          | id, titre, date_publication, genre, disponible, type                         | Livre, Sonore, Video, TitrePeriodique       |
-| livre             | id, nb_pages, isbn, document_id                                              | FK vers document.id                         |
-| sonore            | id, duree, format, document_id                                               | FK vers document.id                         |
-| video             | id, duree, resolution, document_id                                           | FK vers document.id                         |
-| titre_periodique  | id, frequence, issn, document_id                                             | FK vers document.id                         |
-| auteur            | id, nom, prenom                                                              | Liaison via ecrire                          |
-| ecrire            | id, auteur_id, document_id                                                   | FK vers auteur.id, document.id              |
-| article           | id, numero, titre_article, titre_periodique_id                               | FK vers titre_periodique.id                 |
-| abonnement        | id, date_debut, date_fin, client_id, titre_periodique_id                     | FK vers client.id, titre_periodique.id      |
-| emprunt           | id, date_emprunt, date_retour_prevue, date_retour_reelle, utilisateur_id     | FK vers utilisateur.id                      |
-| emprunt_article   | id, emprunt_id, article_id                                                   | FK vers emprunt.id, article.id              |
-
-
+| Table              | Colonnes principales                                                                                  | Relations                                          |
+|--------------------|-------------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| utilisateur         | id, nom, prenom, date_naissance, email, mot_de_passe, adresse1, adresse2, pays, numero_telephone, situation, role, lien_justificatif, statut | -          |
+| employe             | id, utilisateur_id, poste, date_embauche                                                             | FK vers utilisateur.id                             |
+| client              | id, utilisateur_id                                                                                   | FK vers utilisateur.id                             |
+| abonnement          | id, statut, date_debut, date_fin, tarif, utilisateur_id                                              | FK vers utilisateur.id                             |
+| document            | id, titre, auteur, theme, description, type                                                          | Hérite par livre, sonore, video, titre_periodique  |
+| livre               | id, isbn, nombre_pages, genre, document_id                                                           | FK vers document.id                                |
+| sonore              | id, duree, format, interprete, document_id                                                           | FK vers document.id                                |
+| video               | id, duree, format, realisateur, document_id                                                          | FK vers document.id                                |
+| titre_periodique    | id, numero, date_publication, format, document_id                                                    | FK vers document.id                                |
+| exemplaire          | id, etat_physique, statut, document_id                                                               | FK vers document.id                                |
+| auteur              | id, prenom, nom, description                                                                         | -                                                  |
+| ecrire              | id, auteur_id, document_id                                                                           | FK vers auteur.id, document.id                     |
+| article             | id, numero, titre_article, titre_periodique_id                                                       | FK vers titre_periodique.id                        |
+| emprunt             | id, date_reservation, date_rendu, utilisateur_id                                                     | FK vers utilisateur.id                             |
+| emprunt_exemplaire  | id, emprunt_id, exemplaire_id                                                                        | FK vers emprunt.id, exemplaire.id                  |
 
 
 ### Diagramme de Classes :
