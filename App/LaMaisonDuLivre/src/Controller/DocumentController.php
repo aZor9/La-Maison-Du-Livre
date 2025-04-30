@@ -130,72 +130,60 @@ class DocumentController extends AbstractController
     }
 
 
-
     #[Route('/document/{id}/edit', name: 'document_edit')]
-    public function edit(Request $request, Document $document): Response
+    public function edit(Request $request, Document $document, EntityManagerInterface $entityManager): Response
     {
         // Vérification des rôles
         if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_SUPER_ADMIN')) {
             throw new AccessDeniedException('Vous n\'avez pas l\'autorisation d\'accéder à cette page.');
         }
-
+    
         // Créer le formulaire d'édition
         $form = $this->createForm(DocumentType::class, $document);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+            // Gestion des relations `Ecrire`
             $auteurs = $form->get('auteurs')->getData();
-
-            // Récupérer les entités `Ecrire` depuis la base de données
-            $ecritures = $this->entityManager->getRepository(Ecrire::class)->findBy(['document' => $document]);
-            foreach ($ecritures as $ecriture) {
-                $this->entityManager->remove($ecriture);
-            }
-
+    
             // Supprimer les relations existantes
-            foreach ($ecritures as $ecriture) {
-                $ecriture = $this->entityManager->getRepository(Ecrire::class)->findOneBy([
-                    'document' => $document,
-                    'auteur' => $auteurs,
-                ]);
-
+            foreach ($document->getEcritures() as $ecriture) {
+                $document->removeEcriture($ecriture);
+                $entityManager->remove($ecriture); // Supprime l'entité de la base de données
+            }
+    
+            // Ajouter les nouvelles relations
             foreach ($auteurs as $auteur) {
                 $ecriture = new Ecrire();
-                $ecriture->setDocument($document);
                 $ecriture->setAuteur($auteur);
-                // $entityManager->persist($ecriture);
-                $this->entityManager->persist($ecriture);
+                $document->addEcriture($ecriture); // Ajoute la relation
             }
-
+    
+            // Gestion des champs spécifiques selon le type de document
             if ($document instanceof Livre) {
-                $isbn = $form->get('isbn')->getData();
-                $nombrePage = $form->get('nombrePage')->getData();
-                $genre = $form->get('genre')->getData();
-
+                $document->setIsbn($form->get('isbn')->getData());
+                $document->setNombrePage($form->get('nombrePage')->getData());
+                $document->setGenre($form->get('genre')->getData());
             } elseif ($document instanceof Sonore) {
-                $duree = $form->get('duree')->getData();
-                $format = $form->get('format')->getData();
-                $interprete = $form->get('interprete')->getData();
-
+                $document->setDuree($form->get('duree')->getData());
+                $document->setFormat($form->get('format')->getData());
+                $document->setInterprete($form->get('interprete')->getData());
             } elseif ($document instanceof Video) {
-                $duree = $form->get('duree')->getData();
-                $format = $form->get('format')->getData();
-                $realisateur = $form->get('realisateur')->getData();
-
+                $document->setDuree($form->get('duree')->getData());
+                $document->setFormat($form->get('format')->getData());
+                $document->setRealisateur($form->get('realisateur')->getData());
             } elseif ($document instanceof TitrePeriodique) {
-                $numero = $form->get('numero')->getData();
-                $datePublication = $form->get('datepublication')->getData();
-                $format = $form->get('format')->getData();
+                $document->setNumero($form->get('numero')->getData());
+                $document->setDatePublication($form->get('datepublication')->getData());
+                $document->setFormat($form->get('format')->getData());
             }
     
             // Sauvegarder les modifications
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->flush();
-            $this->entityManager->flush();
+            $entityManager->flush();
     
             // Rediriger après la mise à jour
+            $this->addFlash('success', 'Le document a été modifié avec succès.');
             return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
-            }
         }
     
         return $this->render('document/edit.html.twig', [
@@ -203,7 +191,6 @@ class DocumentController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
     
 
     #[Route('/document/{id}/reserver', name: 'document_reserver', methods: ['POST'])]

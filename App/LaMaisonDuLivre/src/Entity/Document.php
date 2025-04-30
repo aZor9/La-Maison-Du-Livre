@@ -114,7 +114,7 @@ class Document
     // #[ORM\InverseJoinColumn(name: 'IdAuteur', referencedColumnName: 'IdAuteur')]
     // private Collection $auteurs;
     
-    #[ORM\OneToMany(mappedBy: 'document', targetEntity: Ecrire::class)]
+    #[ORM\OneToMany(mappedBy: 'document', targetEntity: Ecrire::class, cascade: ['persist', 'remove'])]
     private Collection $ecritures;
     
     #[ORM\OneToMany(mappedBy: 'document', targetEntity: Exemplaire::class)]
@@ -142,16 +142,17 @@ class Document
         return $this;
     }
     
-    public function removeEcriture(Ecrire $ecriture): static
+    public function removeEcriture(Ecrire $ecriture): self
     {
         if ($this->ecritures->removeElement($ecriture)) {
-            // Optionnel : supprimer la relation de l'autre côté si nécessaire
-            $ecriture->setDocument(null);
+            // Set the owning side to null (unless already changed)
+            if ($ecriture->getDocument() === $this) {
+                $ecriture->setDocument(null);
+            }
         }
-        
+    
         return $this;
     }
-    
     
     
     
