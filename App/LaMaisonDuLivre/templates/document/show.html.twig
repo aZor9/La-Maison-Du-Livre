@@ -47,10 +47,26 @@
             {% endif %}
 
             <div class="mt-6 text-center">
-                <a href="#" class="bg-green-500 hover:bg-green-600 text-white text-lg font-semibold py-2 px-6 rounded-xl shadow-md transition duration-300">
+                {# <a href="#" class="bg-green-500 hover:bg-green-600 text-white text-lg font-semibold py-2 px-6 rounded-xl shadow-md transition duration-300">
                     🛒 Commander ce document
-                </a>
+                </a> #}
+                {% if exemplaires|filter(e => e.statut == 'disponible')|length > 0 %}
+                    <form method="post" action="{{ path('document_reserver', {id: document.idDocument}) }}">
+                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white text-lg font-semibold py-2 px-6 rounded-xl shadow-md transition duration-300">🛒 Commander ce document</button>
+                    </form>
+                {% else %}
+                    <a href="#" class="bg-gray-600 text-white text-lg font-semibold py-2 px-6 rounded-xl shadow-md transition duration-300">Aucun exemplaire disponible</a>
+                {% endif %}
+
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label == 'success' ? 'success' : 'danger' }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
             </div>
+
 
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                 <div class="mt-4 text-center">
@@ -62,43 +78,35 @@
         </div>
     </div>
 
-<h2>Exemplaires disponibles</h2>
-
-<ul>
-    {% for exemplaire in exemplaires %}
-        <li>
-            <strong>Code :</strong> {{ exemplaire.idexemplaire }}<br>
-            <strong>État :</strong> {{ exemplaire.etatphysique }}<br>
-            <strong>Disponible :</strong> {{ exemplaire.statut == 'disponible' ? '✅ Disponible' : '❌ Indisponible' }}
-<br>
-        </li>
-    {% else %}
-        <li>Aucun exemplaire disponible pour ce document.</li>
-    {% endfor %}
-</ul>
 
 
-{% if exemplaires|filter(e => e.statut == 'disponible')|length > 0 %}
-    <form method="post" action="{{ path('document_reserver', {id: document.idDocument}) }}">
-        <button type="submit" class="btn btn-success">Réserver ce document</button>
-    </form>
-{% else %}
-    <p class="text-danger">Aucun exemplaire disponible pour réservation.</p>
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+    <h2 class="text-2xl font-bold text-gray-800 m-3">Exemplaires disponibles</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-3">
+        {% for exemplaire in exemplaires %}
+            <div class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Code : {{ exemplaire.idexemplaire }}</h3>
+                <p class="text-sm text-gray-600 mb-1">
+                    <strong>État :</strong> 
+                    <span class="capitalize">{{ exemplaire.etatphysique }}</span>
+                </p>
+                <div class="mt-4">
+                    {% if exemplaire.statut == 'disponible' %}
+                        <span class="inline-block bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Disponible</span>
+                    {% elseif exemplaire.statut == 'reserve' %}
+                        <span class="inline-block bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full">Réservé</span>
+                    {% elseif exemplaire.statut == 'utilise' %}
+                        <span class="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">Utilisé</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="col-span-full text-center text-gray-500">
+                Aucun exemplaire disponible pour ce document.
+            </div>
+        {% endfor %}
+    </div>
 {% endif %}
-
-
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="alert alert-{{ label == 'success' ? 'success' : 'danger' }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-{# {% if exemplaire.statut == 'disponible' %}
-    <span class="badge bg-success">Disponible</span>
-{% else %}
-    <span class="badge bg-danger">Indisponible</span>
-{% endif %} #}
 
     {% include 'partie/footer.html.twig' %}
 {% endblock %}
