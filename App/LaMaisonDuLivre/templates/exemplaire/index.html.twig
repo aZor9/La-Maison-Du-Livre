@@ -33,8 +33,25 @@
                                     {{ exemplaire.document.Titre }}
                                 </a>
                             </td>
-                            <td class="px-4 py-2 border">{{ exemplaire.etatphysique }}</td>
-                            {# <td class="px-4 py-2 border">{{ exemplaire.statut }}</td> #}
+                            <td class="px-4 py-2 border">
+                                <form action="{{ path('exemplaire_changer_etat', { id: exemplaire.idexemplaire }) }}" method="POST" class="flex items-center">
+                                    <div class="relative">
+                                        <select name="etatPhysique"
+                                            class="appearance-none border border-gray-300 rounded-xl pl-2 pr-8 py-1 text-sm text-gray-700 bg-white shadow-sm hover:border-blue-400 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:outline-none transition duration-150 ease-in-out"
+                                            onchange="this.form.submit()">
+                                            <option value="neuf" {{ exemplaire.etatPhysique == 'neuf' ? 'selected' : '' }}>🟢 Neuf</option>
+                                            <option value="bon" {{ exemplaire.etatPhysique == 'bon' ? 'selected' : '' }}>🟡 Bon</option>
+                                            <option value="usé" {{ exemplaire.etatPhysique == 'usé' ? 'selected' : '' }}>🔴 Usé</option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
                             <td class="px-4 py-2 border">
                                 {% if emprunt %}
                                     {{ emprunt.utilisateur.mail }}

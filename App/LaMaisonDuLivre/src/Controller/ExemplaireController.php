@@ -89,4 +89,34 @@ class ExemplaireController extends AbstractController
     
         return $this->redirectToRoute('exemplaire_index');
     }
+
+
+    #[Route('/exemplaire/{id}/changer-etat', name: 'exemplaire_changer_etat', methods: ['POST'])]
+    public function changerEtat(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $exemplaire = $entityManager->getRepository(Exemplaire::class)->find($id);
+    
+        if (!$exemplaire) {
+            throw $this->createNotFoundException('Exemplaire non trouvé.');
+        }
+    
+        // Récupérer le nouvel état depuis la requête (par exemple via un formulaire ou une requête AJAX)
+        $nouvelEtat = $_POST['etatPhysique'] ?? null;
+    
+        if (!in_array($nouvelEtat, ['neuf', 'bon', 'usé'], true)) {
+            throw $this->createNotFoundException('État invalide.');
+        }
+    
+        // Mettre à jour l'état de l'exemplaire
+        $exemplaire->setEtatPhysique($nouvelEtat);
+    
+        // Sauvegarder les modifications
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('exemplaire_index');
+    }
+
+
+
+
 }
