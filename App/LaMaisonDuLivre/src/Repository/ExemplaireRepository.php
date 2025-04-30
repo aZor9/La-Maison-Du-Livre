@@ -45,4 +45,16 @@ class ExemplaireRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    public function countActiveReservationsByUser(int $userId): int
+    {
+        return (int) $this->createQueryBuilder('e')
+            ->select('COUNT(e.IdEmprunt)')
+            ->where('e.utilisateur = :userId')
+            ->andWhere('e.DateRendu IS NULL') // Vérifie que l'emprunt n'est pas encore rendu
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

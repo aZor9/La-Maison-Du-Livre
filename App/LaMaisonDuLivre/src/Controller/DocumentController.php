@@ -193,9 +193,24 @@ class DocumentController extends AbstractController
     public function reserver(
         Document $document,
         ExemplaireRepository $exemplaireRepository,
+        EmpruntRepository $empruntRepository,
         EntityManagerInterface $em
     ): Response {
-        // Chercher un exemplaire disponible (en fonction du statut)
+        $utilisateur = $this->getUser();
+    
+        if (!$utilisateur) {
+            $this->addFlash('danger', 'Vous devez être connecté pour réserver un document.');
+            return $this->redirectToRoute('app_login');
+        }
+    
+        // Vérifier la limite de réservations actives
+        $activeReservations = $empruntRepository->countActiveReservationsByUser($utilisateur->getIdutilisateur());
+        if ($activeReservations >= 10) {
+            $this->addFlash('danger', 'Vous avez atteint la limite de 10 réservations simultanées.');
+            return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
+        }
+    
+        // Chercher un exemplaire disponible
         $exemplaire = $exemplaireRepository->findOneBy([
             'document' => $document,
             'Statut' => 'disponible',
@@ -207,32 +222,25 @@ class DocumentController extends AbstractController
         }
     
         // Réserver l'exemplaire
-        $exemplaire->setStatut('reserve'); 
-
+        $exemplaire->setStatut('reserve');
+    
         // Créer un nouvel emprunt
         $emprunt = new Emprunt();
-        $emprunt->setDateReservation(new \DateTime()); // Date actuelle
-        $emprunt->setUtilisateur($this->getUser()); // Utilisateur connecté
-
-        // Persister l'emprunt
-        $em->persist($emprunt);
-
-        // Lier l'emprunt à l'exemplaire via la table `empruntexemplaire`
+        $emprunt->setDateReservation(new \DateTime());
+        $emprunt->setUtilisateur($utilisateur);
+    
+        // Lier l'emprunt à l'exemplaire
         $empruntExemplaire = new Empruntexemplaire();
         $empruntExemplaire->setEmprunt($emprunt);
         $empruntExemplaire->setExemplaire($exemplaire);
-
-        // Persister la liaison
+    
+        $em->persist($emprunt);
         $em->persist($empruntExemplaire);
-
-        // Sauvegarder les modifications
         $em->flush();
     
         $this->addFlash('success', 'Exemplaire réservé avec succès.');
-    
         return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
     }
-    
 
 
 

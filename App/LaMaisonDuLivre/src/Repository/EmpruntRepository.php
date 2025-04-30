@@ -45,4 +45,18 @@ class EmpruntRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function countActiveReservationsByUser(int $userId): int
+{
+    return (int) $this->createQueryBuilder('e')
+        ->select('COUNT(e.IdEmprunt)') // Use the correct primary key field
+        ->join('e.empruntexemplaires', 'ee') // Jointure avec Empruntexemplaire
+        ->join('ee.exemplaire', 'ex') // Jointure avec Exemplaire
+        ->where('e.utilisateur = :userId')
+        ->andWhere('ex.Statut != :statut') // Vérifie que l'exemplaire n'est pas disponible
+        ->setParameter('userId', $userId)
+        ->setParameter('statut', 'disponible')
+        ->getQuery()
+        ->getSingleScalarResult();
+}
 }
