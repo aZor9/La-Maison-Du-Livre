@@ -108,12 +108,6 @@ class Document
 
 
     
-    // #[ORM\ManyToMany(targetEntity: Auteur::class, inversedBy: 'documents')]
-    // #[ORM\JoinTable(name: 'auteur_document')]
-    // #[ORM\JoinColumn(name: 'id_document', referencedColumnName: 'id_document')]
-    // #[ORM\InverseJoinColumn(name: 'IdAuteur', referencedColumnName: 'IdAuteur')]
-    // private Collection $auteurs;
-    
     #[ORM\OneToMany(mappedBy: 'document', targetEntity: Ecrire::class, cascade: ['persist', 'remove'])]
     private Collection $ecritures;
     
