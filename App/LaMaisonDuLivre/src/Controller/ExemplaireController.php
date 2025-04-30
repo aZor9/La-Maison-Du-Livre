@@ -64,8 +64,11 @@ class ExemplaireController extends AbstractController
             if ($empruntExemplaire) {
                 $emprunt = $empruntExemplaire->getEmprunt();
                 if ($emprunt && $emprunt->getDateRendu() === null) {
-                    // Ajouter une date de rendu (dans un mois)
-                    $emprunt->setDateRendu((new \DateTime())->modify('+1 month'));
+                    // Réassigner l'utilisateur ou d'autres informations si nécessaire
+                    $utilisateur = $emprunt->getUtilisateur();
+                    if ($utilisateur) {
+                        $emprunt->setUtilisateur($utilisateur); // Réassignation explicite
+                    }
                 }
             }
         } elseif ($exemplaire->getStatut() === 'utilise') {
