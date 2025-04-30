@@ -61,6 +61,45 @@ class DocumentController extends AbstractController
         ]);
     }
 
+
+
+    
+    #[Route('/document/new', name: 'document_new')]
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $document = new Document();
+        $form = $this->createForm(DocumentType::class, $document);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Ajouter les relations avec les auteurs
+            $auteurs = $form->get('auteurs')->getData();
+            foreach ($auteurs as $auteur) {
+                $ecriture = new Ecrire();
+                $ecriture->setDocument($document);
+                $ecriture->setAuteur($auteur);
+                $entityManager->persist($ecriture);
+            }
+
+            $entityManager->persist($document);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Document créé avec succès.');
+
+            return $this->redirectToRoute('document_index');
+        }
+
+        return $this->render('document/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+
+
+
     #[Route('/document/{id}', name: 'document_show')]
     public function show(DocumentRepository $documentRepository, ExemplaireRepository $exemplaireRepository, int $id): Response
     {
@@ -116,7 +155,7 @@ class DocumentController extends AbstractController
             foreach ($ecritures as $ecriture) {
                 $this->entityManager->remove($ecriture);
             }
-            
+
             // Supprimer les relations existantes
             foreach ($ecritures as $ecriture) {
                 $ecriture = $this->entityManager->getRepository(Ecrire::class)->findOneBy([
@@ -218,37 +257,5 @@ class DocumentController extends AbstractController
 
 
 
-    
-    #[Route('/document/new', name: 'document_new')]
-    public function new(
-        Request $request,
-        EntityManagerInterface $entityManager
-    ): Response {
-        $document = new Document();
-        $form = $this->createForm(DocumentType::class, $document);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Ajouter les relations avec les auteurs
-            $auteurs = $form->get('auteurs')->getData();
-            foreach ($auteurs as $auteur) {
-                $ecriture = new Ecrire();
-                $ecriture->setDocument($document);
-                $ecriture->setAuteur($auteur);
-                $entityManager->persist($ecriture);
-            }
-
-            $entityManager->persist($document);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Document créé avec succès.');
-
-            return $this->redirectToRoute('document_index');
-        }
-
-        return $this->render('document/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
 
 }
