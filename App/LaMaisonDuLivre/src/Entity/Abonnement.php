@@ -122,7 +122,7 @@ class Abonnement
         return false;
     }
     
-    public function isExpired(): bool
+    public function isExpired(): bool // pas encore utilisé
     {
             if ($this->StatutAbonnement === 'en cours (1an)' && $this->DateAbonnement) {
                 $diff = $this->DateAbonnement->diff(new \DateTime());

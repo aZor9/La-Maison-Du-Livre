@@ -116,7 +116,4 @@ class ExemplaireController extends AbstractController
         return $this->redirectToRoute('exemplaire_index');
     }
 
-
-
-
 }
