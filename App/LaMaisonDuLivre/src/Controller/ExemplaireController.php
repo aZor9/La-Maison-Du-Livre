@@ -44,7 +44,6 @@ class ExemplaireController extends AbstractController
         ]);
     }
 
-    
     #[Route('/exemplaire/{id}/changer-statut', name: 'exemplaire_changer_statut', methods: ['POST'])]
     public function changerStatut(int $id, EntityManagerInterface $entityManager): Response
     {
@@ -59,20 +58,26 @@ class ExemplaireController extends AbstractController
             ->findOneBy(['exemplaire' => $exemplaire], ['emprunt' => 'DESC']); // Trier par le dernier emprunt
     
         if ($exemplaire->getStatut() === 'reserve') {
-            // Passer en "utilise" et définir la date de rendu dans un mois
+            // Passer en "utilisé"
             $exemplaire->setStatut('utilise');
-    
+
             if ($empruntExemplaire) {
                 $emprunt = $empruntExemplaire->getEmprunt();
-                $emprunt->setDateRendu((new \DateTime())->modify('+1 month')); // Ajouter un mois
+                if ($emprunt && $emprunt->getDateRendu() === null) {
+                    // Ajouter une date de rendu (dans un mois)
+                    $emprunt->setDateRendu((new \DateTime())->modify('+1 month'));
+                }
             }
         } elseif ($exemplaire->getStatut() === 'utilise') {
-            // Passer en "disponible" et supprimer les informations obsolètes
+            // Passer en "disponible" et nettoyer
             $exemplaire->setStatut('disponible');
-    
+
             if ($empruntExemplaire) {
-                $entityManager->remove($empruntExemplaire); // Supprimer la liaison emprunt-exemplaire
-                $entityManager->remove($empruntExemplaire->getEmprunt()); // Supprimer l'emprunt
+                $entityManager->remove($empruntExemplaire);
+            }
+
+            if (isset($emprunt)) {
+                $entityManager->remove($emprunt);
             }
         }
     
@@ -81,6 +86,4 @@ class ExemplaireController extends AbstractController
     
         return $this->redirectToRoute('exemplaire_index');
     }
-
-
 }

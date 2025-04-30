@@ -27,7 +27,12 @@
                         {% set emprunt = item.emprunt %}
                         <tr class="hover:bg-gray-50">
                             <td class="px-4 py-2 border">{{ exemplaire.idexemplaire }}</td>
-                            <td class="px-4 py-2 border">{{ exemplaire.document.titre }}</td>
+                            {# <td class="px-4 py-2 border">{{ exemplaire.document.titre }}</td> #}
+                            <td class="px-4 py-2 border">
+                                <a href="{{ path('document_show', {'id': exemplaire.document.idDocument}) }}" class="block w-full h-full">
+                                    {{ exemplaire.document.Titre }}
+                                </a>
+                            </td>
                             <td class="px-4 py-2 border">{{ exemplaire.etatphysique }}</td>
                             {# <td class="px-4 py-2 border">{{ exemplaire.statut }}</td> #}
                             <td class="px-4 py-2 border">
