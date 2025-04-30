@@ -6,7 +6,7 @@
     <!-- Navbar -->
     {% include 'partie/navbar.html.twig' %}
 
-    <div class="bg-white py-8">
+    <div class="py-8">
         <div class="container mx-auto px-4">
             <h1 class="text-3xl font-semibold text-blue-700 mb-6">Liste des documents</h1>
 
@@ -31,7 +31,7 @@
             </form>
 
             <!-- Table -->
-            <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+            <div class="overflow-x-auto shadow-lg rounded-lg">
                 <table class="table-auto w-full text-left">
                     <thead class="bg-blue-100 text-blue-700">
                         <tr>
@@ -42,7 +42,7 @@
                             <th class="py-3 px-6">theme</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="bg-white">
                         {% for document in documents %}
                             <tr class="border-b hover:bg-blue-50">
                                 <td class="py-3 px-6">

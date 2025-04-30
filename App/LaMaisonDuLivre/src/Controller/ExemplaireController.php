@@ -29,7 +29,9 @@ class ExemplaireController extends AbstractController
         $exemplairesAvecInfos = [];
     
         foreach ($exemplaires as $exemplaire) {
-            $empruntsExemplaire = $empruntExemplaireRepository->findBy(['exemplaire' => $exemplaire->getIdexemplaire()]);
+            // $empruntsExemplaire = $empruntExemplaireRepository->findBy(['exemplaire' => $exemplaire->getIdexemplaire()]);
+            $empruntsExemplaire = $empruntExemplaireRepository->findBy(['exemplaire' => $exemplaire]);
+
             $empruntActif = null;
     
             foreach ($empruntsExemplaire as $empruntExemplaire) {
@@ -42,15 +44,30 @@ class ExemplaireController extends AbstractController
                 }
             }
     
-            $exemplairesAvecInfos[] = [
-                'exemplaire' => $exemplaire,
-                'emprunt' => $empruntActif
-            ];
+            // $exemplairesAvecInfos = [];
+
+            foreach ($exemplaires as $ex) {
+                $emprunt = null;
+            
+                foreach ($ex->getEmpruntexemplaires() as $empruntExemplaire) {
+                    $e = $empruntExemplaire->getEmprunt();
+                    if ($e && $e->getDateRendu() === null) {
+                        $emprunt = $e;
+                        break;
+                    }
+                }
+            
+                $exemplairesAvecInfos[] = [
+                    'exemplaire' => $ex,
+                    'emprunt' => $emprunt,
+                ];
+            }
+            
+            return $this->render('exemplaire/index.html.twig', [
+                'exemplairesAvecInfos' => $exemplairesAvecInfos,
+            ]);
         }
-    
-        return $this->render('exemplaire/index.html.twig', [
-            'exemplairesAvecInfos' => $exemplairesAvecInfos,
-        ]);
+            
     }
     
 
