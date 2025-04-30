@@ -61,12 +61,26 @@ class DocumentRepository extends ServiceEntityRepository
         }
     
         if (!empty($type)) {
-            $qb->andWhere('d.type = :type')
-               ->setParameter('type', $type);
+            // Utilisation de INSTANCE OF pour filtrer par type
+            $qb->andWhere('d INSTANCE OF :type')
+               ->setParameter('type', $this->mapTypeToClass($type));
         }
     
         return $qb->getQuery()->getResult();
     }
-
+    
+    /**
+     * Mappe les types de documents à leurs classes correspondantes.
+     */
+    private function mapTypeToClass(string $type): string
+    {
+        return match ($type) {
+            'livre' => \App\Entity\Livre::class,
+            'video' => \App\Entity\Video::class,
+            'sonore' => \App\Entity\Sonore::class,
+            'titreperiodique' => \App\Entity\TitrePeriodique::class,
+            default => \App\Entity\Document::class,
+        };
+    }
 
 }
