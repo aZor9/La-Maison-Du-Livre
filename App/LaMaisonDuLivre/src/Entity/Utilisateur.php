@@ -68,8 +68,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     // #[ORM\Column(nullable: true)]
     // private ?int $IdAbonnement = null;
 
-    #[ORM\ManyToOne(targetEntity: Abonnement::class)]
-    #[ORM\JoinColumn(name: "IdAbonnement", referencedColumnName: "IdAbonnement")]
+    #[ORM\ManyToOne(targetEntity: Abonnement::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: "IdAbonnement", referencedColumnName: "IdAbonnement", nullable: true)]
     private ?Abonnement $abonnement = null;
 
     public function getIdutilisateur(): ?int
