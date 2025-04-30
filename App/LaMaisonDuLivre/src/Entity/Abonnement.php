@@ -111,14 +111,18 @@ class Abonnement
     {
         if ($this->StatutAbonnement === 'en cours (1an)' && $this->DateAbonnement) {
             $diff = $this->DateAbonnement->diff(new \DateTime());
+            // Debug: Log the difference in months
+            error_log('Diff (1an): ' . $diff->m . ' months');
             return $diff->y === 0 && $diff->m === 11; // Entre 11 et 12 mois
         }
-        
+
         if ($this->StatutAbonnement === 'en cours (6mois)' && $this->DateAbonnement) {
             $diff = $this->DateAbonnement->diff(new \DateTime());
+            // Debug: Log the difference in months
+            error_log('Diff (6mois): ' . $diff->m . ' months');
             return $diff->y === 0 && $diff->m === 5; // Entre 5 et 6 mois
         }
-        
+
         return false;
     }
     

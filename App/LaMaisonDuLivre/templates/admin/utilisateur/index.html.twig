@@ -37,6 +37,7 @@
                     <th class="py-3 px-6">Email</th>
                     <th class="py-3 px-6">Rôle</th>
                     <th class="py-3 px-6">Abonnement</th>
+                    <th class="py-3 px-6">Date Abonnement</th>
                     <th class="py-3 px-6 text-center">Voir</th>
                 </tr>
             </thead>
@@ -58,6 +59,13 @@
                                 </span>
                             {% else %}
                                 Aucun abonnement
+                            {% endif %}
+                        </td>
+                        <td class="py-3 px-6">
+                            {% if utilisateur.abonnement is not null and utilisateur.abonnement.dateAbonnement is not null %}
+                                {{ utilisateur.abonnement.dateAbonnement|date('d/m/Y') }}
+                            {% else %}
+                                -
                             {% endif %}
                         </td>
                         <td class="py-3 px-6 text-center">
