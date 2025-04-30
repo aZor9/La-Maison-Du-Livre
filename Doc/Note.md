@@ -23,9 +23,6 @@
 
 ## 📊 Données
 
-### Diagramme associé :  
-[Diagramme draw.io](https://app.diagrams.net/#G19sp4BRxlejqzP7HGdCD9-VZUDEMZeu-X#%7B%22pageId%22%3A%22929967ad-93f9-6ef4-fab6-5d389245f69c%22%7D)
-
 
 ### Matrice des données (en tableau) :
 
