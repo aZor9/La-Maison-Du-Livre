@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Politique de cookies 🍪{% endblock %}
+
+{% block body %}
+    {% include 'partie/navbar.html.twig' %}
+
+        <div class="container mx-auto my-10 py-10 px-6 max-w-3xl text-center bg-yellow-50 rounded-xl shadow-md">
+            <h1 class="text-4xl font-bold mb-4">🍪 Politique de cookies</h1>
+            <p class="text-gray-800 text-lg mb-2">
+                Oui, nous utilisons des cookies. Non, pas ceux au chocolat. 🙃
+            </p>
+            <p class="text-gray-700 mb-6">
+                C’est surtout pour améliorer votre navigation, mais entre nous… vous lisez vraiment ça ?
+            </p>
+            
+            <div class="text-left bg-white rounded-lg p-6 shadow-inner">
+                <h2 class="text-xl font-semibold mb-3">Voici le menu des cookies :</h2>
+                <ul class="list-disc space-y-2 pl-5 text-gray-700">
+                    <li>🍪 <strong>Cookies essentiels</strong> : sans eux, le site se casse la figure.</li>
+                    <li>📊 <strong>Cookies analytiques</strong> : pour savoir si quelqu’un lit cette page (spoiler : vous).</li>
+                    <li>🤝 <strong>Cookies tiers</strong> : pour les réseaux sociaux et autres gadgets du web moderne.</li>
+                </ul>
+            </div>
+
+            <p class="mt-6 text-gray-600 italic">
+                Vous pouvez régler tout ça dans votre navigateur. Mais soyons honnêtes, vous n’allez pas le faire.
+            </p>
+        </div>
+
+
+    {% include 'partie/footer.html.twig' %}
+{% endblock %}

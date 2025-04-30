@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Faire un don{% endblock %}
+
+{% block body %}
+    {% include 'partie/navbar.html.twig' %}
+
+<div class="container mx-auto my-7 py-10 px-4 text-center">
+    <h1 class="text-3xl font-bold mb-6">💸 Faire un don (ou sauver des licornes)</h1>
+    <p class="text-gray-700 leading-relaxed">
+        Vous aimez les livres ? Les cookies ? La paix dans le monde ? <br>
+        Alors soutenez notre projet ! Chaque don contribue à rendre cette médiathèque encore plus magique. ✨
+    </p>
+
+    <div class="text-center mt-8">
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" 
+           class="bg-red-400 text-white px-6 py-3 rounded-lg hover:bg-blue-700 inline-flex items-center">
+            🧡 Faire un don (promis, on n’achètera pas que du café) 🧡
+        </a>
+    </div>
+
+    <div class="text-center mt-3 mb-3">
+        <a href="https://www.linkedin.com/in/hugo-lembrez/" target="_blank" 
+           class="bg-red-400 text-white px-6 py-3 rounded-lg hover:bg-blue-700 inline-flex items-center">
+            🐰 Offrir un câlin (virtuel mais chaleureux) 🐰
+        </a>
+    </div>
+
+    <p class="text-sm text-gray-500 mt-6">
+        * Aucun bibliothécaire n’a été forcé de danser pour tourner cette page.<br>
+        ** Sauf peut-être Gérard.
+    </p>
+</div>
+
+    {% include 'partie/footer.html.twig' %}
+{% endblock %}

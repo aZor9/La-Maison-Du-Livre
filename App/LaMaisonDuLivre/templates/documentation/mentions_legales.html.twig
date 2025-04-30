@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales{% endblock %}
+
+{% block body %}
+    {% include 'partie/navbar.html.twig' %}
+
+        <div class="container mx-auto my-10 py-10 px-6 max-w-4xl bg-white rounded-xl shadow-md">
+            <h1 class="text-4xl font-bold text-center mb-8">⚖️ Mentions légales</h1>
+
+            <section class="mb-10">
+                <h2 class="text-2xl font-semibold mb-4">📌 Informations et Services Généraux</h2>
+                <div class="bg-gray-100 rounded-lg p-6 space-y-4 text-gray-800">
+                    <div>
+                        <p class="font-semibold">🕒 Horaires d'ouverture :</p>
+                        <ul class="list-disc pl-6">
+                            <li>Du mardi au samedi de 10h à 18h</li>
+                            <li>Vendredi de 14h à 18h</li>
+                            <li>Fermé les lundis, dimanches et jours fériés</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="font-semibold">📍 Coordonnées :</p>
+                        <ul class="list-disc pl-6">
+                            <li>1 place Émile Zola, 34000 Montpellier</li>
+                            <li>📞 04 67 00 00 00</li>
+                            <li>✉️ contact@mediatheque-montpellier.fr</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-semibold mb-4">ℹ️ Messages Informatifs</h2>
+                <div class="bg-gray-100 rounded-lg p-6 space-y-4 text-gray-800">
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>📚 Un livre peut être emprunté sans compte (consultation sur place).</li>
+                        <li>🛠️ Des bouchons d'oreilles sont en vente à l'accueil (1€).</li>
+                        <li>
+                            <strong>💳 Abonnement annuel :</strong>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>Gratuit pour les habitants de l'agglo, les moins de 12 ans et les moins de 18 ans scolarisés dans l’agglo</li>
+                                <li>Autres : 22€ par an ou 10,50€ par mois</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="mt-4 text-xs text-gray-500">* le wifi est gratuit seulement pour les personnes se nommant "Eglantine".</p>
+                </div>
+            </section>
+        </div>
+
+
+    {% include 'partie/footer.html.twig' %}
+{% endblock %}

@@ -1,23 +1,11 @@
 rajouter : 
-v stock total pour avoir livre actuellement non disponible en sachant si c'est parce q'il n'y a pas d'article ou pas dispo car emprunter
 - note sur client (si retard frequent) en front ou en bdd ? pas une methode, donc pas en bdd
 - Statut approuvé ou refusé pour la reduction ou le client
 
-- un admin peut faire passer un utilisateur lambda en admin (changement de table)
-- ID en procedure stocké / en back, pour document l1, l2, l3 pour les livre, s1, s2, ppour le son, etc..
 v thematique dans document pour filtre 
 
 - journal de bord de chaque livre quand un livre est prit
 - si non rendu, statut de la commande ou pas du tout car gerer en back ++++  avec Etat (En attente, Confirmée, Annulée).
-v état d'un document ?
-v remplacer statut par role dans admin
-x Tu pourrais déplacer la notion de duree dans la table Abonnement (ex : DureeMois INT), ce serait plus logique que dans Client.
-v Champ LienFichier dans client
-v champ role pour admin dans user, et supprimer admin
-
-
-
-data fixture ? prerempli la bdd juste avec un bout de code ?
 
 
 
