@@ -40,10 +40,8 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
-        // Cette méthode ne doit pas contenir de code car Symfony s'en charge automatiquement
         throw new \LogicException('Cette méthode peut être vide - elle sera interceptée par la clé logout de ton firewall.');
     }
-
 
 
 

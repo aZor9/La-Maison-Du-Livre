@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\DocumentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Exemplaire;
@@ -14,7 +13,6 @@ use App\Entity\Exemplaire;
 #[ORM\Table(name: 'document')]
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
 #[ORM\InheritanceType("JOINED")]
-// #[ORM\InheritanceType("SINGLE_TABLE")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
     "livre" => Livre::class,
@@ -24,7 +22,6 @@ use App\Entity\Exemplaire;
 ])]
 class Document
 {
-    // #[ORM\Column]
     #[ORM\Id]
     #[ORM\Column(name: "id_document", type: "integer")]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
@@ -100,12 +97,10 @@ class Document
         return $this;
     }
     
-    // App\Entity\Document.php
     public function getType(): string
     {
         return (new \ReflectionClass($this))->getShortName();
     }
-
 
     
     #[ORM\OneToMany(mappedBy: 'document', targetEntity: Ecrire::class, cascade: ['persist', 'remove'])]
@@ -139,7 +134,6 @@ class Document
     public function removeEcriture(Ecrire $ecriture): self
     {
         if ($this->ecritures->removeElement($ecriture)) {
-            // Set the owning side to null (unless already changed)
             if ($ecriture->getDocument() === $this) {
                 $ecriture->setDocument(null);
             }
@@ -172,9 +166,6 @@ class Document
                 $exemplaire->setDocument(null);
             }
         }
-
         return $this;
     }
-
-
 }

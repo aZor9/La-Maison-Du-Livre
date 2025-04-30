@@ -40,33 +40,6 @@ class AbonnementController extends AbstractController
         ]);
     }
 
-  
-    // #[Route('/profile/abonnement', name: 'app_abonnement_justificatif', methods: ['POST'])]
-    // public function submitJustificatif(Request $request, EntityManagerInterface $em): Response
-    // {
-    //     $user = $this->getUser(); // Récupérer l'utilisateur connecté
-    //     if (!$user) {
-    //         $this->addFlash('error', 'Utilisateur non authentifié.');
-    //         return $this->redirectToRoute('app_abonnement');
-    //     }
-    
-    //     $lien = $request->request->get('justificatif');
-    //     if (!$lien) {
-    //         $this->addFlash('error', 'Aucun lien de justificatif fourni.');
-    //         return $this->redirectToRoute('app_abonnement');
-    //     }
-    
-    //     // Mettre à jour le lien_justificatif de l'utilisateur
-    //     $user->setLienJustificatif($lien); // Assurez-vous que le setter existe dans l'entité Utilisateur
-    //     $em->persist($user); // Nécessaire pour marquer l'utilisateur comme modifié
-    //     $em->flush(); // Applique les modifications dans la base de données
-    
-    //     $this->addFlash('success', 'Votre justificatif a été mis à jour avec succès.');
-    
-    //     return $this->redirectToRoute('app_abonnement');
-    // }
-
-
     #[Route('/profile/abonnement/justificatif', name: 'app_abonnement_justificatif', methods: ['POST'])]
     public function updateJustificatif(Request $request, EntityManagerInterface $entityManager): Response
     {

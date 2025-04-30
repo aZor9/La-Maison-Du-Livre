@@ -8,12 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-
 #[ORM\Table(name: 'abonnement')]
 #[ORM\Entity(repositoryClass: AbonnementRepository::class)]
 class Abonnement
 {
-    // #[ORM\Column]
     #[ORM\Id]
     #[ORM\Column(name: "IdAbonnement", type: "integer")]
     #[ORM\GeneratedValue(strategy: "AUTO")]
@@ -111,16 +109,14 @@ class Abonnement
     {
         if ($this->StatutAbonnement === 'en cours (1an)' && $this->DateAbonnement) {
             $diff = $this->DateAbonnement->diff(new \DateTime());
-            // Debug: Log the difference in months
             error_log('Diff (1an): ' . $diff->m . ' months');
-            return $diff->y === 0 && $diff->m === 11; // Entre 11 et 12 mois
+            return $diff->y === 0 && $diff->m === 11; 
         }
 
         if ($this->StatutAbonnement === 'en cours (6mois)' && $this->DateAbonnement) {
             $diff = $this->DateAbonnement->diff(new \DateTime());
-            // Debug: Log the difference in months
             error_log('Diff (6mois): ' . $diff->m . ' months');
-            return $diff->y === 0 && $diff->m === 5; // Entre 5 et 6 mois
+            return $diff->y === 0 && $diff->m === 5; 
         }
 
         return false;
@@ -130,12 +126,12 @@ class Abonnement
     {
             if ($this->StatutAbonnement === 'en cours (1an)' && $this->DateAbonnement) {
                 $diff = $this->DateAbonnement->diff(new \DateTime());
-                return $diff->y >= 1; // Plus d'un an
+                return $diff->y >= 1; 
         }
 
         if ($this->StatutAbonnement === 'en cours (6mois)' && $this->DateAbonnement) {
             $diff = $this->DateAbonnement->diff(new \DateTime());
-            return $diff->y === 0 && $diff->m >= 6; // Plus de 6 mois
+            return $diff->y === 0 && $diff->m >= 6;
         }
         
         return false;   

@@ -132,6 +132,4 @@ class DocumentType extends AbstractType
             'data_class' => Document::class,
         ]);
     }
-
-
 }

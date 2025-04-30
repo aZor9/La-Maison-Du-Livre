@@ -8,12 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-
 #[ORM\Table(name: 'auteur')]
 #[ORM\Entity(repositoryClass: AuteurRepository::class)]
 class Auteur
 {
-    // #[ORM\Column]
     #[ORM\Id]
     #[ORM\Column(name: "IdAuteur", type: "integer")]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
@@ -70,10 +68,6 @@ class Auteur
     }
 
 
-
-    // #[ORM\ManyToMany(targetEntity: Document::class, mappedBy: 'auteurs')]
-    // private Collection $documents;
-
     #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Ecrire::class)]
     private Collection $ecritures;
 
@@ -101,12 +95,9 @@ class Auteur
     public function removeEcriture(Ecrire $ecriture): static
     {
         if ($this->ecritures->removeElement($ecriture)) {
-            // Optionnel : supprimer la relation de l'autre côté si nécessaire
-            // $ecriture->setAuteur(null);
+            // $ecriture->setAuteur(null); // (actuellement en test)
         }
     
         return $this;
     }
-
-
 }

@@ -11,13 +11,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface; 
 
-
 #[ORM\Table(name: 'utilisateur')]
 #[ORM\Index(name: 'IdAbonnement', columns: ['IdAbonnement'])]
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    // #[ORM\Column]
     #[ORM\Id]
     #[ORM\Column(name: "IdUtilisateur", type: "integer")]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
@@ -65,9 +63,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $motdepasse = null;
 
-    // #[ORM\Column(nullable: true)]
-    // private ?int $IdAbonnement = null;
-
     #[ORM\ManyToOne(targetEntity: Abonnement::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: "IdAbonnement", referencedColumnName: "IdAbonnement", nullable: true)]
     private ?Abonnement $abonnement = null;
@@ -85,7 +80,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNom(?string $Nom): static
     {
         $this->Nom = $Nom;
-
         return $this;
     }
 
@@ -97,7 +91,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(?string $Prenom): static
     {
         $this->Prenom = $Prenom;
-
         return $this;
     }
 
@@ -109,7 +102,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDatenaissance(?\DateTimeInterface $DateNaissance): static
     {
         $this->DateNaissance = $DateNaissance;
-
         return $this;
     }
 
@@ -121,7 +113,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdresse1(?string $Adresse1): static
     {
         $this->Adresse1 = $Adresse1;
-
         return $this;
     }
 
@@ -133,7 +124,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdresse2(?string $Adresse2): static
     {
         $this->Adresse2 = $Adresse2;
-
         return $this;
     }
 
@@ -145,7 +135,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVille(?string $Ville): static
     {
         $this->Ville = $Ville;
-
         return $this;
     }
 
@@ -157,7 +146,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPays(?string $Pays): static
     {
         $this->Pays = $Pays;
-
         return $this;
     }
 
@@ -169,7 +157,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMail(string $mail): static
     {
         $this->mail = $mail;
-
         return $this;
     }
 
@@ -181,7 +168,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNumerotelephone(?string $NumeroTelephone): static
     {
         $this->NumeroTelephone = $NumeroTelephone;
-
         return $this;
     }
 
@@ -193,7 +179,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSituation(?string $Situation): static
     {
         $this->Situation = $Situation;
-
         return $this;
     }
 
@@ -205,7 +190,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRole(?string $Role): static
     {
         $this->Role = $Role;
-
         return $this;
     }
 
@@ -217,7 +201,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLienjustificatif(?string $LienJustificatif): static
     {
         $this->LienJustificatif = $LienJustificatif;
-
         return $this;
     }
 
@@ -229,7 +212,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStatut(?string $Statut): static
     {
         $this->Statut = $Statut;
-
         return $this;
     }
 
@@ -252,28 +234,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAbonnement(?Abonnement $abonnement): static
     {
         $this->abonnement = $abonnement;
-
         return $this;
     }
-
-
-
-
 
     // Méthodes de UserInterface
 
     public function getRoles(): array
     {
-        // Symfony attend un tableau de rôles => on transforme ton champ Role en tableau
         $roles = [];
-
         if ($this->Role) {
             $roles[] = $this->Role;
         }
-
-        // Assure qu'il y a toujours au moins ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
@@ -284,13 +256,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getSalt(): ?string
     {
-        // Pas nécessaire avec bcrypt ou argon2i
         return null;
     }
 
     public function getUserIdentifier(): string
     {
-        // Symfony 5.3+ -> utiliser getUserIdentifier à la place de getUsername
         return $this->mail;
     }
 
@@ -299,7 +269,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         // Si on stockait temporairement des mots de passe en clair, on les effacerait ici
     }
 
-    // Pour compatibilité (optionnel)
     public function getUsername(): string
     {
         return $this->mail;

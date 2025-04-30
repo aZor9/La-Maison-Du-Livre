@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-
 #[ORM\Table(name: 'empruntexemplaire')]
 #[ORM\Index(name: 'IdExemplaire', columns: ['IdExemplaire'])]
 #[ORM\Entity(repositoryClass: EmpruntexemplaireRepository::class)]
@@ -48,4 +47,3 @@ class Empruntexemplaire
         return $this;
     }
 }
-

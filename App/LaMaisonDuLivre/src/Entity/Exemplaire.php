@@ -65,19 +65,6 @@ class Exemplaire
         return $this;
     }
 
-    // public function getid_document(): ?int
-    // {
-    //     return $this->id_document;
-    // }
-
-    // public function setid_document(int $id_document): static
-    // {
-    //     $this->id_document = $id_document;
-
-    //     return $this;
-    // }
-
-
     #[ORM\ManyToOne(targetEntity: Document::class, inversedBy: 'exemplaires')]
     #[ORM\JoinColumn(name: 'id_document', referencedColumnName: 'id_document', nullable: false)]
     private ?Document $document = null;
@@ -92,16 +79,6 @@ class Exemplaire
         $this->document = $document;
         return $this;
     }
-    
-
-
-
-
-
-
-
-
-
 
 
     #[ORM\OneToMany(mappedBy: 'exemplaire', targetEntity: Empruntexemplaire::class)]

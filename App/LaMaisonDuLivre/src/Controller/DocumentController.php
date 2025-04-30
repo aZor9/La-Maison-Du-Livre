@@ -21,7 +21,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\EmpruntRepository;
 
 
-
 class DocumentController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
@@ -59,7 +58,6 @@ class DocumentController extends AbstractController
 
 
 
-    
     #[Route('/document/new', name: 'document_new')]
     public function new(
         Request $request,
@@ -91,8 +89,6 @@ class DocumentController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-
 
 
 
@@ -240,7 +236,6 @@ class DocumentController extends AbstractController
 
 
 
-
     #[Route('/mes-emprunts', name: 'app_mes_emprunts')]
     public function mesEmprunts(
         EmpruntRepository $empruntRepository,
@@ -277,6 +272,4 @@ class DocumentController extends AbstractController
             'documentsAvecAuteurs' => $documentsAvecAuteurs,
         ]);
     }
-
-
 }

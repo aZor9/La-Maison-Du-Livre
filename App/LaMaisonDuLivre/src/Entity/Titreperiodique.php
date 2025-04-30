@@ -8,16 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-
 #[ORM\Table(name: 'titreperiodique')]
 #[ORM\Entity(repositoryClass: TitreperiodiqueRepository::class)]
 class Titreperiodique extends Document
 {
-    // #[ORM\Column]
-    // #[ORM\Id]
-    // #[ORM\GeneratedValue(strategy: "NONE")]
-    // private ?int $id_document = null;
-
     #[ORM\Column(nullable: true, type: "integer")]
     private ?int $Numero = null;
 

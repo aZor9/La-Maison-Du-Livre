@@ -5,19 +5,15 @@ namespace App\Entity;
 use App\Repository\EmpruntRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Empruntexemplaire;
-
 
 #[ORM\Table(name: 'emprunt')]
 #[ORM\Index(name: 'IdUtilisateur', columns: ['IdUtilisateur'])]
 #[ORM\Entity(repositoryClass: EmpruntRepository::class)]
 class Emprunt
 {
-    // #[ORM\Column]
     #[ORM\Id]
     #[ORM\Column(name: "IdEmprunt", type: "integer")]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
@@ -28,9 +24,6 @@ class Emprunt
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $DateRendu = null;
-
-    // #[ORM\Column]
-    // private ?int $IdUtilisateur = null;
 
     #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
     #[ORM\JoinColumn(name: "IdUtilisateur", referencedColumnName: "IdUtilisateur")]
@@ -64,19 +57,6 @@ class Emprunt
 
         return $this;
     }
-
-    // public function getIdutilisateur(): ?int
-    // {
-    //     return $this->IdUtilisateur;
-    // }
-
-    // public function setIdutilisateur(int $IdUtilisateur): static
-    // {
-    //     $this->IdUtilisateur = $IdUtilisateur;
-
-    //     return $this;
-    // }
-
 
     public function getUtilisateur(): ?Utilisateur
     {
@@ -124,6 +104,4 @@ class Emprunt
 
         return $this;
     }
-
-
 }

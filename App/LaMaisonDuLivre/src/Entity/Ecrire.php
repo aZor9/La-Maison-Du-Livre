@@ -7,26 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-
 #[ORM\Table(name: 'ecrire')]
 #[ORM\Index(name: 'IdAuteur', columns: ['IdAuteur'])]
 #[ORM\Entity(repositoryClass: EcrireRepository::class)]
 class Ecrire
 {
-    // #[ORM\Column]
-    // #[ORM\Id]
-    // #[ORM\GeneratedValue(strategy: "NONE")]
-    // private ?int $id_document = null;
-
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Document::class, inversedBy: 'ecritures')]
     #[ORM\JoinColumn(name: "id_document", referencedColumnName: "id_document", onDelete: "CASCADE", nullable: false)]
     private ?Document $document = null;
-
-    // #[ORM\Column]
-    // #[ORM\Id]
-    // #[ORM\GeneratedValue(strategy: "NONE")]
-    // private ?int $IdAuteur = null;
 
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Auteur::class, inversedBy: 'ecritures')]
