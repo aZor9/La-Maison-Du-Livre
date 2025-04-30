@@ -35,11 +35,11 @@ class ExemplaireController extends AbstractController
 
             $empruntActif = null;
     
-            foreach ($empruntsExemplaire as $empruntExemplaire) {
+            foreach ($exemplaire->getEmpruntexemplaires() as $empruntExemplaire) {
                 // $emprunt = $empruntRepository->find($empruntExemplaire->getIdEmprunt());
                 $emprunt = $empruntExemplaire->getEmprunt();
 
-                if ($emprunt && $emprunt->getDateRendu() === null) {
+                if ($emprunt && $emprunt->getDaterendu() === null) {
                     $empruntActif = $emprunt;
                     break;
                 }
@@ -52,7 +52,7 @@ class ExemplaireController extends AbstractController
             
                 foreach ($ex->getEmpruntexemplaires() as $empruntExemplaire) {
                     $e = $empruntExemplaire->getEmprunt();
-                    if ($e && $e->getDateRendu() === null) {
+                    if ($e && $e->getDaterendu() === null) {
                         $emprunt = $e;
                         break;
                     }

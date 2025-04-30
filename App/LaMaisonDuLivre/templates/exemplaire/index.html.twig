@@ -32,7 +32,7 @@
                             <td class="px-4 py-2 border">{{ exemplaire.statut }}</td>
                             <td class="px-4 py-2 border">
                                 {% if emprunt %}
-                                    {{ emprunt.utilisateur.nom }} {{ emprunt.utilisateur.prenom }}
+                                    {{ emprunt.utilisateur.mail }}
                                 {% else %}
                                     -
                                 {% endif %}
