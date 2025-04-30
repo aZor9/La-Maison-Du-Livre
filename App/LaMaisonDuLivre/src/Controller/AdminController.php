@@ -22,11 +22,19 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/utilisateur', name: 'utilisateur_index')]
-    public function index(UtilisateurRepository $utilisateurRepository): Response
+    public function index(Request $request, UtilisateurRepository $utilisateurRepository): Response
     {
-        $utilisateurs = $utilisateurRepository->findAll();
+        $search = $request->query->get('search', '');
+    
+        if (!empty($search)) {
+            $utilisateurs = $utilisateurRepository->findByEmail($search);
+        } else {
+            $utilisateurs = $utilisateurRepository->findAll();
+        }
+    
         return $this->render('admin/utilisateur/index.html.twig', [
             'utilisateurs' => $utilisateurs,
+            'search' => $search,
         ]);
     }
 

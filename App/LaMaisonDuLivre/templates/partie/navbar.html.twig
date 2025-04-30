@@ -79,7 +79,8 @@
             <li><a href="{{ path('app_mes_emprunts') }}" class="animated-link text-gray-600 hover:text-blue-900">Mes emprunts</a></li>
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                 <li><a href="{{ path('exemplaire_index') }}" class="animated-link text-gray-600 hover:text-blue-900">Exemplaires</a></li>
-                <li><a href="{{ path('admin_auteurs') }}" class="animated-link text-gray-600 hover:text-blue-900">Auteurs</a></li>
+                <li><a href="{{ path('admin_auteurs') }}" class="animated-link text-gray-600 hover:text-blue-900">Créateur</a></li>
+                <li><a href="{{ path('utilisateur_index') }}" class="animated-link text-gray-600 hover:text-blue-900">Utilisateurs</a></li>
             {% endif %}
         </ul>
 
@@ -117,13 +118,6 @@
                             <a href="{{ path('app_abonnement') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Abonnement</a>
                         </li>
                     </ul>
-                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
-                        <li>
-                            <a href="{{ path('utilisateur_index') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Utilisateurs</a>
-                        </li>
-                    </ul>
-                    {% endif %}
                     <div class="py-2">
                         <a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Se déconnecter</a>
                     </div>

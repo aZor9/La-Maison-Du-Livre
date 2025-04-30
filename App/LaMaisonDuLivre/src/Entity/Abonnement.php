@@ -105,4 +105,35 @@ class Abonnement
 
         return $this;
     }
+    
+    
+    public function isNearExpiration(): bool
+    {
+        if ($this->StatutAbonnement === 'en cours (1an)' && $this->DateAbonnement) {
+            $diff = $this->DateAbonnement->diff(new \DateTime());
+            return $diff->y === 0 && $diff->m === 11; // Entre 11 et 12 mois
+        }
+        
+        if ($this->StatutAbonnement === 'en cours (6mois)' && $this->DateAbonnement) {
+            $diff = $this->DateAbonnement->diff(new \DateTime());
+            return $diff->y === 0 && $diff->m === 5; // Entre 5 et 6 mois
+        }
+        
+        return false;
+    }
+    
+    public function isExpired(): bool
+    {
+            if ($this->StatutAbonnement === 'en cours (1an)' && $this->DateAbonnement) {
+                $diff = $this->DateAbonnement->diff(new \DateTime());
+                return $diff->y >= 1; // Plus d'un an
+        }
+
+        if ($this->StatutAbonnement === 'en cours (6mois)' && $this->DateAbonnement) {
+            $diff = $this->DateAbonnement->diff(new \DateTime());
+            return $diff->y === 0 && $diff->m >= 6; // Plus de 6 mois
+        }
+        
+        return false;   
+    }
 }

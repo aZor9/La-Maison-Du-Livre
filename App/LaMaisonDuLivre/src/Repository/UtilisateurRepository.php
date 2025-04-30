@@ -45,4 +45,15 @@ class UtilisateurRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    
+    public function findByEmail(string $email): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.mail LIKE :email')
+            ->setParameter('email', '%' . $email . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }
