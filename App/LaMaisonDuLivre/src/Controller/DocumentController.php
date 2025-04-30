@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Entity\Document;
+use App\Entity\Emprunt;
+use App\Entity\Empruntexemplaire;
+
 use App\Form\DocumentType; 
 use App\Repository\ExemplaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -137,8 +140,25 @@ class DocumentController extends AbstractController
         }
     
         // Réserver l'exemplaire
-        $exemplaire->setStatut('reserve'); // ou 'réservé', selon ce que tu utilises
-    
+        $exemplaire->setStatut('reserve'); 
+
+        // Créer un nouvel emprunt
+        $emprunt = new Emprunt();
+        $emprunt->setDateReservation(new \DateTime()); // Date actuelle
+        $emprunt->setUtilisateur($this->getUser()); // Utilisateur connecté
+
+        // Persister l'emprunt
+        $em->persist($emprunt);
+
+        // Lier l'emprunt à l'exemplaire via la table `empruntexemplaire`
+        $empruntExemplaire = new Empruntexemplaire();
+        $empruntExemplaire->setEmprunt($emprunt);
+        $empruntExemplaire->setExemplaire($exemplaire);
+
+        // Persister la liaison
+        $em->persist($empruntExemplaire);
+
+        // Sauvegarder les modifications
         $em->flush();
     
         $this->addFlash('success', 'Exemplaire réservé avec succès.');

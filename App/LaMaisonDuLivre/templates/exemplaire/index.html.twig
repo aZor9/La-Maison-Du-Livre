@@ -14,10 +14,10 @@
                         <th class="px-4 py-2 border">ID</th>
                         <th class="px-4 py-2 border">Document</th>
                         <th class="px-4 py-2 border">État physique</th>
-                        <th class="px-4 py-2 border">Statut</th>
+                        {# <th class="px-4 py-2 border">Statut</th> #}
                         <th class="px-4 py-2 border">Réservé par</th>
                         <th class="px-4 py-2 border">Date réservation</th>
-                        {# <th class="px-4 py-2 border">Date rendu</th> #}
+                        <th class="px-4 py-2 border">Date rendu</th>
                         <th class="px-4 py-2 border">Actions</th>
                     </tr>
                 </thead>
@@ -29,7 +29,7 @@
                             <td class="px-4 py-2 border">{{ exemplaire.idexemplaire }}</td>
                             <td class="px-4 py-2 border">{{ exemplaire.document.titre }}</td>
                             <td class="px-4 py-2 border">{{ exemplaire.etatphysique }}</td>
-                            <td class="px-4 py-2 border">{{ exemplaire.statut }}</td>
+                            {# <td class="px-4 py-2 border">{{ exemplaire.statut }}</td> #}
                             <td class="px-4 py-2 border">
                                 {% if emprunt %}
                                     {{ emprunt.utilisateur.mail }}
@@ -44,17 +44,17 @@
                                     -
                                 {% endif %}
                             </td>
-                            {# <td class="px-4 py-2 border">
+                            <td class="px-4 py-2 border">
                                 {% if emprunt %}
                                     {% if emprunt.dateRendu %}
                                         {{ emprunt.dateRendu|date('d/m/Y') }}
                                     {% else %}
-                                        Non rendu
+                                        -
                                     {% endif %}
                                 {% else %}
                                     -
                                 {% endif %}
-                            </td> #}
+                            </td>
                             <td class="px-4 py-2 border">
                                 {% if exemplaire.statut == 'disponible' %}
                                     <span class="text-green-600 font-semibold">Disponible</span>

@@ -123,7 +123,7 @@ class AppFixtures extends Fixture
             $utilisateur = new Utilisateur();
             $utilisateur->setNom($faker->lastName)
                         ->setPrenom($faker->firstName)
-                        ->setDateNaissance($faker->dateTimeBetween('-60 years', '-18 years'))
+                        ->setDateNaissance($faker->dateTimeBetween('-50 years', '-18 years'))
                         ->setAdresse1($faker->streetAddress)
                         ->setAdresse2($faker->secondaryAddress)
                         ->setVille($faker->city)
@@ -156,8 +156,8 @@ class AppFixtures extends Fixture
         // --- Emprunts et EmpruntExemplaires
         for ($i = 0; $i < 20; $i++) {
             $emprunt = new Emprunt();
-            $emprunt->setDateReservation($faker->dateTimeBetween('-1 year'))
-                    ->setDateRendu($faker->dateTimeBetween('-6 months', 'now'))
+            $emprunt->setDateReservation($faker->dateTimeBetween('-1 months, now'))
+                    // ->setDateRendu($faker->dateTimeBetween('-6 months', 'now'))
                     ->setUtilisateur($faker->randomElement($utilisateurs));
             $manager->persist($emprunt);
 
