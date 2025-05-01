@@ -26,6 +26,7 @@
                             <th class="py-3 px-6">Prénom</th>
                             <th class="py-3 px-6">Nom</th>
                             <th class="py-3 px-6">Description</th>
+                            <th class="py-3 px-6 text-center">Actions</th> {# Nouvelle colonne pour les actions #}
                         </tr>
                     </thead>
                     <tbody class="bg-white">
@@ -35,6 +36,14 @@
                                 <td class="py-3 px-6">{{ auteur.prenom }}</td>
                                 <td class="py-3 px-6">{{ auteur.nom }}</td>
                                 <td class="py-3 px-6">{{ auteur.description ?: 'N/A' }}</td>
+                                <td class="py-3 px-6 text-center">
+                                    <form method="post" action="{{ path('admin_auteurs_delete', { id: auteur.idAuteur }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet auteur ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ auteur.idAuteur) }}">
+                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-1 px-3 rounded-lg">
+                                            🗑️ Supprimer
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         {% else %}
                             <tr>

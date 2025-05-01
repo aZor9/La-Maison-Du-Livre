@@ -66,4 +66,21 @@ class AuteurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/admin/auteurs/{id}/delete', name: 'admin_auteurs_delete', methods: ['POST'])]
+    public function delete(
+        Auteur $auteur,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $entityManager->remove($auteur);
+        $entityManager->flush();
+    
+        $this->addFlash('success', 'Auteur supprimé avec succès.');
+    
+        return $this->redirectToRoute('admin_auteurs');
+    }
+
+
+
+
 }
