@@ -177,14 +177,29 @@ class DocumentController extends AbstractController
             // Sauvegarder les modifications
             $entityManager->flush();
     
+            
+            // Avant de rediriger
+            if ($document->getIdDocument() === null) {
+                $this->addFlash('error', 'Le document n\'a pas encore été enregistré.');
+                return $this->redirectToRoute('document_index');
+            }
+
             // Rediriger après la mise à jour
             $this->addFlash('success', 'Le document a été modifié avec succès.');
             return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
+        }
+        
+        // Récupérer la valeur du champ "type"
+        $type = $form->get('type')->getData();
+        // Vérifiez si $type est null ou vide
+        if (!$type) {
+            $type = $document->getType() ?? 'inconnu'; // Utilisez une méthode getType() si elle existe dans l'entité
         }
     
         return $this->render('document/edit.html.twig', [
             'document' => $document,
             'form' => $form->createView(),
+            'type' => $type,
         ]);
     }
     

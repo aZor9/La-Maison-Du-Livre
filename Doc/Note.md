@@ -1,7 +1,7 @@
 ## 📌 Fonctionnalités à ajouter sur le site
 
 ### A finir : 
-- Page 404 (page d'erreur)
+- Modification des auteurs d'un document (bug, a finir)
 - Ajout de document (a finir)
 - Ajout de DateRendu (a finir)
 
@@ -18,6 +18,7 @@
 - Espace d’accueil spécifique pour le bureau des abonnés (ROLE_ADMIN).
 - Ajout d’un filtre par thématique pour faciliter la recherche.
 - Statut “approuvé” ou “refusé” pour les réductions ou certains profils client (optionnel si géré sur place).
+- Page 404 (page d'erreur)
 
 ---
 

@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class DocumentType extends AbstractType
 {
@@ -34,18 +35,10 @@ class DocumentType extends AbstractType
                 'years' => range(1900, date('Y')),
             ])
             ->add('theme', TextType::class, [
-                'label' => 'theme'
+                'label' => 'Thème'
             ])
-            // Ajout du type de document
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Livre' => 'livre',
-                    'Sonore' => 'sonore',
-                    'Vidéo' => 'video',
-                    'Titre Periodique' => 'titreperiodique',
-                ],
-                'label' => 'Type de document',
-                'mapped' => false,
+            ->add('type', HiddenType::class, [
+                'mapped' => false, 
             ])
             ->add('auteurs', EntityType::class, [
                 'class' => Auteur::class,
@@ -55,7 +48,7 @@ class DocumentType extends AbstractType
                 'label' => 'Auteurs',
                 'multiple' => true,
                 'expanded' => true,
-                'required' => false,
+                'required' => true,
                 'getter' => function ($document) {
                     return array_map(fn($ecrire) => $ecrire->getAuteur(), $document->getEcritures()->toArray());
                 },
@@ -88,7 +81,7 @@ class DocumentType extends AbstractType
             ]);
         } elseif ($builder->getData() instanceof Sonore) {
             $builder->add('duree', TextType::class, [
-                'label' => 'duree',
+                'label' => 'Durée',
             ])
                 ->add('format', TextType::class, [
                     'label' => 'Format',
