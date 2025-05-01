@@ -26,51 +26,52 @@
   </div>
 
 
+  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+    <!-- Fonctionnalités du Portail Utilisateur -->
+    <section id="fonctionnalites" class="my-8 mx-auto max-w-4xl p-6 bg-yellow-50 shadow-xl rounded-lg border border-yellow-300">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">🧩 Fonctionnalités administrateur</h2>
 
-  <!-- Fonctionnalités du Portail Utilisateur -->
-  <section id="fonctionnalites" class="my-8 mx-auto max-w-4xl p-6 bg-yellow-50 shadow-xl rounded-lg border border-yellow-300">
-    <h2 class="text-2xl font-semibold text-blue-600 mb-4">🧩 Fonctionnalités administrateur</h2>
+      <!-- Documents -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">📄 Catalogue</h3>
+        <p class="text-gray-800">Consultation, modification et suppression de tous les documents de la base.</p>
+        <p class="text-sm text-gray-500 italic">⚠️ Fonctions d'ajout et de modification des auteurs encore en phase de developpement.</p>
+      </div>
 
-    <!-- Documents -->
-    <div class="mb-6">
-      <h3 class="text-xl font-semibold text-gray-700 mb-2">📄 Catalogue</h3>
-      <p class="text-gray-800">Consultation, modification et suppression de tous les documents de la base.</p>
-      <p class="text-sm text-gray-500 italic">⚠️ Fonctions d'ajout et de modification des auteurs encore en phase de developpement.</p>
-    </div>
+      <!-- Mes Emprunts -->
+      {# <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">📦 Mes emprunts</h3>
+        <p class="text-gray-800">Affichage des emprunts liés à l'utilisateur actuellement connecté.</p>
+      </div> #}
 
-    <!-- Mes Emprunts -->
-    {# <div class="mb-6">
-      <h3 class="text-xl font-semibold text-gray-700 mb-2">📦 Mes emprunts</h3>
-      <p class="text-gray-800">Affichage des emprunts liés à l'utilisateur actuellement connecté.</p>
-    </div> #}
+      <!-- Exemplaires -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">📚 Exemplaires</h3>
+        <p class="text-gray-800">Affichage, supression et ajout de tous les exemplaires disponibles, accompagnés de leur état physique et de leur disponibilité.</p>
+      </div>
 
-    <!-- Exemplaires -->
-    <div class="mb-6">
-      <h3 class="text-xl font-semibold text-gray-700 mb-2">📚 Exemplaires</h3>
-      <p class="text-gray-800">Affichage, supression et ajout de tous les exemplaires disponibles, accompagnés de leur état physique et de leur disponibilité.</p>
-    </div>
+      <!-- Utilisateurs -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">👤 Utilisateurs</h3>
+        <p class="text-gray-800">Affichage, modification, suppression et ajout des utilisateurs avec options de changer le statut d'un justificatif.</p>
+      </div>
 
-    <!-- Utilisateurs -->
-    <div class="mb-6">
-      <h3 class="text-xl font-semibold text-gray-700 mb-2">👤 Utilisateurs</h3>
-      <p class="text-gray-800">Affichage, modification, suppression et ajout des utilisateurs avec options de changer le statut d'un justificatif.</p>
-    </div>
+      <!-- Créateur (Auteurs) -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">✍️ Créateurs</h3>
+        <p class="text-gray-800">Affichage, supression, modification et ajout des auteurs.</p>
+      </div>
 
-    <!-- Créateur (Auteurs) -->
-    <div class="mb-6">
-      <h3 class="text-xl font-semibold text-gray-700 mb-2">✍️ Créateurs</h3>
-      <p class="text-gray-800">Affichage, supression, modification et ajout des auteurs.</p>
-    </div>
-
-    <!-- Informations complémentaires -->
-    <div class="mt-8 border-t pt-6">
-      <h3 class="text-xl font-semibold text-gray-700 mb-2">📌 Informations complémentaires</h3>
-      <ul class="list-disc pl-6 text-gray-800 space-y-2">
-        <li>💳 Paiements d'un abonnement à l'accueil (verifier le justificatif en temps voulu).</li>
-        <li>📝 Une carte d'accès est a délivrer lors du paiment de l'abonnement, qui permettra de recuperer les livres dans la médiathèque.</li>
-      </ul>
-    </div>
-  </section>
+      <!-- Informations complémentaires -->
+      <div class="mt-8 border-t pt-6">
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">📌 Informations complémentaires</h3>
+        <ul class="list-disc pl-6 text-gray-800 space-y-2">
+          <li>💳 Paiements d'un abonnement à l'accueil (verifier le justificatif en temps voulu).</li>
+          <li>📝 Une carte d'accès est a délivrer lors du paiment de l'abonnement, qui permettra de recuperer les livres dans la médiathèque.</li>
+        </ul>
+      </div>
+    </section>
+  {% endif %}
 
   <!-- Informations et Services Généraux -->
   <section id="infos-services" class="my-8 mx-auto max-w-4xl p-6 bg-white shadow-xl rounded-lg border border-gray-300">
