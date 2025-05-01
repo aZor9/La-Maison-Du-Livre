@@ -127,7 +127,6 @@ class ExemplaireController extends AbstractController
             throw $this->createNotFoundException('Exemplaire non trouvé.');
         }
     
-        // Récupérer le nouvel état depuis la requête (par exemple via un formulaire ou une requête AJAX)
         $nouvelEtat = $_POST['etatPhysique'] ?? null;
     
         if (!in_array($nouvelEtat, ['neuf', 'bon', 'usé'], true)) {
@@ -155,8 +154,8 @@ class ExemplaireController extends AbstractController
     
         $exemplaire = new Exemplaire();
         $exemplaire->setDocument($document);
-        $exemplaire->setEtatphysique('neuf'); // Exemple de valeur par défaut
-        $exemplaire->setStatut('disponible'); // Exemple de valeur par défaut
+        $exemplaire->setEtatphysique('neuf');
+        $exemplaire->setStatut('disponible');
     
         $entityManager->persist($exemplaire);
         $entityManager->flush();

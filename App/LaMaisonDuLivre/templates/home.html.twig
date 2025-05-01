@@ -10,21 +10,70 @@
 <br>
 
   <!-- En-tête -->
-  <header class="bg-blue-200 text-blue-800 p-6 text-center rounded-xl shadow-md mx-4">
+  <header class="bg-blue-200 text-blue-800 py-6 text-center rounded-xl shadow-md mx-6 border border-blue-300">
     <h1 class="text-4xl font-semibold">📚 Bienvenue à la Médiathèque</h1>
     <p class="mt-2 text-lg">✨ Votre espace de culture, de calme... et de Wi-Fi gratuit*</p>
   </header>
 
-  {% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="alert alert-{{ label == 'success' ? 'success' : (label == 'warning' ? 'warning' : 'danger') }}">
-            {{ message }}
-        </div>
+  <div class="container mx-auto my-8 px-4">
+    {% for label, messages in app.flashes %}
+      {% for message in messages %}
+          <div class="alert alert-{{ label == 'success' ? 'success' : (label == 'warning' ? 'warning' : 'danger') }}">
+              {{ message }}
+          </div>
+      {% endfor %}
     {% endfor %}
-{% endfor %}
+  </div>
+
+
+
+  <!-- Fonctionnalités du Portail Utilisateur -->
+  <section id="fonctionnalites" class="my-8 mx-auto max-w-4xl p-6 bg-yellow-50 shadow-xl rounded-lg border border-yellow-300">
+    <h2 class="text-2xl font-semibold text-blue-600 mb-4">🧩 Fonctionnalités administrateur</h2>
+
+    <!-- Documents -->
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-2">📄 Catalogue</h3>
+      <p class="text-gray-800">Consultation, modification et suppression de tous les documents de la base.</p>
+      <p class="text-sm text-gray-500 italic">⚠️ Fonctions d'ajout et de modification des auteurs encore en phase de developpement.</p>
+    </div>
+
+    <!-- Mes Emprunts -->
+    {# <div class="mb-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-2">📦 Mes emprunts</h3>
+      <p class="text-gray-800">Affichage des emprunts liés à l'utilisateur actuellement connecté.</p>
+    </div> #}
+
+    <!-- Exemplaires -->
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-2">📚 Exemplaires</h3>
+      <p class="text-gray-800">Affichage, supression et ajout de tous les exemplaires disponibles, accompagnés de leur état physique et de leur disponibilité.</p>
+    </div>
+
+    <!-- Utilisateurs -->
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-2">👤 Utilisateurs</h3>
+      <p class="text-gray-800">Affichage, modification, suppression et ajout des utilisateurs avec options de changer le statut d'un justificatif.</p>
+    </div>
+
+    <!-- Créateur (Auteurs) -->
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-2">✍️ Créateurs</h3>
+      <p class="text-gray-800">Affichage, supression, modification et ajout des auteurs.</p>
+    </div>
+
+    <!-- Informations complémentaires -->
+    <div class="mt-8 border-t pt-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-2">📌 Informations complémentaires</h3>
+      <ul class="list-disc pl-6 text-gray-800 space-y-2">
+        <li>💳 Paiements d'un abonnement à l'accueil (verifier le justificatif en temps voulu).</li>
+        <li>📝 Une carte d'accès est a délivrer lors du paiment de l'abonnement, qui permettra de recuperer les livres dans la médiathèque.</li>
+      </ul>
+    </div>
+  </section>
 
   <!-- Informations et Services Généraux -->
-  <section id="infos-services" class="my-8 mx-auto max-w-4xl p-6 bg-white shadow-xl rounded-lg">
+  <section id="infos-services" class="my-8 mx-auto max-w-4xl p-6 bg-white shadow-xl rounded-lg border border-gray-300">
     <h2 class="text-2xl font-semibold text-blue-600 mb-4">ℹ️ Informations et Services Généraux</h2>
     <p class="mb-2"><strong>🕒 Horaires d'ouverture :</strong></p>
     <ul class="list-disc pl-6 mb-4 text-gray-800">
@@ -38,7 +87,7 @@
   </section>
 
   <!-- Message Informatif -->
-  <section id="message-informatif" class="my-8 mx-auto max-w-4xl p-6 bg-white shadow-xl rounded-lg">
+  <section id="message-informatif" class="my-8 mx-auto max-w-4xl p-6 bg-white shadow-xl rounded-lg border border-gray-300">
     <h2 class="text-2xl font-semibold text-blue-600 mb-4">📢 Messages Informatifs</h2>
     <ul class="list-disc pl-6 space-y-2 text-gray-800">
       <li>📖 Un seul livre peut être emprunté sans compte (oui, on fait confiance aux gens sages).</li>

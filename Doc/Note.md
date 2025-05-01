@@ -6,18 +6,19 @@
 - Ajout de DateRendu (a finir)
 
 ### A faire (urgent) : 
-- En cas de retard de rendu → envoi d’un mail ou message.
-- Si l’abonnement arrive à échéance → envoi d’un mail ou message.
+- En cas de retard de rendu → envoi d'un mail ou message.
+- Si l'abonnement arrive à échéance → envoi d'un mail ou message.
 
 ### A faire (important) :
 - Ajouter une date limite de retrait : passé ce délai, le livre est remis en rayon.
 - Calcul des statistiques de retard.
-- Système de pré-réservation ou liste d’attente pour un document déjà réservé.
-- Si l’utilisateur se désabonne ou ne renouvelle pas → obligation de rendre les livres avant la fin de l’abonnement.
-- Espace d’accueil spécifique pour le bureau des abonnés (ROLE_ADMIN).
-- Ajout d’un filtre par thématique pour faciliter la recherche.
+- Système de pré-réservation ou liste d'attente pour un document déjà réservé.
+- Si l'utilisateur se désabonne ou ne renouvelle pas → obligation de rendre les livres avant la fin de l'abonnement.
+- Espace d'accueil spécifique pour le bureau des abonnés (ROLE_ADMIN).
+- Ajout d'un filtre par thématique pour faciliter la recherche.
 - Statut “approuvé” ou “refusé” pour les réductions ou certains profils client (optionnel si géré sur place).
 - Page 404 (page d'erreur)
+- Responsive
 
 ---
 

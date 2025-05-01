@@ -57,7 +57,7 @@ cd La-Maison-Du-Livre
 
 ### ✅ 3. Installer les dépendances PHP
 
-Si Composer **n’est pas installé** :
+Si Composer **n'est pas installé** :
 
 ```bash
 php composer.phar install
@@ -85,7 +85,7 @@ DATABASE_URL="mysql://root:password@127.0.0.1:3306/lamaisondulivre?serverVersion
 
 ### ✅ 5. Lancer WAMP
 
-Lancer **WAMP Server** et attendez que l’icône devienne verte dans la barre des tâches.
+Lancer **WAMP Server** et attendez que l'icône devienne verte dans la barre des tâches.
 
 ---
 
@@ -107,7 +107,8 @@ php bin/console doctrine:fixtures:load -n
 ```
 
 Login : `admin@example.com` 
-Password : `admin123`
+Mot de passe : `admin123`
+Mot de passe par défaut des autres utilisateurs : `password123`
 
 ---
 
