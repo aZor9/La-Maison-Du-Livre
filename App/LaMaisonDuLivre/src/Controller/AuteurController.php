@@ -72,6 +72,11 @@ class AuteurController extends AbstractController
         Auteur $auteur,
         EntityManagerInterface $entityManager
     ): Response {
+
+        foreach ($auteur->getEcritures() as $ecriture) {
+            $entityManager->remove($ecriture);
+        }
+
         $entityManager->remove($auteur);
         $entityManager->flush();
     

@@ -52,11 +52,11 @@
                                 <td class="py-3 px-6">
                                     <ul class="space-y-1 text-gray-600">
                                         {% for auteur in auteurs %}
-                                            <li>
-                                                <span>{{ auteur.prenom }} {{ auteur.nom }}</span>
-                                            </li>
+                                                <li>
+                                                    <span>{{ auteur.prenom }} {{ auteur.nom }}</span>
+                                                </li>
                                         {% else %}
-                                            <li>Aucun auteur associé à ce document.</li>
+                                            <li>-</li>
                                         {% endfor %}
                                     </ul>
                                 </td>
