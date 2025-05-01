@@ -103,8 +103,10 @@ class DocumentType extends AbstractType
             $builder->add('numero', TextType::class, [
                 'label' => 'Numéro',
             ])
-                ->add('datepublication', TextType::class, [
-                    'label' => 'Date de publication',
+                    ->add('datepublication', DateType::class, [
+                'label' => 'Date de publication',
+                'widget' => 'single_text', 
+                'required' => false,
             ])
                 ->add('format', TextType::class, [
                     'label' => 'Format',

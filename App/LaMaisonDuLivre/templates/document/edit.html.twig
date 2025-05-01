@@ -43,7 +43,71 @@
                             </div>
                             {{ form_errors(form.auteurs, { 'attr': { 'class': 'mt-2 text-sm text-red-600' } }) }}
                         </div>
+
+                        {% if document.type == 'Livre' %}                
+                            {{ form_row(form.isbn, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+
+                            {{ form_row(form.nombrePage, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+
+                            {{ form_row(form.genre, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+                        {% elseif document.type == 'Video' %}
+                            {{ form_row(form.duree, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+
+                            {{ form_row(form.format, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+
+                            {{ form_row(form.realisateur, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+                        {% elseif document.type == 'Sonore' %}
+                            {{ form_row(form.duree, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+
+                            {{ form_row(form.format, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+
+                            {{ form_row(form.interprete, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+                        {% elseif document.type == 'Titreperiodique' %}
+                            {{ form_row(form.numero, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+
+                            {{ form_row(form.datepublication, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+
+                            {{ form_row(form.format, { 
+                                'label_attr': { 'class': 'font-medium text-gray-700' }, 
+                                'attr': { 'class': 'w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500' } 
+                            }) }}
+                        {% endif %}
+
                     </div>
+
                     <div class="mt-6">
                         {{ form_row(form.submit, { 
                             'attr': { 'class': 'w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300' } 
