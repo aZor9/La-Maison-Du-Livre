@@ -61,6 +61,16 @@
         </div>
 
     {{ form_end(form) }}
+
+        <div class="text-center mt-6">
+            <form method="post" action="{{ path('admin_utilisateur_delete', { id: utilisateur.idutilisateur }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.idutilisateur) }}">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md">
+                    🗑️ Supprimer l'utilisateur
+                </button>
+            </form>
+        </div>
+
 </div>
 
 {% include 'partie/footer.html.twig' %}

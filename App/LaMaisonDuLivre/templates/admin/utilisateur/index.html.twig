@@ -6,6 +6,13 @@
 {% include 'partie/navbar.html.twig' %}
 
 <div class="container mx-auto py-10 max-w-6xl">
+
+    <div class="text-right mb-4">
+    <a href="{{ path('app_register') }}" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">
+        ➕ Ajouter un utilisateur
+    </a>
+    </div>
+
     <h2 class="text-3xl font-bold mb-6 text-center text-blue-700">Liste des utilisateurs</h2>
 
     <!-- Barre de recherche -->

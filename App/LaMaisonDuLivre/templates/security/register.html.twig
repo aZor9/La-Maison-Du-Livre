@@ -11,6 +11,7 @@
                 <div class="mb-4 text-center text-gray-700">
                     Vous êtes connecté en tant que {{ app.user.userIdentifier }},
                     <br><a href="{{ path('app_logout') }}" class="text-blue-600 underline">Se déconnecter</a>
+                    <a href="{{ path('app_home') }}" class="text-blue-600 underline">Revenir à l'accueil</a>
                 </div>
             {% endif %}
 
