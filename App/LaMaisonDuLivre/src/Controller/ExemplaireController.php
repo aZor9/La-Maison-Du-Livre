@@ -143,8 +143,6 @@ class ExemplaireController extends AbstractController
 
 
 
-
-
     #[Route('/exemplaire/delete/{id}', name: 'exemplaire_delete', methods: ['POST'])]
     public function delete(Request $request, Exemplaire $exemplaire, EntityManagerInterface $entityManager): Response
     {
@@ -160,6 +158,23 @@ class ExemplaireController extends AbstractController
         $this->addFlash('success', 'Exemplaire supprimé avec succès.');
 
         return $this->redirectToRoute('document_show', ['id' => $documentId]);
+    }
+
+    #[Route('/exemplaires/delete/{id}', name: 'exemplaires_delete', methods: ['POST'])]
+    public function deleted(Request $request, Exemplaire $exemplaire, EntityManagerInterface $entityManager): Response
+    {
+        if (!$exemplaire) {
+            throw $this->createNotFoundException('Exemplaire non trouvé.');
+        }
+
+        $documentId = $exemplaire->getDocument()->getIdDocument();
+
+        $entityManager->remove($exemplaire);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Exemplaire supprimé avec succès.');
+
+        return $this->redirectToRoute('exemplaire_index');
     }
 
 }
