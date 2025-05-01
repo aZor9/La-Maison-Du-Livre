@@ -2,10 +2,10 @@
 
 Projet Symfony représentant une médiathèque avec gestion de documents, utilisateurs, abonnements, etc.
 
-**Arborescence :**
-*La-Maison-Du-Livre*/
-├── *App*/       ← Code du projet
-├── *Doc*/       ← Documentation du projet
+**Arborescence :** <br>
+*La-Maison-Du-Livre*/ <br>
+├── *App*/       ← Code du projet <br> 
+├── *Doc*/       ← Documentation du projet <br>
 └── ...
 
 ---
