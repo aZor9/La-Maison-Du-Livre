@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Repository\DocumentRepository;
 
 class ExemplaireController extends AbstractController
 {
@@ -114,6 +116,50 @@ class ExemplaireController extends AbstractController
         $entityManager->flush();
     
         return $this->redirectToRoute('exemplaire_index');
+    }
+
+
+    #[Route('/exemplaire/new/{documentId}', name: 'exemplaire_new')]
+    public function new(Request $request, EntityManagerInterface $entityManager, DocumentRepository $documentRepository, int $documentId): Response
+    {
+        $document = $documentRepository->find($documentId);
+    
+        if (!$document) {
+            throw $this->createNotFoundException('Document non trouvé.');
+        }
+    
+        $exemplaire = new Exemplaire();
+        $exemplaire->setDocument($document);
+        $exemplaire->setEtatphysique('neuf'); // Exemple de valeur par défaut
+        $exemplaire->setStatut('disponible'); // Exemple de valeur par défaut
+    
+        $entityManager->persist($exemplaire);
+        $entityManager->flush();
+    
+        $this->addFlash('success', 'Exemplaire ajouté avec succès.');
+    
+        return $this->redirectToRoute('document_show', ['id' => $documentId]);
+    }
+
+
+
+
+
+    #[Route('/exemplaire/delete/{id}', name: 'exemplaire_delete', methods: ['POST'])]
+    public function delete(Request $request, Exemplaire $exemplaire, EntityManagerInterface $entityManager): Response
+    {
+        if (!$exemplaire) {
+            throw $this->createNotFoundException('Exemplaire non trouvé.');
+        }
+
+        $documentId = $exemplaire->getDocument()->getIdDocument();
+
+        $entityManager->remove($exemplaire);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Exemplaire supprimé avec succès.');
+
+        return $this->redirectToRoute('document_show', ['id' => $documentId]);
     }
 
 }
