@@ -116,6 +116,18 @@ class Document
         $this->exemplaires = new ArrayCollection();
     }
     
+
+
+    public function getAuteurs(): array
+    {
+        $auteurs = [];
+        foreach ($this->ecritures as $ecriture) {
+            $auteurs[] = $ecriture->getAuteur();
+        }
+        return $auteurs;
+    }
+
+
     public function getEcritures(): Collection
     {
         return $this->ecritures;

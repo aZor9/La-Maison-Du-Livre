@@ -15,6 +15,7 @@ use App\Entity\Ecrire;
 use App\Entity\Auteur;
 
 use App\Form\DocumentType; 
+use App\Form\DocumentcreationType;
 use App\Repository\ExemplaireRepository;
 use App\Repository\EcrireRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,16 +58,37 @@ class DocumentController extends AbstractController
     }
 
 
-
     #[Route('/document/new', name: 'document_new')]
     public function new(
         Request $request,
         EntityManagerInterface $entityManager
     ): Response {
         $document = new Document();
-        $form = $this->createForm(DocumentType::class, $document);
+        $type = $request->request->get('type'); // Récupérer le type depuis la requête
+        dump($type);
+    
+        // Instancier dynamiquement l'entité en fonction du type
+        switch ($type) {
+            case 'Livre':
+                $document = new Livre();
+                break;
+            case 'Sonore':
+                $document = new Sonore();
+                break;
+            case 'Video':
+                $document = new Video();
+                break;
+            case 'Titreperiodique':
+                $document = new Titreperiodique();
+                break;
+            default:
+                $this->addFlash('error', 'Type de document invalide.');
+                return $this->redirectToRoute('document_new');
+        }
+    
+        $form = $this->createForm(DocumentcreationType::class, $document);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             // Ajouter les relations avec les auteurs
             $auteurs = $form->get('auteurs')->getData();
@@ -76,47 +98,17 @@ class DocumentController extends AbstractController
                 $ecriture->setAuteur($auteur);
                 $entityManager->persist($ecriture);
             }
-
-                
-            // Gestion des champs spécifiques selon le type de document
-            if ($document instanceof Livre) {
-                $document->setIsbn($form->get('isbn')->getData());
-                $document->setNombrePage($form->get('nombrePage')->getData());
-                $document->setGenre($form->get('genre')->getData());
-            } elseif ($document instanceof Sonore) {
-                $document->setDuree($form->get('duree')->getData());
-                $document->setFormat($form->get('format')->getData());
-                $document->setInterprete($form->get('interprete')->getData());
-            } elseif ($document instanceof Video) {
-                $document->setDuree($form->get('duree')->getData());
-                $document->setFormat($form->get('format')->getData());
-                $document->setRealisateur($form->get('realisateur')->getData());
-            } elseif ($document instanceof TitrePeriodique) {
-                $document->setNumero($form->get('numero')->getData());
-                $document->setDatePublication($form->get('datepublication')->getData());
-                $document->setFormat($form->get('format')->getData());
-            }
     
-
             $entityManager->persist($document);
             $entityManager->flush();
-
+    
             $this->addFlash('success', 'Document créé avec succès.');
-
+    
             return $this->redirectToRoute('document_index');
         }
-
-        // Récupérer la valeur du champ "type"
-        $type = $form->get('type')->getData();
-        // Vérifiez si $type est null ou vide
-        if (!$type) {
-            $type = $document->getType() ?? 'inconnu'; // Utilisez une méthode getType() si elle existe dans l'entité
-        }
-
-
+    
         return $this->render('document/new.html.twig', [
             'form' => $form->createView(),
-            'type' => $type,
         ]);
     }
 
@@ -211,7 +203,7 @@ class DocumentController extends AbstractController
             // Avant de rediriger
             if ($document->getIdDocument() === null) {
                 $this->addFlash('error', 'Le document n\'a pas encore été enregistré.');
-                return $this->redirectToRoute('document_index');
+                return $this->redirectToRoute('app_documents');
             }
 
             // Rediriger après la mise à jour
@@ -287,6 +279,25 @@ class DocumentController extends AbstractController
         return $this->redirectToRoute('document_show', ['id' => $document->getIdDocument()]);
     }
 
+
+
+    #[Route('/document/{id}/delete', name: 'document_delete', methods: ['POST'])]
+    public function delete(
+        Request $request,
+        Document $document,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $document->getIdDocument(), $request->request->get('_token'))) {
+            $entityManager->remove($document);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Document supprimé avec succès.');
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide.');
+        }
+
+        return $this->redirectToRoute('app_documents'); 
+    }
 
 
     #[Route('/mes-emprunts', name: 'app_mes_emprunts')]

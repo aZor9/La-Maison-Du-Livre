@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DocumentCreationType extends AbstractType
+class DocumentcreationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -42,6 +42,7 @@ class DocumentCreationType extends AbstractType
                 ],
                 'expanded' => true, // Affiche sous forme de boutons radio
                 'multiple' => false, // Une seule sélection possible
+                'mapped' => false, // Ne pas lier ce champ à l'entité Document
                 'attr' => ['class' => 'space-y-2'],
             ])
             ->add('auteurs', EntityType::class, [
@@ -52,6 +53,7 @@ class DocumentCreationType extends AbstractType
                 'label' => 'Auteurs',
                 'multiple' => true,
                 'expanded' => true, // Affiche sous forme de cases à cocher
+                'mapped' => false, // Ne pas lier ce champ à l'entité Document
                 'attr' => ['class' => 'space-y-2'],
             ]);
 
