@@ -223,8 +223,8 @@ class AppFixtures extends Fixture
                 } else {
                     // Créez un exemplaire si aucun n'existe
                     $newExemplaire = new Exemplaire();
-                    $newExemplaire->setEtatPhysique($faker->randomElement(['neuf', 'bon', 'usé']))
-                                  ->setStatut('disponible')
+                    $newExemplaire->setEtatPhysique($faker->randomElement(['neuf', 'bon', 'usé', 'neuf']))
+                                  ->setStatut($faker->randomElement(['reserve', 'utilise']))
                                   ->setDocument($document);
                     $manager->persist($newExemplaire);
         
