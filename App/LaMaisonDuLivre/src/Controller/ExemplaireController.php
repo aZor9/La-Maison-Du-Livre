@@ -12,13 +12,37 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\DocumentRepository;
 
+
 class ExemplaireController extends AbstractController
 {
     #[Route('/exemplaires', name: 'exemplaire_index')]
     public function listExemplaires(
+        Request $request,
         ExemplaireRepository $exemplaireRepository
     ): Response {
+
+        
+    $searchId = $request->query->get('search_id', null);
+
+    if ($searchId) {
+        if (ctype_digit($searchId)) {
+            // Si l'entrée est un chiffre, rechercher par ID d'exemplaire
+            $queryBuilder = $exemplaireRepository->createQueryBuilder('e');
+            $queryBuilder->where('e.IdExemplaire LIKE :searchId')
+                ->setParameter('searchId', '%' . $searchId . '%');
+            $exemplaires = $queryBuilder->getQuery()->getResult();
+        } else {
+            // Sinon, rechercher parmi les titres des documents associés
+            $queryBuilder = $exemplaireRepository->createQueryBuilder('e')
+                ->join('e.document', 'd')
+                ->where('d.Titre LIKE :searchTitle')
+                ->setParameter('searchTitle', '%' . $searchId . '%');
+            $exemplaires = $queryBuilder->getQuery()->getResult();
+        }
+    } else {
+        // Récupérer tous les exemplaires si aucun critère n'est recherché
         $exemplaires = $exemplaireRepository->findAll();
+    }
         $exemplairesAvecInfos = [];
 
         foreach ($exemplaires as $exemplaire) {
@@ -43,6 +67,7 @@ class ExemplaireController extends AbstractController
 
         return $this->render('exemplaire/index.html.twig', [
             'exemplairesAvecInfos' => $exemplairesAvecInfos,
+            'search_id' => $searchId,
         ]);
     }
 
