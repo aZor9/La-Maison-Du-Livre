@@ -3,13 +3,11 @@
 ### A finir : 
 - Modification des auteurs d'un document (bug, a finir)
 - Ajout de document (a finir)
-- Ajout d'exemplaire
 - Ajout de DateRendu (a finir)
 
 ### A faire (urgent) : 
 - En cas de retard de rendu → envoi d’un mail ou message.
 - Si l’abonnement arrive à échéance → envoi d’un mail ou message.
-- Limite de 10 réservations simultanées par utilisateur.
 
 ### A faire (important) :
 - Ajouter une date limite de retrait : passé ce délai, le livre est remis en rayon.

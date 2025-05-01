@@ -5,7 +5,7 @@
 {% block body %}
 {% include 'partie/navbar.html.twig' %}
 
-<div class="container mx-auto py-10 max-w-6xl">
+<div class="container mx-auto py-10 max-w-[80%] mb-10">
 
     <div class="text-right mb-4">
     <a href="{{ path('app_register') }}" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">
@@ -45,6 +45,7 @@
                     <th class="py-3 px-6">Rôle</th>
                     <th class="py-3 px-6">Abonnement</th>
                     <th class="py-3 px-6">Date Abonnement</th>
+                    <th class="py-3 px-6">Statut Justificatif</th>
                     <th class="py-3 px-6 text-center">Voir</th>
                 </tr>
             </thead>
@@ -75,6 +76,7 @@
                                 -
                             {% endif %}
                         </td>
+                        <td class="py-3 px-6">{{ utilisateur.statut }}</td>
                         <td class="py-3 px-6 text-center">
                             <a href="{{ path('utilisateur_show', {'id': utilisateur.idutilisateur}) }}" class="text-blue-600 hover:underline">Voir</a>
                         </td>

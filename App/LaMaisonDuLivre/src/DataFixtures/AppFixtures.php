@@ -199,7 +199,7 @@ class AppFixtures extends Fixture
                         ->setSituation($faker->randomElement(['étudiant', 'chomage', 'travailleur']))
                         ->setLienJustificatif($faker->url)
                         ->setRole('ROLE_USER')
-                        ->setStatut('actif')
+                        ->setStatut('null')
                         ->setMotDePasse($this->hasher->hashPassword($utilisateur, 'password123'));
             $manager->persist($utilisateur);
             $utilisateurs[] = $utilisateur;

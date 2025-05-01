@@ -31,7 +31,7 @@ class AdminFixture extends Fixture
               ->setSituation('employé')
               ->setRole('ROLE_SUPER_ADMIN')
               ->setLienJustificatif('')
-              ->setStatut('actif')
+              ->setStatut('null')
               ->setMotDePasse($this->hasher->hashPassword($admin, 'admin123'));
 
         $manager->persist($admin);

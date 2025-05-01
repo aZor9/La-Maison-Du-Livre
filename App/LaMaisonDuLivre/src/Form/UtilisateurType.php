@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\AbonnementType;
@@ -50,7 +51,23 @@ class UtilisateurType extends AbstractType
                     'label' => 'Lien justificatif',
                     'required' => false,
                 ])
-                ->add('role', TextType::class, ['required' => false]);
+                ->add('statut', ChoiceType::class, [
+                    'label' => 'Statut du justificatif',
+                    'choices' => [
+                        'Null' => 'null',
+                        'Actif' => 'actif',
+                        'Rejeté' => 'rejete',
+                    ],
+                    'required' => false,
+                ])
+                ->add('role', ChoiceType::class, [
+                    'required' => false,
+                    'choices' => [
+                        'Utilisateur' => 'ROLE_USER',
+                        'Admin' => 'ROLE_ADMIN',
+                        'Super Admin' => 'ROLE_SUPER_ADMIN',
+                    ],
+                ]);
         }
     
         // Ajoute le bouton submit à la fin

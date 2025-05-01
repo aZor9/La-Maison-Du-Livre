@@ -41,6 +41,11 @@
         </div>
 
         <div>
+            {{ form_label(form.statut, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.statut, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+        </div>
+
+        <div>
             {{ form_label(form.DateNaissance, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
             {{ form_widget(form.DateNaissance, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
         </div>
@@ -53,7 +58,6 @@
         <div>
             {{ form_label(form.role, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
             {{ form_widget(form.role, {'attr': {'class': 'p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
-           <p class='text-xs font-medium text-gray-700'>( ROLE_USER / ROLE_ADMIN / ROLE_SUPER_ADMIN )</p>
         </div>      
 
         <div class="text-center">
