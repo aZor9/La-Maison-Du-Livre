@@ -76,7 +76,19 @@
                                 -
                             {% endif %}
                         </td>
-                        <td class="py-3 px-6">{{ utilisateur.statut }}</td>
+                        
+                        
+                        <td class="py-3 px-6">
+                            {% if utilisateur.statut == 'null' %}
+                                <span class="inline-block bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">null</span>
+                            {% elseif utilisateur.statut == 'actif' %}
+                                <span class="inline-block bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Actif</span>
+                            {% elseif utilisateur.statut == 'rejete' %}
+                                <span class="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">Rejeté</span>
+                            {% endif %}
+                        </td>
+
+
                         <td class="py-3 px-6 text-center">
                             <a href="{{ path('utilisateur_show', {'id': utilisateur.idutilisateur}) }}" class="text-blue-600 hover:underline">Voir</a>
                         </td>

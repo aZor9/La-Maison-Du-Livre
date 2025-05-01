@@ -72,7 +72,7 @@ class AppFixtures extends Fixture
                   ->setTheme($data[2])
                   ->setIsbn($data[3])
                   ->setNombrePage($data[4])
-                  ->setGenre([5]);
+                  ->setGenre($data[5]);
             $manager->persist($livre);
             $documents[] = $livre;
 
