@@ -77,6 +77,27 @@ class DocumentController extends AbstractController
                 $entityManager->persist($ecriture);
             }
 
+                
+            // Gestion des champs spécifiques selon le type de document
+            if ($document instanceof Livre) {
+                $document->setIsbn($form->get('isbn')->getData());
+                $document->setNombrePage($form->get('nombrePage')->getData());
+                $document->setGenre($form->get('genre')->getData());
+            } elseif ($document instanceof Sonore) {
+                $document->setDuree($form->get('duree')->getData());
+                $document->setFormat($form->get('format')->getData());
+                $document->setInterprete($form->get('interprete')->getData());
+            } elseif ($document instanceof Video) {
+                $document->setDuree($form->get('duree')->getData());
+                $document->setFormat($form->get('format')->getData());
+                $document->setRealisateur($form->get('realisateur')->getData());
+            } elseif ($document instanceof TitrePeriodique) {
+                $document->setNumero($form->get('numero')->getData());
+                $document->setDatePublication($form->get('datepublication')->getData());
+                $document->setFormat($form->get('format')->getData());
+            }
+    
+
             $entityManager->persist($document);
             $entityManager->flush();
 
@@ -85,8 +106,17 @@ class DocumentController extends AbstractController
             return $this->redirectToRoute('document_index');
         }
 
+        // Récupérer la valeur du champ "type"
+        $type = $form->get('type')->getData();
+        // Vérifiez si $type est null ou vide
+        if (!$type) {
+            $type = $document->getType() ?? 'inconnu'; // Utilisez une méthode getType() si elle existe dans l'entité
+        }
+
+
         return $this->render('document/new.html.twig', [
             'form' => $form->createView(),
+            'type' => $type,
         ]);
     }
 

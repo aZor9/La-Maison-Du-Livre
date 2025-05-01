@@ -15,6 +15,14 @@
     <p class="mt-2 text-lg">✨ Votre espace de culture, de calme... et de Wi-Fi gratuit*</p>
   </header>
 
+  {% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label == 'success' ? 'success' : (label == 'warning' ? 'warning' : 'danger') }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
   <!-- Informations et Services Généraux -->
   <section id="infos-services" class="my-8 mx-auto max-w-4xl p-6 bg-white shadow-xl rounded-lg">
     <h2 class="text-2xl font-semibold text-blue-600 mb-4">ℹ️ Informations et Services Généraux</h2>

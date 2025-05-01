@@ -3,6 +3,7 @@
 ### A finir : 
 - Modification des auteurs d'un document (bug, a finir)
 - Ajout de document (a finir)
+- Ajout d'exemplaire
 - Ajout de DateRendu (a finir)
 
 ### A faire (urgent) : 
