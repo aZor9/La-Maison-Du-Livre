@@ -93,6 +93,7 @@ Lancer **WAMP Server** et attendez que l'icône devienne verte dans la barre des
 
 ```bash
 php bin/console doctrine:database:create
+php bin/console make:migration
 php bin/console doctrine:migrations:migrate
 ```
 
